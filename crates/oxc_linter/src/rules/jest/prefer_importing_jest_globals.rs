@@ -1,11 +1,12 @@
 use itertools::Itertools;
 use oxc_ast::{
     AstKind,
-    ast::{Argument, BindingPattern, Expression},
+    ast::{Argument, BindingPattern, Expression, PropertyKey},
 };
 use oxc_diagnostics::OxcDiagnostic;
 use oxc_macros::declare_oxc_lint;
 use oxc_span::{GetSpan, Span};
+use oxc_syntax::identifier::is_identifier_name;
 use rustc_hash::FxHashSet;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
@@ -297,7 +298,9 @@ fn try_merge_cjs_require<'a>(
             continue;
         };
 
-        // Merge existing destructured properties
+        // Merge existing destructured properties.
+        // Collect them first, so declining the merge leaves `functions_to_import` unchanged.
+        let mut merged = Vec::new();
         if let BindingPattern::ObjectPattern(pattern) = &declarator.id {
             for prop in &pattern.properties {
                 if prop.computed {
@@ -310,12 +313,30 @@ fn try_merge_cjs_require<'a>(
                 let value_name = value_ident.name.as_str();
 
                 if key_name == value_name {
-                    functions_to_import.insert(key_name.to_string());
-                } else {
-                    functions_to_import.insert(format!("{key_name}{alias_sep}{value_name}"));
+                    merged.push(value_name.to_string());
+                    continue;
                 }
+                // `StaticPropertyName`'s `Display` is for diagnostics, not JavaScript source.
+                // Any other key keeps its source spelling, including quotes and escapes.
+                let key_text = match key_name.as_js_str().as_str() {
+                    Some(name) if is_identifier_name(name) => name,
+                    _ => {
+                        // An import name must be an identifier or a well-formed string.
+                        // Otherwise keep this declaration and add a separate import.
+                        let valid_import_name = match &prop.key {
+                            PropertyKey::StringLiteral(lit) => lit.value.as_str().is_some(),
+                            _ => false,
+                        };
+                        if is_module && !valid_import_name {
+                            return None;
+                        }
+                        ctx.source_range(prop.key.span())
+                    }
+                };
+                merged.push(format!("{key_text}{alias_sep}{value_name}"));
             }
         }
+        functions_to_import.extend(merged);
 
         // VariableDeclaration is the direct parent of VariableDeclarator
         let var_decl_node = ctx.nodes().parent_node(var_declarator_node.id());
@@ -665,6 +686,56 @@ fn test() {
     ];
 
     let fix = vec![
+        // A lone-surrogate key keeps its quoted source spelling.
+        (
+            r#"const { "\uD800": x } = require('@jest/globals');
+            test('works', () => {});"#,
+            r#"const { "\uD800": x, test } = require('@jest/globals');
+            test('works', () => {});"#,
+            None,
+            None,
+        ),
+        (
+            r#"const { "a-b": y } = require('@jest/globals');
+            test('works', () => {});"#,
+            r#"const { "a-b": y, test } = require('@jest/globals');
+            test('works', () => {});"#,
+            None,
+            None,
+        ),
+        (
+            r"const { describe: context } = require('@jest/globals');
+            test('works', () => {});",
+            r"const { describe: context, test } = require('@jest/globals');
+            test('works', () => {});",
+            None,
+            None,
+        ),
+        // A lone surrogate cannot be an import name, so the declaration stays and a separate
+        // import is added.
+        (
+            r#"const { "\uD800": x } = require('@jest/globals');
+            test('works', () => {});"#,
+            "import { test } from '@jest/globals';\nconst { \"\\uD800\": x } = require('@jest/globals');\n            test('works', () => {});",
+            None,
+            Some(PathBuf::from("test.mjs")),
+        ),
+        (
+            r#"const { "a-b": y } = require('@jest/globals');
+            test('works', () => {});"#,
+            r#"import { "a-b" as y, test } from '@jest/globals';
+            test('works', () => {});"#,
+            None,
+            Some(PathBuf::from("test.mjs")),
+        ),
+        (
+            r"const { describe: context } = require('@jest/globals');
+            test('works', () => {});",
+            r"import { describe as context, test } from '@jest/globals';
+            test('works', () => {});",
+            None,
+            Some(PathBuf::from("test.mjs")),
+        ),
         (
             r#"import describe from '@jest/globals';
             describe("suite", () => {

@@ -125,7 +125,10 @@ impl Rule for OnlyUsedInRecursion {
                 BindingPattern::ObjectPattern(pattern) => {
                     for property in &pattern.properties {
                         if let Some(ident) = property.value.get_binding_identifier()
-                            && let Some(name) = property.key.name()
+                            && let Some(name) = property
+                                .key
+                                .name()
+                                .and_then(oxc_ast::StaticPropertyName::into_cow_str)
                             && is_jsx_property_only_used_in_recursion(
                                 ident,
                                 &name,
