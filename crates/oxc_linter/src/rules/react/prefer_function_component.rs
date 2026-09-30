@@ -2,7 +2,7 @@ use schemars::JsonSchema;
 use serde::Deserialize;
 
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{Class, ClassElement},
 };
 use oxc_diagnostics::OxcDiagnostic;
@@ -135,7 +135,7 @@ fn is_error_boundary(class: &Class) -> bool {
             ClassElement::PropertyDefinition(p) => (p.r#static, &p.key),
             _ => return false,
         };
-        match key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str).as_deref() {
+        match key.static_name().and_then(StaticPropertyName::as_str) {
             Some("componentDidCatch") => !is_static,
             Some("getDerivedStateFromError") => is_static,
             _ => false,

@@ -1,5 +1,5 @@
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{
         ArrowFunctionExpression, BindingPattern, Expression, FunctionType, PropertyKind,
         ReturnStatement,
@@ -357,32 +357,22 @@ impl ExplicitFunctionReturnType {
                 self.allowed_names.contains(id.name.as_str())
             }
             AstKind::MethodDefinition(def) => {
-                let Some(name) = def.key.name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-                else {
+                let Some(name) = def.key.name().and_then(StaticPropertyName::as_str) else {
                     return false;
                 };
-                def.key.is_identifier()
-                    && !def.computed
-                    && self.allowed_names.contains(name.as_ref())
+                def.key.is_identifier() && !def.computed && self.allowed_names.contains(name)
             }
             AstKind::PropertyDefinition(def) => {
-                let Some(name) = def.key.name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-                else {
+                let Some(name) = def.key.name().and_then(StaticPropertyName::as_str) else {
                     return false;
                 };
-                def.key.is_identifier()
-                    && !def.computed
-                    && self.allowed_names.contains(name.as_ref())
+                def.key.is_identifier() && !def.computed && self.allowed_names.contains(name)
             }
             AstKind::ObjectProperty(prop) => {
-                let Some(name) =
-                    prop.key.name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-                else {
+                let Some(name) = prop.key.name().and_then(StaticPropertyName::as_str) else {
                     return false;
                 };
-                prop.key.is_identifier()
-                    && !prop.computed
-                    && self.allowed_names.contains(name.as_ref())
+                prop.key.is_identifier() && !prop.computed && self.allowed_names.contains(name)
             }
             _ => false,
         }

@@ -1,73 +1,77 @@
 use std::{
-    borrow::Cow,
     fmt,
     hash::{Hash, Hasher},
 };
 
 use oxc_str::{Ident, JSStr};
 
-/// The JavaScript string value of a statically known property key.
+/// The JavaScript property name of a statically known property key.
 ///
 /// Static means statically determinable, not a `static` class member.
-/// Identifiers and string literals borrow their storage.
-/// Numeric and regular expression keys own the UTF-8 text produced by their string conversion,
-/// so equality follows the property-key coercion: `{ 1: a, "1": b }` declares the same name twice.
-#[derive(Clone)]
+/// Numeric keys keep their value and are named by ECMAScript `Number::toString`, so equality and
+/// hashing follow the property-key coercion: `{ 1: a, "1": b }` declares the same name twice.
+#[derive(Clone, Copy)]
 pub enum StaticPropertyName<'a> {
-    /// A name already stored in the AST.
-    Borrowed(JSStr<'a>),
-    /// The string conversion of a non-string literal.
-    Owned(String),
-}
-
-impl StaticPropertyName<'_> {
-    /// Borrow the complete JavaScript property name.
-    pub fn as_js_str(&self) -> JSStr<'_> {
-        match self {
-            Self::Borrowed(name) => *name,
-            Self::Owned(name) => JSStr::from(name.as_str()),
-        }
-    }
-
-    /// Borrow a UTF-8 name, if it contains no lone surrogate.
-    pub fn as_str(&self) -> Option<&str> {
-        self.as_js_str().as_str()
-    }
+    /// A name stored in the AST as a string.
+    Str(JSStr<'a>),
+    /// The value of a numeric key.
+    Number(f64),
 }
 
 impl<'a> StaticPropertyName<'a> {
-    /// Convert a name into UTF-8 when a consumer requires a Rust string.
+    /// Borrow the name as UTF-8, if it is a string without a lone surrogate.
     ///
-    /// A failure means the name contains a lone surrogate, not that it is dynamic.
-    pub fn into_cow_str(self) -> Option<Cow<'a, str>> {
+    /// Returns `None` for a [`Number`] key, whose name exists only as text produced on demand.
+    /// Use the [`Display`] implementation to get the name of a numeric key.
+    ///
+    /// [`Number`]: Self::Number
+    /// [`Display`]: fmt::Display
+    pub fn as_str(self) -> Option<&'a str> {
         match self {
-            Self::Borrowed(name) => name.as_str().map(Cow::Borrowed),
-            Self::Owned(name) => Some(Cow::Owned(name)),
+            Self::Str(name) => name.as_str(),
+            Self::Number(_) => None,
+        }
+    }
+
+    /// Call `f` with the complete name, including the `Number::toString` name of a numeric key.
+    ///
+    /// A numeric key is formatted into a stack buffer, so this never allocates.
+    fn with_js_str<R>(self, f: impl FnOnce(JSStr<'_>) -> R) -> R {
+        match self {
+            Self::Str(name) => f(name),
+            Self::Number(value) => f(JSStr::from(dragonbox_ecma::Buffer::new().format(value))),
         }
     }
 }
 
 impl<'a> From<&'a str> for StaticPropertyName<'a> {
     fn from(name: &'a str) -> Self {
-        Self::Borrowed(JSStr::from(name))
+        Self::Str(JSStr::from(name))
     }
 }
 
 impl<'a> From<JSStr<'a>> for StaticPropertyName<'a> {
     fn from(name: JSStr<'a>) -> Self {
-        Self::Borrowed(name)
+        Self::Str(name)
     }
 }
 
 impl<'a> From<Ident<'a>> for StaticPropertyName<'a> {
     fn from(name: Ident<'a>) -> Self {
-        Self::Borrowed(JSStr::from(name))
+        Self::Str(name.as_js_str())
     }
 }
 
 impl PartialEq for StaticPropertyName<'_> {
     fn eq(&self, other: &Self) -> bool {
-        self.as_js_str() == other.as_js_str()
+        match (*self, *other) {
+            (Self::Str(a), Self::Str(b)) => a == b,
+            // `Number::toString` maps both zeros to "0" and is otherwise injective.
+            (Self::Number(a), Self::Number(b)) => a == b || (a.is_nan() && b.is_nan()),
+            (Self::Str(name), number) | (number, Self::Str(name)) => {
+                number.with_js_str(|number| number == name)
+            }
+        }
     }
 }
 
@@ -75,13 +79,13 @@ impl Eq for StaticPropertyName<'_> {}
 
 impl Hash for StaticPropertyName<'_> {
     fn hash<H: Hasher>(&self, state: &mut H) {
-        self.as_js_str().hash(state);
+        self.with_js_str(|name| name.hash(state));
     }
 }
 
 impl PartialEq<str> for StaticPropertyName<'_> {
     fn eq(&self, other: &str) -> bool {
-        self.as_js_str() == other
+        self.with_js_str(|name| name == other)
     }
 }
 
@@ -91,9 +95,15 @@ impl PartialEq<&str> for StaticPropertyName<'_> {
     }
 }
 
+impl PartialEq<JSStr<'_>> for StaticPropertyName<'_> {
+    fn eq(&self, other: &JSStr<'_>) -> bool {
+        self.with_js_str(|name| name == *other)
+    }
+}
+
 impl PartialEq<Ident<'_>> for StaticPropertyName<'_> {
     fn eq(&self, other: &Ident<'_>) -> bool {
-        self.as_js_str() == *other
+        self == other.as_str()
     }
 }
 
@@ -101,23 +111,25 @@ impl fmt::Display for StaticPropertyName<'_> {
     /// Display a name for diagnostics, escaping lone surrogates in the same lowercase spelling as
     /// the Debug form and printed output.
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        if let Some(name) = self.as_str() {
-            return f.write_str(name);
-        }
-        for ch in self.as_js_str().chars() {
-            if let Some(ch) = ch.to_char() {
-                write!(f, "{ch}")?;
-            } else {
-                write!(f, "\\u{:04x}", ch.to_u32())?;
+        self.with_js_str(|name| {
+            if let Some(name) = name.as_str() {
+                return f.write_str(name);
             }
-        }
-        Ok(())
+            for ch in name.chars() {
+                if let Some(ch) = ch.to_char() {
+                    write!(f, "{ch}")?;
+                } else {
+                    write!(f, "\\u{:04x}", ch.to_u32())?;
+                }
+            }
+            Ok(())
+        })
     }
 }
 
 impl fmt::Debug for StaticPropertyName<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Debug::fmt(&self.as_js_str(), f)
+        self.with_js_str(|name| fmt::Debug::fmt(&name, f))
     }
 }
 
@@ -132,19 +144,33 @@ mod tests {
     fn names_preserve_identity_across_storage_and_surrogates() {
         let allocator = Allocator::new();
         let mut names = FxHashSet::default();
-        assert!(names.insert(StaticPropertyName::Owned("42".into())));
+        assert!(names.insert(StaticPropertyName::Number(42.0)));
         assert!(!names.insert(StaticPropertyName::from("42")));
         for units in
             [&[0xD800][..], &[0xD801], &[0xDC00], &[0xD800, 0xDC00], &[0xDC00, 0xD800], &[0xFFFD]]
         {
             let mut builder = JSStrBuilder::new_in(&&allocator);
             builder.push_utf16(units);
-            let name = StaticPropertyName::Borrowed(builder.into_js_str());
-            assert!(names.insert(name.clone()));
+            let name = StaticPropertyName::Str(builder.into_js_str());
+            assert!(names.insert(name));
             assert!(!names.insert(name));
         }
         assert!(names.insert(StaticPropertyName::from(r"\uD800")));
-        assert!(!names.insert(StaticPropertyName::Borrowed(JSStr::from("𐀀"))));
+        assert!(!names.insert(StaticPropertyName::Str(JSStr::from("𐀀"))));
         assert_eq!(names.len(), 8);
+    }
+
+    #[test]
+    fn numbers_are_named_by_number_to_string() {
+        let mut names = FxHashSet::default();
+        assert!(names.insert(StaticPropertyName::Number(16.0)));
+        assert!(!names.insert(StaticPropertyName::Number(16.0)));
+        assert!(!names.insert(StaticPropertyName::from("16")));
+        assert!(names.insert(StaticPropertyName::Number(1e21)));
+        assert!(!names.insert(StaticPropertyName::from("1e+21")));
+        assert_eq!(StaticPropertyName::Number(0.5), "0.5");
+        assert_eq!(StaticPropertyName::Number(10.0), StaticPropertyName::Number(1e1));
+        assert_eq!(StaticPropertyName::Number(1e21).to_string(), "1e+21");
+        assert_eq!(StaticPropertyName::Number(1.0).as_str(), None);
     }
 }

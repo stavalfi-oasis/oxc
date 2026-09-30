@@ -45,9 +45,10 @@
 //!
 //! * Babel plugin implementation: <https://github.com/babel/babel/blob/v7.26.2/packages/babel-plugin-transform-react-display-name/src/index.ts>
 
+use oxc_allocator::GetAllocator;
 use oxc_ast::{StaticPropertyName, ast::*};
 use oxc_span::SPAN;
-use oxc_str::{Ident, JSStr, static_ident};
+use oxc_str::{Ident, JSStr, format_str, static_ident};
 use oxc_traverse::{Ancestor, Traverse};
 
 use crate::{context::TraverseCtx, state::TransformState};
@@ -108,9 +109,9 @@ impl<'a> Traverse<'a, TransformState<'a>> for ReactDisplayName {
                     // whereas we also handle e.g. `{"foo-bar": React.createClass({})}`,
                     // so we diverge from Babel here, but that's probably an improvement
                     match prop.key().static_name() {
-                        Some(StaticPropertyName::Borrowed(name)) => break name,
-                        Some(StaticPropertyName::Owned(name)) => {
-                            break JSStr::from_str_in(&name, ctx);
+                        Some(StaticPropertyName::Str(name)) => break name,
+                        Some(name @ StaticPropertyName::Number(_)) => {
+                            break JSStr::from(format_str!(ctx.allocator(), "{name}"));
                         }
                         None => return,
                     }

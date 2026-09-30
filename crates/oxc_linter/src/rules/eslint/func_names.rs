@@ -1,7 +1,7 @@
 use std::borrow::Cow;
 
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{
         AssignmentTarget, AssignmentTargetProperty, BindingPattern, Expression, Function,
         FunctionType, ObjectAssignmentTarget, PropertyKind,
@@ -465,16 +465,18 @@ fn guess_function_name<'a>(ctx: &LintContext<'a>, node_id: NodeId) -> Option<Cow
                 return prop
                     .key
                     .static_name()
-                    .and_then(oxc_ast::StaticPropertyName::into_cow_str)
-                    .filter(|name| is_valid_identifier_name(name));
+                    .and_then(StaticPropertyName::as_str)
+                    .filter(|name| is_valid_identifier_name(name))
+                    .map(Cow::Borrowed);
             }
             AstKind::PropertyDefinition(prop_def) => {
                 // Stop here - we found the direct class property context
                 return prop_def
                     .key
                     .static_name()
-                    .and_then(oxc_ast::StaticPropertyName::into_cow_str)
-                    .filter(|name| is_valid_identifier_name(name));
+                    .and_then(StaticPropertyName::as_str)
+                    .filter(|name| is_valid_identifier_name(name))
+                    .map(Cow::Borrowed);
             }
             _ => {}
         }

@@ -1,5 +1,5 @@
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{
         CallExpression, ExportDefaultDeclarationKind, Expression, ObjectExpression,
         ObjectPropertyKind, PropertyKey,
@@ -112,10 +112,8 @@ fn check_object_properties<'a>(obj_expr: &ObjectExpression<'a>, ctx: &LintContex
         let ObjectPropertyKind::ObjectProperty(obj_prop) = prop else {
             continue;
         };
-        if let Some(name) =
-            obj_prop.key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-        {
-            existing_keys.insert(name.into_owned());
+        if let Some(name) = obj_prop.key.static_name().and_then(StaticPropertyName::as_str) {
+            existing_keys.insert(name.to_owned());
         }
     }
 

@@ -1,5 +1,7 @@
+use std::borrow::Cow;
+
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{BindingPattern, Expression, IdentifierReference},
 };
 use oxc_diagnostics::OxcDiagnostic;
@@ -154,11 +156,15 @@ impl Rule for NoNamedAsDefaultMember {
                     };
 
                     for prop in &*object_pattern.properties {
-                        let Some(name) = prop
-                            .key
-                            .static_name()
-                            .and_then(oxc_ast::StaticPropertyName::into_cow_str)
-                        else {
+                        let name = match prop.key.static_name() {
+                            Some(StaticPropertyName::Str(name)) => name.as_str().map(Cow::Borrowed),
+                            // A numeric key reads the export named by its `Number::toString` name.
+                            Some(name @ StaticPropertyName::Number(_)) => {
+                                Some(Cow::Owned(name.to_string()))
+                            }
+                            None => None,
+                        };
+                        let Some(name) = name else {
                             continue;
                         };
                         if let Some(module_name) =

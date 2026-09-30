@@ -1,4 +1,5 @@
 use oxc_ast::StaticPropertyName;
+use oxc_str::JSStr;
 
 use rustc_hash::FxHashSet;
 use schemars::JsonSchema;
@@ -15,7 +16,6 @@ use oxc_diagnostics::OxcDiagnostic;
 use oxc_macros::declare_oxc_lint;
 use oxc_semantic::SymbolId;
 use oxc_span::{GetSpan, Span};
-use oxc_syntax::number::ToJsString;
 
 use crate::{
     AstNode,
@@ -120,7 +120,7 @@ impl NoDupeKeys {
         for prop_kind in &obj.properties {
             let ObjectPropertyKind::ObjectProperty(prop) = prop_kind else { continue };
             let Some(group_name) = static_key_name(&prop.key) else { continue };
-            if !group_name.as_str().is_some_and(|name| groups.contains(name)) {
+            if !groups.iter().any(|&group| group_name == group) {
                 continue;
             }
             collect_group_keys(&prop.value, &mut seen, ctx);
@@ -218,7 +218,7 @@ fn collect_group_keys<'a>(
                 let Some(expr) = el.as_expression() else { continue };
                 let expr = expr.without_parentheses();
                 if let Some(name) = literal_element_name(expr)
-                    && !name.as_js_str().is_empty()
+                    && name != ""
                 {
                     report_or_add(name, expr.span(), seen, ctx);
                 }
@@ -286,7 +286,7 @@ fn collect_object_keys<'a>(
         let ObjectPropertyKind::ObjectProperty(prop) = prop_kind else { continue };
         let Some(name) = static_key_name(&prop.key) else { continue };
         // upstream skips empty names (`if (name)`)
-        if name.as_js_str().is_empty() {
+        if name == "" {
             continue;
         }
 
@@ -309,7 +309,7 @@ fn report_or_add<'a>(
     ctx: &LintContext<'a>,
 ) {
     if seen.contains(&name) {
-        ctx.diagnostic(duplicate_key_diagnostic(span, &name));
+        ctx.diagnostic(duplicate_key_diagnostic(span, name));
     } else {
         seen.insert(name);
     }
@@ -321,24 +321,22 @@ fn literal_element_name<'a>(expr: &Expression<'a>) -> Option<StaticPropertyName<
     match expr {
         Expression::StringLiteral(s) => Some(StaticPropertyName::from(s.value)),
         Expression::TemplateLiteral(t) => t.single_quasi().map(StaticPropertyName::from),
-        Expression::NumericLiteral(n) => Some(StaticPropertyName::Owned(n.value.to_js_string())),
+        Expression::NumericLiteral(n) => Some(StaticPropertyName::Number(n.value)),
         Expression::BooleanLiteral(b) => {
             Some(StaticPropertyName::from(if b.value { "true" } else { "false" }))
         }
         Expression::BigIntLiteral(b) => Some(StaticPropertyName::from(b.value.as_str())),
-        Expression::RegExpLiteral(r) => Some(StaticPropertyName::Owned(r.regex.to_string())),
+        Expression::RegExpLiteral(r) => r.raw.map(|raw| StaticPropertyName::Str(JSStr::from(raw))),
         _ => None,
     }
 }
 
 /// `PropertyKey::static_name` adjusted to upstream `getStaticPropertyName` semantics:
-/// numeric keys are formatted like JS `String(n)` (`1e-7` → "1e-7", not "0.0000001"),
 /// a computed `[true]` key is named "true", and a computed `[null]` key has no name
 /// (upstream's `getStringLiteralValue` bails on `value == null`; a plain `null` key
 /// is an identifier, not this variant).
 fn static_key_name<'a>(key: &PropertyKey<'a>) -> Option<StaticPropertyName<'a>> {
     match key {
-        PropertyKey::NumericLiteral(n) => Some(StaticPropertyName::Owned(n.value.to_js_string())),
         PropertyKey::BooleanLiteral(b) => {
             Some(StaticPropertyName::from(if b.value { "true" } else { "false" }))
         }

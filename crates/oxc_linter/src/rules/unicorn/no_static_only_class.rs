@@ -139,12 +139,20 @@ impl Rule for NoStaticOnlyClass {
                         let name = if v.computed {
                             format!("[{}]", ctx.source_range(key.span()))
                         } else {
-                            let Some(name) =
-                                key.static_name().and_then(StaticPropertyName::into_cow_str)
-                            else {
+                            let name = match key.static_name() {
+                                Some(StaticPropertyName::Str(name)) => {
+                                    name.as_str().map(str::to_owned)
+                                }
+                                // A numeric key keeps its `Number::toString` name.
+                                Some(name @ StaticPropertyName::Number(_)) => {
+                                    Some(name.to_string())
+                                }
+                                None => None,
+                            };
+                            let Some(name) = name else {
                                 return fixer.noop();
                             };
-                            name.into_owned()
+                            name
                         };
 
                         // we need to check is there have a trailing semicolon
@@ -175,12 +183,20 @@ impl Rule for NoStaticOnlyClass {
                         let name = if v.computed {
                             format!("[{}]", ctx.source_range(key.span()))
                         } else {
-                            let Some(name) =
-                                key.static_name().and_then(StaticPropertyName::into_cow_str)
-                            else {
+                            let name = match key.static_name() {
+                                Some(StaticPropertyName::Str(name)) => {
+                                    name.as_str().map(str::to_owned)
+                                }
+                                // A numeric key keeps its `Number::toString` name.
+                                Some(name @ StaticPropertyName::Number(_)) => {
+                                    Some(name.to_string())
+                                }
+                                None => None,
+                            };
+                            let Some(name) = name else {
                                 return fixer.noop();
                             };
-                            name.into_owned()
+                            name
                         };
                         let value_str = if value.is_none() {
                             "undefined"

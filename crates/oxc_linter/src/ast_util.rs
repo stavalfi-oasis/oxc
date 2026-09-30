@@ -823,7 +823,7 @@ pub fn get_static_property_name<'a>(parent_node: &AstNode<'a>) -> Option<StaticP
     match key {
         PropertyKey::NullLiteral(_) => Some("null".into()),
         PropertyKey::RegExpLiteral(regex) => {
-            Some(StaticPropertyName::Owned(regex.regex.to_string()))
+            regex.raw.map(|raw| StaticPropertyName::Str(JSStr::from(raw)))
         }
         PropertyKey::BigIntLiteral(bigint) => Some(bigint.value.as_str().into()),
         PropertyKey::TemplateLiteral(template) => {

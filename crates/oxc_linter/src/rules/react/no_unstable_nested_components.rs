@@ -1,6 +1,6 @@
 use fast_glob::glob_match;
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{
         Argument, ArrowFunctionExpression, CallExpression, Class, Function, JSXAttributeName,
         JSXExpression, JSXExpressionContainer,
@@ -386,11 +386,9 @@ fn function_like_name(node: &AstNode<'_>, ctx: &LintContext<'_>) -> Option<Strin
         AstKind::VariableDeclarator(decl) => {
             decl.id.get_identifier_name().map(|name| name.to_string())
         }
-        AstKind::ObjectProperty(prop) => prop
-            .key
-            .static_name()
-            .and_then(oxc_ast::StaticPropertyName::into_cow_str)
-            .map(std::borrow::Cow::into_owned),
+        AstKind::ObjectProperty(prop) => {
+            prop.key.static_name().and_then(StaticPropertyName::as_str).map(ToString::to_string)
+        }
         AstKind::AssignmentExpression(assign) => {
             assign.left.get_identifier_name().map(ToString::to_string)
         }
@@ -514,10 +512,7 @@ fn direct_object_property_name(node: &AstNode<'_>, ctx: &LintContext<'_>) -> Opt
     let AstKind::ObjectProperty(prop) = parent.kind() else {
         return None;
     };
-    prop.key
-        .static_name()
-        .and_then(oxc_ast::StaticPropertyName::into_cow_str)
-        .map(std::borrow::Cow::into_owned)
+    prop.key.static_name().and_then(StaticPropertyName::as_str).map(ToString::to_string)
 }
 
 fn is_direct_jsx_child_render_prop(node: &AstNode<'_>, ctx: &LintContext<'_>) -> bool {

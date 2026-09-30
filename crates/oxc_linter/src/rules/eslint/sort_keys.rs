@@ -7,7 +7,7 @@ use oxc_ast::{
 use oxc_diagnostics::OxcDiagnostic;
 use oxc_macros::declare_oxc_lint;
 use oxc_span::{GetSpan, Span};
-use oxc_str::JSChar;
+use oxc_str::{JSChar, JSStr};
 use oxc_syntax::line_terminator::LineTerminatorSplitter;
 use schemars::JsonSchema;
 use serde::Deserialize;
@@ -191,13 +191,29 @@ fn is_object_sorted(
     true
 }
 
-/// Compare two keys according to sort options, without allocating.
+/// Compare two keys according to sort options.
 fn compare_keys(
     a: &StaticPropertyName<'_>,
     b: &StaticPropertyName<'_>,
     options: &SortKeysOptions,
 ) -> Ordering {
-    let (a, b) = (a.as_js_str(), b.as_js_str());
+    let (mut a_text, mut b_text) = (String::new(), String::new());
+    compare_key_names(key_text(*a, &mut a_text), key_text(*b, &mut b_text), options)
+}
+
+/// Return the text of a key.
+/// A numeric key has no stored text, so it is formatted into `buffer`.
+fn key_text<'s>(name: StaticPropertyName<'s>, buffer: &'s mut String) -> JSStr<'s> {
+    match name {
+        StaticPropertyName::Str(name) => name,
+        StaticPropertyName::Number(_) => {
+            *buffer = name.to_string();
+            JSStr::from(buffer.as_str())
+        }
+    }
+}
+
+fn compare_key_names(a: JSStr<'_>, b: JSStr<'_>, options: &SortKeysOptions) -> Ordering {
     // Canonical WTF-8 bytes order like code points, so lone surrogates need no decoding.
     // ESLint compares UTF-16 code units instead, which differs for astral characters (#26242).
     if !options.natural {

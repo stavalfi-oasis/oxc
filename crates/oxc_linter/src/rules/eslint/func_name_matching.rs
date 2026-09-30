@@ -244,7 +244,7 @@ impl Rule for FuncNameMatching {
 }
 
 impl FuncNameMatching {
-    fn should_warn(&self, name: JSStr<'_>, func_name: &str) -> bool {
+    fn should_warn(&self, name: StaticPropertyName<'_>, func_name: &str) -> bool {
         match self.0.0 {
             FuncNameMatchingMode::Always => name != func_name,
             FuncNameMatchingMode::Never => name == func_name,
@@ -253,14 +253,14 @@ impl FuncNameMatching {
 
     fn report_if_should_warn(
         &self,
-        name: JSStr<'_>,
+        name: StaticPropertyName<'_>,
         func_name: &FunctionName<'_>,
         is_property: bool,
         ctx: &LintContext,
     ) {
         if self.should_warn(name, func_name.name) {
             ctx.diagnostic(func_name_matching_diagnostic(
-                StaticPropertyName::Borrowed(name),
+                name,
                 func_name.name,
                 is_property,
                 self.0.0,
@@ -284,12 +284,7 @@ impl FuncNameMatching {
             if self.0.1.consider_property_descriptor && property_name == "value" {
                 match property_descriptor_name(node, ctx) {
                     DescriptorName::Name(descriptor_name) => {
-                        self.report_if_should_warn(
-                            descriptor_name.as_js_str(),
-                            &function_name,
-                            true,
-                            ctx,
-                        );
+                        self.report_if_should_warn(descriptor_name, &function_name, true, ctx);
                     }
                     DescriptorName::Unresolved => {}
                     DescriptorName::NotDescriptor => {
@@ -297,7 +292,7 @@ impl FuncNameMatching {
                     }
                 }
             } else {
-                self.report_if_should_warn(property_name.as_js_str(), &function_name, true, ctx);
+                self.report_if_should_warn(property_name, &function_name, true, ctx);
             }
 
             return;
@@ -321,7 +316,7 @@ impl FuncNameMatching {
         if property_key_is_identifier(&property.key) && !property.computed {
             let Some(property_name) = property.key.static_name() else { return };
 
-            self.report_if_should_warn(property_name.as_js_str(), &function_name, true, ctx);
+            self.report_if_should_warn(property_name, &function_name, true, ctx);
             return;
         }
 

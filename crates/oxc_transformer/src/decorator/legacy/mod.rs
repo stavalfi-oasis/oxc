@@ -52,7 +52,7 @@ use oxc_allocator::{
     Address, ArenaBox, ArenaVec, CloneIn, GetAddress, GetAllocator, ReplaceWith, TakeIn,
     UnstableAddress,
 };
-use oxc_ast::ast::*;
+use oxc_ast::{StaticPropertyName, ast::*};
 use oxc_ast_visit::{VisitJs, VisitMut};
 use oxc_data_structures::stack::NonEmptyStack;
 use oxc_semantic::{ScopeFlags, ScopeId, SymbolFlags};
@@ -393,11 +393,15 @@ impl<'a> LegacyDecorator<'a> {
             } else {
                 // Use `name()` to get the raw property name, avoiding `get_var_name_from_node`
                 // which strips leading underscores (e.g. `prop` and `_prop` both become "prop").
-                let key_name = accessor
-                    .key
-                    .name()
-                    .and_then(oxc_ast::StaticPropertyName::into_cow_str)
-                    .unwrap_or_else(|| Cow::Owned(get_var_name_from_node(&accessor.key)));
+                let key_name = match accessor.key.name() {
+                    Some(StaticPropertyName::Str(name)) => name.as_str().map(Cow::Borrowed),
+                    // A numeric key names the storage by its `Number::toString` name.
+                    Some(name @ StaticPropertyName::Number(_)) => {
+                        Some(Cow::Owned(name.to_string()))
+                    }
+                    None => None,
+                }
+                .unwrap_or_else(|| Cow::Owned(get_var_name_from_node(&accessor.key)));
                 let storage_name =
                     Str::from_strs_array_in(["_", &key_name, "_accessor_storage"], ctx);
                 let getter_key = accessor.key.clone_in(ctx.ast.allocator());

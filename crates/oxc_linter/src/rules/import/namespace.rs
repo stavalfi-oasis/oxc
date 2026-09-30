@@ -1,7 +1,7 @@
-use std::{fmt::Debug, sync::Arc};
+use std::{borrow::Cow, fmt::Debug, sync::Arc};
 
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{BindingPattern, ObjectPattern},
 };
 use oxc_diagnostics::OxcDiagnostic;
@@ -321,8 +321,13 @@ fn check_deep_namespace_for_object_pattern(
     ctx: &LintContext<'_>,
 ) {
     for property in &pattern.properties {
-        let Some(name) = property.key.name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-        else {
+        let name = match property.key.name() {
+            Some(StaticPropertyName::Str(name)) => name.as_str().map(Cow::Borrowed),
+            // A numeric key reads the export named by its `Number::toString` name.
+            Some(name @ StaticPropertyName::Number(_)) => Some(Cow::Owned(name.to_string())),
+            None => None,
+        };
+        let Some(name) = name else {
             continue;
         };
 

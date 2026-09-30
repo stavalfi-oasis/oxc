@@ -58,7 +58,7 @@ use oxc_ast::{StaticPropertyName, ast::*};
 use oxc_ast_visit::VisitJs;
 use oxc_semantic::{ReferenceFlags, ScopeFlags, ScopeId, SymbolFlags};
 use oxc_span::{GetSpan, SPAN};
-use oxc_str::{Ident, static_ident};
+use oxc_str::{Ident, JSStr, format_str, static_ident};
 use oxc_syntax::{
     identifier::{is_identifier_name, is_identifier_part, is_identifier_start},
     keyword::is_reserved_keyword,
@@ -619,7 +619,7 @@ impl<'a> AsyncGeneratorExecutor<'a> {
             }
             // infer `foo` from `({ foo: async function() {} })`
             Ancestor::ObjectPropertyValue(property) if !*property.method() => {
-                property.key().static_name().map(|key| Self::normalize_function_name(&key, ctx))
+                property.key().static_name().map(|key| Self::normalize_function_name(key, ctx))
             }
             _ => None,
         }
@@ -636,23 +636,17 @@ impl<'a> AsyncGeneratorExecutor<'a> {
     ///   // Reserved keyword
     /// * `this` -> `_this`
     /// * `arguments` -> `_arguments`
-    fn normalize_function_name(input: &StaticPropertyName<'a>, ctx: &TraverseCtx<'a>) -> Ident<'a> {
-        match input {
-            StaticPropertyName::Borrowed(name) => {
-                if let Some(name) = name.as_str()
-                    && !is_reserved_keyword(name)
-                    && is_identifier_name(name)
-                {
-                    return Ident::from(name);
-                }
-            }
-            StaticPropertyName::Owned(name) => {
-                if !is_reserved_keyword(name) && is_identifier_name(name) {
-                    return Ident::from_str_in(name, ctx);
-                }
-            }
+    fn normalize_function_name(input: StaticPropertyName<'a>, ctx: &TraverseCtx<'a>) -> Ident<'a> {
+        let input_str = match input {
+            StaticPropertyName::Str(name) => name,
+            StaticPropertyName::Number(_) => JSStr::from(format_str!(ctx.allocator(), "{input}")),
+        };
+        if let Some(name) = input_str.as_str()
+            && !is_reserved_keyword(name)
+            && is_identifier_name(name)
+        {
+            return Ident::from(name);
         }
-        let input_str = input.as_js_str();
 
         let mut name = ArenaStringBuilder::with_capacity_in(input_str.len() + 1, ctx.allocator());
         let mut capitalize_next = false;

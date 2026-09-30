@@ -1,5 +1,3 @@
-use std::borrow::Cow;
-
 use rustc_hash::FxHashSet;
 
 use oxc_ast::{
@@ -144,12 +142,9 @@ fn collect_computed_names<'a>(options: &ObjectExpression<'a>) -> FxHashSet<&'a s
             ObjectPropertyKind::ObjectProperty(prop) if !prop.computed => Some(prop),
             _ => None,
         })
-        .filter_map(|prop| match prop.key.static_name()?.into_cow_str()? {
-            Cow::Borrowed(name) => Some(name),
-            // Computed keys backed by literals (e.g. `0: foo`) produce an owned
-            // string; they are not valid identifiers to reference via `this`, so skip.
-            Cow::Owned(_) => None,
-        })
+        // Numeric keys (e.g. `0: foo`) have no `as_str` name.
+        // They are not valid identifiers to reference via `this`, so they are skipped.
+        .filter_map(|prop| prop.key.static_name()?.as_str())
         .collect()
 }
 

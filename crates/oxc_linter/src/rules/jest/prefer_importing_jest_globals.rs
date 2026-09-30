@@ -318,7 +318,7 @@ fn try_merge_cjs_require<'a>(
                 }
                 // `StaticPropertyName`'s `Display` is for diagnostics, not JavaScript source.
                 // Any other key keeps its source spelling, including quotes and escapes.
-                let key_text = match key_name.as_js_str().as_str() {
+                let key_text = match key_name.as_str() {
                     Some(name) if is_identifier_name(name) => name,
                     _ => {
                         // An import name must be an identifier or a well-formed string.

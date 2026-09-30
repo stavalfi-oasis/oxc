@@ -1,6 +1,6 @@
 use itertools::Itertools;
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{
         Argument, BindingPattern, Expression, ImportDeclarationSpecifier, VariableDeclarationKind,
         VariableDeclarator,
@@ -251,13 +251,12 @@ fn process_declaration<'a>(
     let mut non_global_imports: Vec<String> = vec![];
 
     for property in &obj.properties {
-        let Some(property_name) =
-            property.key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
+        let Some(property_name) = property.key.static_name().and_then(StaticPropertyName::as_str)
         else {
             continue;
         };
 
-        if VITEST_GLOBALS.contains(&property_name.as_ref()) {
+        if VITEST_GLOBALS.contains(&property_name) {
             global_vitest_spans.push(property.span);
         } else {
             non_global_imports.push(ctx.source_range(property.span).to_string());

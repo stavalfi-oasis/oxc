@@ -3,9 +3,7 @@ use std::fmt::{self, Display};
 use oxc_allocator::Box as ArenaBox;
 use oxc_span::{GetSpan, Span};
 use oxc_str::{Ident, JSStr};
-use oxc_syntax::{
-    number::ToJsString, operator::UnaryOperator, scope::ScopeFlags, symbol::SymbolId,
-};
+use oxc_syntax::{operator::UnaryOperator, scope::ScopeFlags, symbol::SymbolId};
 
 use crate::{StaticPropertyName, ast::*};
 
@@ -465,10 +463,10 @@ impl<'a> PropertyKey<'a> {
         match self {
             Self::StaticIdentifier(ident) => Some(StaticPropertyName::from(ident.name)),
             Self::StringLiteral(lit) => Some(StaticPropertyName::from(lit.value)),
-            Self::RegExpLiteral(lit) => Some(StaticPropertyName::Owned(lit.regex.to_string())),
-            // ECMAScript Number::toString, so `1e21` gets the name "1e+21" like the
-            // runtime property key.
-            Self::NumericLiteral(lit) => Some(StaticPropertyName::Owned(lit.value.to_js_string())),
+            Self::RegExpLiteral(lit) => {
+                lit.raw.map(|raw| StaticPropertyName::Str(JSStr::from(raw)))
+            }
+            Self::NumericLiteral(lit) => Some(StaticPropertyName::Number(lit.value)),
             Self::BigIntLiteral(lit) => Some(StaticPropertyName::from(lit.value.as_str())),
             Self::NullLiteral(_) => Some(StaticPropertyName::from("null")),
             Self::TemplateLiteral(lit) => lit.single_quasi().map(StaticPropertyName::from),

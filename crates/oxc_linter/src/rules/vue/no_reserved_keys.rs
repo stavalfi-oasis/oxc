@@ -2,7 +2,7 @@ use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{
         CallExpression, Expression, ObjectExpression, ObjectPropertyKind, Statement, TSSignature,
     },
@@ -128,12 +128,10 @@ impl Rule for NoReservedKeys {
         match node.kind() {
             AstKind::CallExpression(call) => self.check_define_props(call, ctx),
             AstKind::ObjectProperty(prop) => {
-                let Some(group_name) =
-                    prop.key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
+                let Some(group) = prop.key.static_name().and_then(StaticPropertyName::as_str)
                 else {
                     return;
                 };
-                let group = group_name.as_ref();
                 if !self.is_target_group(group) {
                     return;
                 }
@@ -221,13 +219,10 @@ impl NoReservedKeys {
     fn check_keys<'a>(&self, group: &str, obj: &ObjectExpression<'a>, ctx: &LintContext<'a>) {
         for prop_kind in &obj.properties {
             let ObjectPropertyKind::ObjectProperty(p) = prop_kind else { continue };
-            let Some(name) =
-                p.key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-            else {
+            let Some(n) = p.key.static_name().and_then(StaticPropertyName::as_str) else {
                 continue;
             };
             let span = p.key.span();
-            let n = name.as_ref();
             if self.is_reserved(n) {
                 ctx.diagnostic(reserved_key_diagnostic(n, span));
             } else if matches!(group, "data" | "asyncData") && n.starts_with('_') {
@@ -261,13 +256,12 @@ impl NoReservedKeys {
                 Expression::ObjectExpression(obj) => {
                     for prop_kind in &obj.properties {
                         let ObjectPropertyKind::ObjectProperty(p) = prop_kind else { continue };
-                        let Some(name) =
-                            p.key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
+                        let Some(name) = p.key.static_name().and_then(StaticPropertyName::as_str)
                         else {
                             continue;
                         };
-                        if self.is_reserved(name.as_ref()) {
-                            ctx.diagnostic(reserved_key_diagnostic(name.as_ref(), p.key.span()));
+                        if self.is_reserved(name) {
+                            ctx.diagnostic(reserved_key_diagnostic(name, p.key.span()));
                         }
                     }
                 }
@@ -292,12 +286,11 @@ impl NoReservedKeys {
             TSSignature::TSMethodSignature(method) => &method.key,
             _ => return,
         };
-        let Some(name) = key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-        else {
+        let Some(name) = key.static_name().and_then(StaticPropertyName::as_str) else {
             return;
         };
-        if self.is_reserved(name.as_ref()) {
-            ctx.diagnostic(reserved_key_diagnostic(name.as_ref(), key.span()));
+        if self.is_reserved(name) {
+            ctx.diagnostic(reserved_key_diagnostic(name, key.span()));
         }
     }
 }

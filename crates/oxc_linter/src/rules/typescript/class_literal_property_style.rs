@@ -1,7 +1,7 @@
 use std::ops::Deref;
 
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{
         ArrowFunctionExpression, AssignmentExpression, AssignmentTarget, Class, ClassBody,
         ClassElement, Expression, Function, MethodDefinitionKind, PropertyDefinition, PropertyKey,
@@ -195,7 +195,7 @@ fn check_fields_mode<'a>(class_body: &ClassBody<'a>, ctx: &LintContext<'a>) {
 }
 
 fn check_getters_mode<'a>(class_body: &ClassBody<'a>, ctx: &LintContext<'a>) {
-    let mut excluded_properties: FxHashSet<JSStr<'a>> = FxHashSet::default();
+    let mut excluded_properties: FxHashSet<StaticPropertyName<'a>> = FxHashSet::default();
     for element in &class_body.body {
         if let ClassElement::MethodDefinition(method) = element
             && method.kind == MethodDefinitionKind::Constructor
@@ -212,7 +212,7 @@ fn check_getters_mode<'a>(class_body: &ClassBody<'a>, ctx: &LintContext<'a>) {
             && let Some(value) = literal_readonly_property_value(property)
         {
             if let Some(name) = property.key.name()
-                && excluded_properties.contains(&name.as_js_str())
+                && excluded_properties.contains(&name)
             {
                 continue;
             }
@@ -349,13 +349,13 @@ fn assigned_this_property_name<'a>(left: &AssignmentTarget<'a>) -> Option<JSStr<
 }
 
 struct ConstructorAssignmentCollector<'set, 'a> {
-    excluded_properties: &'set mut FxHashSet<JSStr<'a>>,
+    excluded_properties: &'set mut FxHashSet<StaticPropertyName<'a>>,
 }
 
 impl<'a> VisitJs<'a> for ConstructorAssignmentCollector<'_, 'a> {
     fn visit_assignment_expression(&mut self, assignment: &AssignmentExpression<'a>) {
         if let Some(name) = assigned_this_property_name(&assignment.left) {
-            self.excluded_properties.insert(name);
+            self.excluded_properties.insert(StaticPropertyName::from(name));
         }
     }
 

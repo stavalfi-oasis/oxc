@@ -386,13 +386,11 @@ impl AccessorPairs {
                 continue;
             };
 
-            let Some(name) =
-                prop.key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-            else {
+            let Some(name) = prop.key.static_name().and_then(StaticPropertyName::as_str) else {
                 continue;
             };
 
-            match &*name {
+            match name {
                 "get" => has_get = true,
                 "set" => {
                     has_set = true;

@@ -4,7 +4,7 @@ use lazy_regex::Regex;
 use rustc_hash::{FxBuildHasher, FxHashSet};
 
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{ArrowFunctionExpression, CallExpression, Function},
 };
 use oxc_ast_visit::{VisitJs, walk_js};
@@ -958,7 +958,7 @@ fn get_declaration_identifier<'a>(
                 // { useHook: () => {} }
                 // { useHook() {} }
                 AstKind::ObjectProperty(prop) => {
-                    prop.key.name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
+                    prop.key.name().and_then(StaticPropertyName::as_str).map(Cow::Borrowed)
                 }
                 _ => None,
             }

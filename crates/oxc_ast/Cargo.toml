@@ -28,9 +28,10 @@ oxc_estree = { workspace = true }
 oxc_regular_expression = { workspace = true }
 oxc_span = { workspace = true }
 oxc_str = { workspace = true }
-oxc_syntax = { workspace = true, features = ["to_js_string"] }
+oxc_syntax = { workspace = true }
 
 bitflags = { workspace = true }
+dragonbox_ecma = { workspace = true }
 
 [dev-dependencies]
 rustc-hash = { workspace = true }

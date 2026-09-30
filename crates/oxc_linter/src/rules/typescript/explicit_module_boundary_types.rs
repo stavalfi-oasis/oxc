@@ -1,7 +1,7 @@
-use std::{borrow::Cow, ops::Deref};
+use std::ops::Deref;
 
 use oxc_allocator::{Address, ArenaVec, UnstableAddress};
-use oxc_ast::{AstKind, ast::*};
+use oxc_ast::{AstKind, StaticPropertyName, ast::*};
 use oxc_ast_visit::{
     VisitJs,
     walk_js::{self, walk_expression},
@@ -377,9 +377,7 @@ impl<'a, 'c> ExplicitTypesChecker<'a, 'c> {
         let Some(id) = prop else {
             return false;
         };
-        if let Some(Cow::Borrowed(name)) =
-            id.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-        {
+        if let Some(name) = id.static_name().and_then(StaticPropertyName::as_str) {
             self.target_symbol =
                 Some(TargetSymbol { span: id.span(), name, kind: TargetSymbolKind::Property });
             true
@@ -480,13 +478,11 @@ impl<'a, 'c> ExplicitTypesChecker<'a, 'c> {
             let ClassElement::MethodDefinition(method) = element else {
                 continue;
             };
-            let Some(method_name) =
-                method.key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-            else {
+            let Some(method_name) = method.key.static_name() else {
                 continue;
             };
             if method.value.is_typescript_syntax() {
-                overload_keys.insert((method.r#static, CompactStr::from(method_name.as_ref())));
+                overload_keys.insert((method.r#static, method_name));
             }
         }
 
@@ -497,12 +493,10 @@ impl<'a, 'c> ExplicitTypesChecker<'a, 'c> {
             if method.value.is_typescript_syntax() {
                 continue;
             }
-            let Some(method_name) =
-                method.key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str)
-            else {
+            let Some(method_name) = method.key.static_name() else {
                 continue;
             };
-            if overload_keys.contains(&(method.r#static, CompactStr::from(method_name.as_ref()))) {
+            if overload_keys.contains(&(method.r#static, method_name)) {
                 self.overloaded_methods.insert(method.span);
             }
         }
@@ -729,9 +723,9 @@ impl<'a> VisitJs<'a> for ExplicitTypesChecker<'a, '_> {
         {
             return;
         }
-        if self.rule.is_some_allowed_name(
-            el.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str),
-        ) {
+        if el.static_name().is_some_and(|name| {
+            self.rule.allowed_names.iter().any(|allowed| name == allowed.as_str())
+        }) {
             return;
         }
 

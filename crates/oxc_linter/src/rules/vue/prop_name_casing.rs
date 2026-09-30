@@ -1,9 +1,11 @@
+use std::borrow::Cow;
+
 use lazy_regex::Regex;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{
         ArrayExpression, ArrayExpressionElement, CallExpression, Expression, ObjectExpression,
         ObjectPropertyKind, PropertyKey, TSSignature,
@@ -177,18 +179,18 @@ impl PropNameCasing {
 
     fn check_signature<'a>(&self, signature: &TSSignature<'a>, ctx: &LintContext<'a>) {
         let (key_opt, span) = match signature {
-            TSSignature::TSPropertySignature(sig) => (
-                sig.key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str),
-                sig.key.span(),
-            ),
-            TSSignature::TSMethodSignature(sig) => (
-                sig.key.static_name().and_then(oxc_ast::StaticPropertyName::into_cow_str),
-                sig.key.span(),
-            ),
+            TSSignature::TSPropertySignature(sig) => (sig.key.static_name(), sig.key.span()),
+            TSSignature::TSMethodSignature(sig) => (sig.key.static_name(), sig.key.span()),
             _ => return,
         };
-        let Some(name) = key_opt else { return };
-        self.report_if_invalid(name.as_ref(), span, ctx);
+        let name = match key_opt {
+            Some(StaticPropertyName::Str(name)) => name.as_str().map(Cow::Borrowed),
+            // A numeric key is checked by its `Number::toString` name.
+            Some(name @ StaticPropertyName::Number(_)) => Some(Cow::Owned(name.to_string())),
+            None => None,
+        };
+        let Some(name) = name else { return };
+        self.report_if_invalid(&name, span, ctx);
     }
 
     fn report_if_invalid(&self, name: &str, span: Span, ctx: &LintContext<'_>) {

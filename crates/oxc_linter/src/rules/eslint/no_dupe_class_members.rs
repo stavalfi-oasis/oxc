@@ -76,7 +76,7 @@ impl Rule for NoDupeClassMembers {
                             || element.kind == prev_element.kind)
                     {
                         ctx.diagnostic(no_dupe_class_members_diagnostic(
-                            &element.name,
+                            element.name,
                             prev_element.span,
                             element.span,
                         ));

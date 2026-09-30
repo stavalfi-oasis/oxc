@@ -137,9 +137,9 @@ impl Rule for NoAccessorRecursion {
                         let is_same_key = {
                             if matches!(member_expr, MemberExpressionKind::PrivateField(_)) {
                                 matches!(&property.key, PropertyKey::PrivateIdentifier(_))
-                                    && prop_key_name.as_js_str() == expr_key_name
+                                    && prop_key_name == expr_key_name
                             } else {
-                                prop_key_name.as_js_str() == expr_key_name
+                                prop_key_name == expr_key_name
                             }
                         };
                         if !is_same_key {
@@ -167,9 +167,9 @@ impl Rule for NoAccessorRecursion {
                         let is_same_key = {
                             if matches!(member_expr, MemberExpressionKind::PrivateField(_)) {
                                 matches!(&method_def.key, PropertyKey::PrivateIdentifier(_))
-                                    && prop_key_name.as_js_str() == expr_key_name
+                                    && prop_key_name == expr_key_name
                             } else {
-                                prop_key_name.as_js_str() == expr_key_name
+                                prop_key_name == expr_key_name
                             }
                         };
                         if !is_same_key {
