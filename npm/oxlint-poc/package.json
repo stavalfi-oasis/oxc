@@ -1,0 +1,16 @@
+{
+  "name": "oxlint",
+  "version": "0.0.0-set-by-publish-sh",
+  "description": "Oasis fork of oxlint — standalone binary, bundles every supported platform.",
+  "license": "MIT",
+  "repository": "github:stavalfi-oasis/oxc",
+  "bin": {
+    "oxlint": "./bin/oxlint.js"
+  },
+  "files": [
+    "bin",
+    "LICENSE",
+    "README.md",
+    "configuration_schema.json"
+  ]
+}
