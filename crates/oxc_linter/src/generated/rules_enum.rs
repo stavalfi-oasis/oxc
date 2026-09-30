@@ -10,17 +10,36 @@
 )]
 #[cfg(feature = "ruledocs")]
 use crate::rule::RuleInfo;
+pub use crate::rules::custom_tsgolint_oxlint_rules::async_dispose_last::AsyncDisposeLast as CustomTsgolintOxlintRulesAsyncDisposeLast;
+pub use crate::rules::custom_tsgolint_oxlint_rules::class_name_matches_filename::ClassNameMatchesFilename as CustomTsgolintOxlintRulesClassNameMatchesFilename;
+pub use crate::rules::custom_tsgolint_oxlint_rules::logger_name_matches_class::LoggerNameMatchesClass as CustomTsgolintOxlintRulesLoggerNameMatchesClass;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_anonymous_functions::NoAnonymousFunctions as CustomTsgolintOxlintRulesNoAnonymousFunctions;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_banned_words::NoBannedWords as CustomTsgolintOxlintRulesNoBannedWords;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_comments::NoComments as CustomTsgolintOxlintRulesNoComments;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_curl::NoCurl as CustomTsgolintOxlintRulesNoCurl;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_global_functions::NoGlobalFunctions as CustomTsgolintOxlintRulesNoGlobalFunctions;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_import_side_effects::NoImportSideEffects as CustomTsgolintOxlintRulesNoImportSideEffects;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_infinite_loop::NoInfiniteLoop as CustomTsgolintOxlintRulesNoInfiniteLoop;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_passthrough_functions::NoPassthroughFunctions as CustomTsgolintOxlintRulesNoPassthroughFunctions;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_private_keyword::NoPrivateKeyword as CustomTsgolintOxlintRulesNoPrivateKeyword;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_process_stream_write::NoProcessStreamWrite as CustomTsgolintOxlintRulesNoProcessStreamWrite;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_protected::NoProtected as CustomTsgolintOxlintRulesNoProtected;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_single_use_const::NoSingleUseConst as CustomTsgolintOxlintRulesNoSingleUseConst;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_single_use_interface::NoSingleUseInterface as CustomTsgolintOxlintRulesNoSingleUseInterface;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_static_with_this_args::NoStaticWithThisArgs as CustomTsgolintOxlintRulesNoStaticWithThisArgs;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_string_error::NoStringError as CustomTsgolintOxlintRulesNoStringError;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_string_raw::NoStringRaw as CustomTsgolintOxlintRulesNoStringRaw;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_tracked_close::NoTrackedClose as CustomTsgolintOxlintRulesNoTrackedClose;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_void_promise::NoVoidPromise as CustomTsgolintOxlintRulesNoVoidPromise;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_zod_defaults::NoZodDefaults as CustomTsgolintOxlintRulesNoZodDefaults;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_zod_passthrough::NoZodPassthrough as CustomTsgolintOxlintRulesNoZodPassthrough;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_abort_signal::RequireAbortSignal as CustomTsgolintOxlintRulesRequireAbortSignal;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_access_modifiers::RequireAccessModifiers as CustomTsgolintOxlintRulesRequireAccessModifiers;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_async_disposable::RequireAsyncDisposable as CustomTsgolintOxlintRulesRequireAsyncDisposable;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_catch_binding::RequireCatchBinding as CustomTsgolintOxlintRulesRequireCatchBinding;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8::RequireFsUtf8 as CustomTsgolintOxlintRulesRequireFsUtf8;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_object_params::RequireObjectParams as CustomTsgolintOxlintRulesRequireObjectParams;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_os_eol::RequireOsEol as CustomTsgolintOxlintRulesRequireOsEol;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_track::RequireTrack as CustomTsgolintOxlintRulesRequireTrack;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_zod_compile::RequireZodCompile as CustomTsgolintOxlintRulesRequireZodCompile;
 pub use crate::rules::custom_tsgolint_oxlint_rules::zod_schemas_file_only::ZodSchemasFileOnly as CustomTsgolintOxlintRulesZodSchemasFileOnly;
@@ -1784,23 +1803,48 @@ pub enum RuleEnum {
     VueValidDefineOptions(VueValidDefineOptions),
     VueValidDefineProps(VueValidDefineProps),
     VueValidNextTick(VueValidNextTick),
+    CustomTsgolintOxlintRulesAsyncDisposeLast(CustomTsgolintOxlintRulesAsyncDisposeLast),
+    CustomTsgolintOxlintRulesClassNameMatchesFilename(
+        CustomTsgolintOxlintRulesClassNameMatchesFilename,
+    ),
+    CustomTsgolintOxlintRulesLoggerNameMatchesClass(
+        CustomTsgolintOxlintRulesLoggerNameMatchesClass,
+    ),
+    CustomTsgolintOxlintRulesNoAnonymousFunctions(CustomTsgolintOxlintRulesNoAnonymousFunctions),
+    CustomTsgolintOxlintRulesNoBannedWords(CustomTsgolintOxlintRulesNoBannedWords),
+    CustomTsgolintOxlintRulesNoComments(CustomTsgolintOxlintRulesNoComments),
+    CustomTsgolintOxlintRulesNoCurl(CustomTsgolintOxlintRulesNoCurl),
+    CustomTsgolintOxlintRulesNoGlobalFunctions(CustomTsgolintOxlintRulesNoGlobalFunctions),
+    CustomTsgolintOxlintRulesNoImportSideEffects(CustomTsgolintOxlintRulesNoImportSideEffects),
+    CustomTsgolintOxlintRulesNoInfiniteLoop(CustomTsgolintOxlintRulesNoInfiniteLoop),
     CustomTsgolintOxlintRulesNoPassthroughFunctions(
         CustomTsgolintOxlintRulesNoPassthroughFunctions,
     ),
+    CustomTsgolintOxlintRulesNoPrivateKeyword(CustomTsgolintOxlintRulesNoPrivateKeyword),
     CustomTsgolintOxlintRulesNoProcessStreamWrite(CustomTsgolintOxlintRulesNoProcessStreamWrite),
+    CustomTsgolintOxlintRulesNoProtected(CustomTsgolintOxlintRulesNoProtected),
+    CustomTsgolintOxlintRulesNoSingleUseConst(CustomTsgolintOxlintRulesNoSingleUseConst),
     CustomTsgolintOxlintRulesNoSingleUseInterface(CustomTsgolintOxlintRulesNoSingleUseInterface),
     CustomTsgolintOxlintRulesNoStaticWithThisArgs(CustomTsgolintOxlintRulesNoStaticWithThisArgs),
     CustomTsgolintOxlintRulesNoStringError(CustomTsgolintOxlintRulesNoStringError),
+    CustomTsgolintOxlintRulesNoStringRaw(CustomTsgolintOxlintRulesNoStringRaw),
+    CustomTsgolintOxlintRulesNoTrackedClose(CustomTsgolintOxlintRulesNoTrackedClose),
     CustomTsgolintOxlintRulesNoVoidPromise(CustomTsgolintOxlintRulesNoVoidPromise),
     CustomTsgolintOxlintRulesNoZodDefaults(CustomTsgolintOxlintRulesNoZodDefaults),
     CustomTsgolintOxlintRulesNoZodPassthrough(CustomTsgolintOxlintRulesNoZodPassthrough),
     CustomTsgolintOxlintRulesRequireAbortSignal(CustomTsgolintOxlintRulesRequireAbortSignal),
+    CustomTsgolintOxlintRulesRequireAccessModifiers(
+        CustomTsgolintOxlintRulesRequireAccessModifiers,
+    ),
     CustomTsgolintOxlintRulesRequireAsyncDisposable(
         CustomTsgolintOxlintRulesRequireAsyncDisposable,
     ),
+    CustomTsgolintOxlintRulesRequireCatchBinding(CustomTsgolintOxlintRulesRequireCatchBinding),
     CustomTsgolintOxlintRulesRequireFsUtf8(CustomTsgolintOxlintRulesRequireFsUtf8),
-    CustomTsgolintOxlintRulesRequireZodCompile(CustomTsgolintOxlintRulesRequireZodCompile),
+    CustomTsgolintOxlintRulesRequireObjectParams(CustomTsgolintOxlintRulesRequireObjectParams),
+    CustomTsgolintOxlintRulesRequireOsEol(CustomTsgolintOxlintRulesRequireOsEol),
     CustomTsgolintOxlintRulesRequireTrack(CustomTsgolintOxlintRulesRequireTrack),
+    CustomTsgolintOxlintRulesRequireZodCompile(CustomTsgolintOxlintRulesRequireZodCompile),
     CustomTsgolintOxlintRulesZodSchemasFileOnly(CustomTsgolintOxlintRulesZodSchemasFileOnly),
 }
 const IMPORT_CONSISTENT_TYPE_SPECIFIER_STYLE_ID: usize = 0usize;
@@ -2674,21 +2718,40 @@ const VUE_VALID_DEFINE_EMITS_ID: usize = 867usize;
 const VUE_VALID_DEFINE_OPTIONS_ID: usize = 868usize;
 const VUE_VALID_DEFINE_PROPS_ID: usize = 869usize;
 const VUE_VALID_NEXT_TICK_ID: usize = 870usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PASSTHROUGH_FUNCTIONS_ID: usize = 871usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROCESS_STREAM_WRITE_ID: usize = 872usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_INTERFACE_ID: usize = 873usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STATIC_WITH_THIS_ARGS_ID: usize = 874usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID: usize = 875usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID: usize = 876usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_DEFAULTS_ID: usize = 877usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 878usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID: usize = 879usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 880usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 881usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 882usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 883usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 884usize;
-static RULE_NAMES: [&str; 885usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_ASYNC_DISPOSE_LAST_ID: usize = 871usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_CLASS_NAME_MATCHES_FILENAME_ID: usize = 872usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_LOGGER_NAME_MATCHES_CLASS_ID: usize = 873usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ANONYMOUS_FUNCTIONS_ID: usize = 874usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BANNED_WORDS_ID: usize = 875usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_COMMENTS_ID: usize = 876usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_CURL_ID: usize = 877usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_GLOBAL_FUNCTIONS_ID: usize = 878usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_IMPORT_SIDE_EFFECTS_ID: usize = 879usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_INFINITE_LOOP_ID: usize = 880usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PASSTHROUGH_FUNCTIONS_ID: usize = 881usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIVATE_KEYWORD_ID: usize = 882usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROCESS_STREAM_WRITE_ID: usize = 883usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROTECTED_ID: usize = 884usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_CONST_ID: usize = 885usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_INTERFACE_ID: usize = 886usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STATIC_WITH_THIS_ARGS_ID: usize = 887usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID: usize = 888usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_RAW_ID: usize = 889usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_TRACKED_CLOSE_ID: usize = 890usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID: usize = 891usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_DEFAULTS_ID: usize = 892usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 893usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID: usize = 894usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 895usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 896usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 897usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 898usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 899usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 900usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 901usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 902usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 903usize;
+static RULE_NAMES: [&str; 904usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3560,19 +3623,38 @@ static RULE_NAMES: [&str; 885usize] = [
     VueValidDefineOptions::NAME,
     VueValidDefineProps::NAME,
     VueValidNextTick::NAME,
+    CustomTsgolintOxlintRulesAsyncDisposeLast::NAME,
+    CustomTsgolintOxlintRulesClassNameMatchesFilename::NAME,
+    CustomTsgolintOxlintRulesLoggerNameMatchesClass::NAME,
+    CustomTsgolintOxlintRulesNoAnonymousFunctions::NAME,
+    CustomTsgolintOxlintRulesNoBannedWords::NAME,
+    CustomTsgolintOxlintRulesNoComments::NAME,
+    CustomTsgolintOxlintRulesNoCurl::NAME,
+    CustomTsgolintOxlintRulesNoGlobalFunctions::NAME,
+    CustomTsgolintOxlintRulesNoImportSideEffects::NAME,
+    CustomTsgolintOxlintRulesNoInfiniteLoop::NAME,
     CustomTsgolintOxlintRulesNoPassthroughFunctions::NAME,
+    CustomTsgolintOxlintRulesNoPrivateKeyword::NAME,
     CustomTsgolintOxlintRulesNoProcessStreamWrite::NAME,
+    CustomTsgolintOxlintRulesNoProtected::NAME,
+    CustomTsgolintOxlintRulesNoSingleUseConst::NAME,
     CustomTsgolintOxlintRulesNoSingleUseInterface::NAME,
     CustomTsgolintOxlintRulesNoStaticWithThisArgs::NAME,
     CustomTsgolintOxlintRulesNoStringError::NAME,
+    CustomTsgolintOxlintRulesNoStringRaw::NAME,
+    CustomTsgolintOxlintRulesNoTrackedClose::NAME,
     CustomTsgolintOxlintRulesNoVoidPromise::NAME,
     CustomTsgolintOxlintRulesNoZodDefaults::NAME,
     CustomTsgolintOxlintRulesNoZodPassthrough::NAME,
     CustomTsgolintOxlintRulesRequireAbortSignal::NAME,
+    CustomTsgolintOxlintRulesRequireAccessModifiers::NAME,
     CustomTsgolintOxlintRulesRequireAsyncDisposable::NAME,
+    CustomTsgolintOxlintRulesRequireCatchBinding::NAME,
     CustomTsgolintOxlintRulesRequireFsUtf8::NAME,
-    CustomTsgolintOxlintRulesRequireZodCompile::NAME,
+    CustomTsgolintOxlintRulesRequireObjectParams::NAME,
+    CustomTsgolintOxlintRulesRequireOsEol::NAME,
     CustomTsgolintOxlintRulesRequireTrack::NAME,
+    CustomTsgolintOxlintRulesRequireZodCompile::NAME,
     CustomTsgolintOxlintRulesZodSchemasFileOnly::NAME,
 ];
 impl RuleEnum {
@@ -4581,11 +4663,48 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VUE_VALID_DEFINE_OPTIONS_ID,
             Self::VueValidDefineProps(_) => VUE_VALID_DEFINE_PROPS_ID,
             Self::VueValidNextTick(_) => VUE_VALID_NEXT_TICK_ID,
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_ASYNC_DISPOSE_LAST_ID
+            }
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_CLASS_NAME_MATCHES_FILENAME_ID
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_LOGGER_NAME_MATCHES_CLASS_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_ANONYMOUS_FUNCTIONS_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_BANNED_WORDS_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoComments(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_COMMENTS_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => CUSTOM_TSGOLINT_OXLINT_RULES_NO_CURL_ID,
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_GLOBAL_FUNCTIONS_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_IMPORT_SIDE_EFFECTS_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_INFINITE_LOOP_ID
+            }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_PASSTHROUGH_FUNCTIONS_ID
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIVATE_KEYWORD_ID
+            }
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROCESS_STREAM_WRITE_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoProtected(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROTECTED_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_CONST_ID
             }
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_INTERFACE_ID
@@ -4595,6 +4714,12 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoStringRaw(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_RAW_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_TRACKED_CLOSE_ID
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID
@@ -4608,17 +4733,29 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID
             }
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID
+            }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID
             }
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
-                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID
+            }
+            Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID
+            }
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID
             }
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID
@@ -5677,11 +5814,48 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::CATEGORY,
             Self::VueValidDefineProps(_) => VueValidDefineProps::CATEGORY,
             Self::VueValidNextTick(_) => VueValidNextTick::CATEGORY,
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(_) => {
+                CustomTsgolintOxlintRulesAsyncDisposeLast::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(_) => {
+                CustomTsgolintOxlintRulesClassNameMatchesFilename::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(_) => {
+                CustomTsgolintOxlintRulesLoggerNameMatchesClass::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
+                CustomTsgolintOxlintRulesNoAnonymousFunctions::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => {
+                CustomTsgolintOxlintRulesNoBannedWords::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoComments(_) => {
+                CustomTsgolintOxlintRulesNoComments::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => CustomTsgolintOxlintRulesNoCurl::CATEGORY,
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(_) => {
+                CustomTsgolintOxlintRulesNoGlobalFunctions::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => {
+                CustomTsgolintOxlintRulesNoImportSideEffects::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => {
+                CustomTsgolintOxlintRulesNoInfiniteLoop::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::CATEGORY
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
+                CustomTsgolintOxlintRulesNoPrivateKeyword::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 CustomTsgolintOxlintRulesNoProcessStreamWrite::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoProtected(_) => {
+                CustomTsgolintOxlintRulesNoProtected::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(_) => {
+                CustomTsgolintOxlintRulesNoSingleUseConst::CATEGORY
             }
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(_) => {
                 CustomTsgolintOxlintRulesNoSingleUseInterface::CATEGORY
@@ -5691,6 +5865,12 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoStringRaw(_) => {
+                CustomTsgolintOxlintRulesNoStringRaw::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
+                CustomTsgolintOxlintRulesNoTrackedClose::CATEGORY
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::CATEGORY
@@ -5704,17 +5884,29 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignal::CATEGORY
             }
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
+                CustomTsgolintOxlintRulesRequireAccessModifiers::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
+                CustomTsgolintOxlintRulesRequireCatchBinding::CATEGORY
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::CATEGORY
             }
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
-                CustomTsgolintOxlintRulesRequireZodCompile::CATEGORY
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => {
+                CustomTsgolintOxlintRulesRequireObjectParams::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
+                CustomTsgolintOxlintRulesRequireOsEol::CATEGORY
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
+                CustomTsgolintOxlintRulesRequireZodCompile::CATEGORY
             }
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => {
                 CustomTsgolintOxlintRulesZodSchemasFileOnly::CATEGORY
@@ -6711,11 +6903,48 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::FIX,
             Self::VueValidDefineProps(_) => VueValidDefineProps::FIX,
             Self::VueValidNextTick(_) => VueValidNextTick::FIX,
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(_) => {
+                CustomTsgolintOxlintRulesAsyncDisposeLast::FIX
+            }
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(_) => {
+                CustomTsgolintOxlintRulesClassNameMatchesFilename::FIX
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(_) => {
+                CustomTsgolintOxlintRulesLoggerNameMatchesClass::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
+                CustomTsgolintOxlintRulesNoAnonymousFunctions::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => {
+                CustomTsgolintOxlintRulesNoBannedWords::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoComments(_) => {
+                CustomTsgolintOxlintRulesNoComments::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => CustomTsgolintOxlintRulesNoCurl::FIX,
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(_) => {
+                CustomTsgolintOxlintRulesNoGlobalFunctions::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => {
+                CustomTsgolintOxlintRulesNoImportSideEffects::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => {
+                CustomTsgolintOxlintRulesNoInfiniteLoop::FIX
+            }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::FIX
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
+                CustomTsgolintOxlintRulesNoPrivateKeyword::FIX
+            }
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 CustomTsgolintOxlintRulesNoProcessStreamWrite::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoProtected(_) => {
+                CustomTsgolintOxlintRulesNoProtected::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(_) => {
+                CustomTsgolintOxlintRulesNoSingleUseConst::FIX
             }
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(_) => {
                 CustomTsgolintOxlintRulesNoSingleUseInterface::FIX
@@ -6725,6 +6954,12 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoStringRaw(_) => {
+                CustomTsgolintOxlintRulesNoStringRaw::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
+                CustomTsgolintOxlintRulesNoTrackedClose::FIX
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::FIX
@@ -6738,17 +6973,29 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignal::FIX
             }
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
+                CustomTsgolintOxlintRulesRequireAccessModifiers::FIX
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::FIX
+            }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
+                CustomTsgolintOxlintRulesRequireCatchBinding::FIX
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::FIX
             }
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
-                CustomTsgolintOxlintRulesRequireZodCompile::FIX
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => {
+                CustomTsgolintOxlintRulesRequireObjectParams::FIX
+            }
+            Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
+                CustomTsgolintOxlintRulesRequireOsEol::FIX
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::FIX
+            }
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
+                CustomTsgolintOxlintRulesRequireZodCompile::FIX
             }
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => {
                 CustomTsgolintOxlintRulesZodSchemasFileOnly::FIX
@@ -8019,11 +8266,50 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::documentation(),
             Self::VueValidDefineProps(_) => VueValidDefineProps::documentation(),
             Self::VueValidNextTick(_) => VueValidNextTick::documentation(),
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(_) => {
+                CustomTsgolintOxlintRulesAsyncDisposeLast::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(_) => {
+                CustomTsgolintOxlintRulesClassNameMatchesFilename::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(_) => {
+                CustomTsgolintOxlintRulesLoggerNameMatchesClass::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
+                CustomTsgolintOxlintRulesNoAnonymousFunctions::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => {
+                CustomTsgolintOxlintRulesNoBannedWords::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoComments(_) => {
+                CustomTsgolintOxlintRulesNoComments::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => {
+                CustomTsgolintOxlintRulesNoCurl::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(_) => {
+                CustomTsgolintOxlintRulesNoGlobalFunctions::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => {
+                CustomTsgolintOxlintRulesNoImportSideEffects::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => {
+                CustomTsgolintOxlintRulesNoInfiniteLoop::documentation()
+            }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::documentation()
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
+                CustomTsgolintOxlintRulesNoPrivateKeyword::documentation()
+            }
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 CustomTsgolintOxlintRulesNoProcessStreamWrite::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoProtected(_) => {
+                CustomTsgolintOxlintRulesNoProtected::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(_) => {
+                CustomTsgolintOxlintRulesNoSingleUseConst::documentation()
             }
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(_) => {
                 CustomTsgolintOxlintRulesNoSingleUseInterface::documentation()
@@ -8033,6 +8319,12 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoStringRaw(_) => {
+                CustomTsgolintOxlintRulesNoStringRaw::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
+                CustomTsgolintOxlintRulesNoTrackedClose::documentation()
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::documentation()
@@ -8046,17 +8338,29 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignal::documentation()
             }
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
+                CustomTsgolintOxlintRulesRequireAccessModifiers::documentation()
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
+                CustomTsgolintOxlintRulesRequireCatchBinding::documentation()
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::documentation()
             }
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
-                CustomTsgolintOxlintRulesRequireZodCompile::documentation()
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => {
+                CustomTsgolintOxlintRulesRequireObjectParams::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
+                CustomTsgolintOxlintRulesRequireOsEol::documentation()
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
+                CustomTsgolintOxlintRulesRequireZodCompile::documentation()
             }
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => {
                 CustomTsgolintOxlintRulesZodSchemasFileOnly::documentation()
@@ -10564,13 +10868,66 @@ impl RuleEnum {
                 .or_else(|| VueValidDefineProps::schema(generator)),
             Self::VueValidNextTick(_) => VueValidNextTick::config_schema(generator)
                 .or_else(|| VueValidNextTick::schema(generator)),
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(_) => {
+                CustomTsgolintOxlintRulesAsyncDisposeLast::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesAsyncDisposeLast::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(_) => {
+                CustomTsgolintOxlintRulesClassNameMatchesFilename::config_schema(generator).or_else(
+                    || CustomTsgolintOxlintRulesClassNameMatchesFilename::schema(generator),
+                )
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(_) => {
+                CustomTsgolintOxlintRulesLoggerNameMatchesClass::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesLoggerNameMatchesClass::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
+                CustomTsgolintOxlintRulesNoAnonymousFunctions::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoAnonymousFunctions::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => {
+                CustomTsgolintOxlintRulesNoBannedWords::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoBannedWords::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoComments(_) => {
+                CustomTsgolintOxlintRulesNoComments::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoComments::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => {
+                CustomTsgolintOxlintRulesNoCurl::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoCurl::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(_) => {
+                CustomTsgolintOxlintRulesNoGlobalFunctions::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoGlobalFunctions::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => {
+                CustomTsgolintOxlintRulesNoImportSideEffects::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoImportSideEffects::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => {
+                CustomTsgolintOxlintRulesNoInfiniteLoop::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoInfiniteLoop::schema(generator))
+            }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesNoPassthroughFunctions::schema(generator))
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
+                CustomTsgolintOxlintRulesNoPrivateKeyword::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoPrivateKeyword::schema(generator))
+            }
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 CustomTsgolintOxlintRulesNoProcessStreamWrite::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesNoProcessStreamWrite::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoProtected(_) => {
+                CustomTsgolintOxlintRulesNoProtected::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoProtected::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(_) => {
+                CustomTsgolintOxlintRulesNoSingleUseConst::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoSingleUseConst::schema(generator))
             }
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(_) => {
                 CustomTsgolintOxlintRulesNoSingleUseInterface::config_schema(generator)
@@ -10583,6 +10940,14 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesNoStringError::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoStringRaw(_) => {
+                CustomTsgolintOxlintRulesNoStringRaw::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoStringRaw::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
+                CustomTsgolintOxlintRulesNoTrackedClose::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoTrackedClose::schema(generator))
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::config_schema(generator)
@@ -10600,21 +10965,37 @@ impl RuleEnum {
                 CustomTsgolintOxlintRulesRequireAbortSignal::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireAbortSignal::schema(generator))
             }
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
+                CustomTsgolintOxlintRulesRequireAccessModifiers::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireAccessModifiers::schema(generator))
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireAsyncDisposable::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
+                CustomTsgolintOxlintRulesRequireCatchBinding::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireCatchBinding::schema(generator))
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireFsUtf8::schema(generator))
             }
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
-                CustomTsgolintOxlintRulesRequireZodCompile::config_schema(generator)
-                    .or_else(|| CustomTsgolintOxlintRulesRequireZodCompile::schema(generator))
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => {
+                CustomTsgolintOxlintRulesRequireObjectParams::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireObjectParams::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
+                CustomTsgolintOxlintRulesRequireOsEol::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireOsEol::schema(generator))
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireTrack::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
+                CustomTsgolintOxlintRulesRequireZodCompile::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireZodCompile::schema(generator))
             }
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => {
                 CustomTsgolintOxlintRulesZodSchemasFileOnly::config_schema(generator)
@@ -11495,12 +11876,31 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => "vue",
             Self::VueValidDefineProps(_) => "vue",
             Self::VueValidNextTick(_) => "vue",
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoComments(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
+            Self::CustomTsgolintOxlintRulesNoProtected(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
@@ -11508,16 +11908,24 @@ impl RuleEnum {
                 "custom_tsgolint_oxlint_rules"
             }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoStringRaw(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => "custom_tsgolint_oxlint_rules",
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesRequireOsEol(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => "custom_tsgolint_oxlint_rules",
         }
     }
@@ -13528,19 +13936,38 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run(node, ctx),
             Self::VueValidDefineProps(rule) => rule.run(node, ctx),
             Self::VueValidNextTick(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoComments(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoCurl(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoStaticWithThisArgs(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run(node, ctx),
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.run(node, ctx),
         }
     }
@@ -14430,19 +14857,38 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run_once(ctx),
             Self::VueValidDefineProps(rule) => rule.run_once(ctx),
             Self::VueValidNextTick(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoComments(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoCurl(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoStaticWithThisArgs(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run_once(ctx),
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.run_once(ctx),
         }
     }
@@ -15451,10 +15897,47 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::VueValidDefineProps(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::VueValidNextTick(rule) => rule.run_on_jest_node(jest_node, ctx),
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoComments(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(rule) => rule.run_on_jest_node(jest_node, ctx),
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoProtected(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(rule) => {
@@ -15464,6 +15947,12 @@ impl RuleEnum {
                 rule.run_on_jest_node(jest_node, ctx)
             }
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => {
@@ -15478,16 +15967,28 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => {
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => {
@@ -16382,19 +16883,38 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.should_run(ctx),
             Self::VueValidDefineProps(rule) => rule.should_run(ctx),
             Self::VueValidNextTick(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoComments(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoCurl(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoStaticWithThisArgs(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.should_run(ctx),
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.should_run(ctx),
         }
     }
@@ -17661,11 +18181,50 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::IS_TSGOLINT_RULE,
             Self::VueValidDefineProps(_) => VueValidDefineProps::IS_TSGOLINT_RULE,
             Self::VueValidNextTick(_) => VueValidNextTick::IS_TSGOLINT_RULE,
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(_) => {
+                CustomTsgolintOxlintRulesAsyncDisposeLast::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(_) => {
+                CustomTsgolintOxlintRulesClassNameMatchesFilename::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(_) => {
+                CustomTsgolintOxlintRulesLoggerNameMatchesClass::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
+                CustomTsgolintOxlintRulesNoAnonymousFunctions::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => {
+                CustomTsgolintOxlintRulesNoBannedWords::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoComments(_) => {
+                CustomTsgolintOxlintRulesNoComments::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => {
+                CustomTsgolintOxlintRulesNoCurl::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(_) => {
+                CustomTsgolintOxlintRulesNoGlobalFunctions::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => {
+                CustomTsgolintOxlintRulesNoImportSideEffects::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => {
+                CustomTsgolintOxlintRulesNoInfiniteLoop::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::IS_TSGOLINT_RULE
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
+                CustomTsgolintOxlintRulesNoPrivateKeyword::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 CustomTsgolintOxlintRulesNoProcessStreamWrite::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoProtected(_) => {
+                CustomTsgolintOxlintRulesNoProtected::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(_) => {
+                CustomTsgolintOxlintRulesNoSingleUseConst::IS_TSGOLINT_RULE
             }
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(_) => {
                 CustomTsgolintOxlintRulesNoSingleUseInterface::IS_TSGOLINT_RULE
@@ -17675,6 +18234,12 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoStringRaw(_) => {
+                CustomTsgolintOxlintRulesNoStringRaw::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
+                CustomTsgolintOxlintRulesNoTrackedClose::IS_TSGOLINT_RULE
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::IS_TSGOLINT_RULE
@@ -17688,17 +18253,29 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignal::IS_TSGOLINT_RULE
             }
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
+                CustomTsgolintOxlintRulesRequireAccessModifiers::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
+                CustomTsgolintOxlintRulesRequireCatchBinding::IS_TSGOLINT_RULE
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::IS_TSGOLINT_RULE
             }
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
-                CustomTsgolintOxlintRulesRequireZodCompile::IS_TSGOLINT_RULE
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => {
+                CustomTsgolintOxlintRulesRequireObjectParams::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
+                CustomTsgolintOxlintRulesRequireOsEol::IS_TSGOLINT_RULE
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
+                CustomTsgolintOxlintRulesRequireZodCompile::IS_TSGOLINT_RULE
             }
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => {
                 CustomTsgolintOxlintRulesZodSchemasFileOnly::IS_TSGOLINT_RULE
@@ -18756,11 +19333,48 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::VERSION,
             Self::VueValidDefineProps(_) => VueValidDefineProps::VERSION,
             Self::VueValidNextTick(_) => VueValidNextTick::VERSION,
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(_) => {
+                CustomTsgolintOxlintRulesAsyncDisposeLast::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(_) => {
+                CustomTsgolintOxlintRulesClassNameMatchesFilename::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(_) => {
+                CustomTsgolintOxlintRulesLoggerNameMatchesClass::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
+                CustomTsgolintOxlintRulesNoAnonymousFunctions::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => {
+                CustomTsgolintOxlintRulesNoBannedWords::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoComments(_) => {
+                CustomTsgolintOxlintRulesNoComments::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => CustomTsgolintOxlintRulesNoCurl::VERSION,
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(_) => {
+                CustomTsgolintOxlintRulesNoGlobalFunctions::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => {
+                CustomTsgolintOxlintRulesNoImportSideEffects::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => {
+                CustomTsgolintOxlintRulesNoInfiniteLoop::VERSION
+            }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::VERSION
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
+                CustomTsgolintOxlintRulesNoPrivateKeyword::VERSION
+            }
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 CustomTsgolintOxlintRulesNoProcessStreamWrite::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoProtected(_) => {
+                CustomTsgolintOxlintRulesNoProtected::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(_) => {
+                CustomTsgolintOxlintRulesNoSingleUseConst::VERSION
             }
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(_) => {
                 CustomTsgolintOxlintRulesNoSingleUseInterface::VERSION
@@ -18770,6 +19384,12 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoStringRaw(_) => {
+                CustomTsgolintOxlintRulesNoStringRaw::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
+                CustomTsgolintOxlintRulesNoTrackedClose::VERSION
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::VERSION
@@ -18783,17 +19403,29 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignal::VERSION
             }
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
+                CustomTsgolintOxlintRulesRequireAccessModifiers::VERSION
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
+                CustomTsgolintOxlintRulesRequireCatchBinding::VERSION
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::VERSION
             }
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
-                CustomTsgolintOxlintRulesRequireZodCompile::VERSION
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => {
+                CustomTsgolintOxlintRulesRequireObjectParams::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
+                CustomTsgolintOxlintRulesRequireOsEol::VERSION
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
+                CustomTsgolintOxlintRulesRequireZodCompile::VERSION
             }
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => {
                 CustomTsgolintOxlintRulesZodSchemasFileOnly::VERSION
@@ -19890,11 +20522,48 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::HAS_CONFIG,
             Self::VueValidDefineProps(_) => VueValidDefineProps::HAS_CONFIG,
             Self::VueValidNextTick(_) => VueValidNextTick::HAS_CONFIG,
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(_) => {
+                CustomTsgolintOxlintRulesAsyncDisposeLast::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(_) => {
+                CustomTsgolintOxlintRulesClassNameMatchesFilename::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(_) => {
+                CustomTsgolintOxlintRulesLoggerNameMatchesClass::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
+                CustomTsgolintOxlintRulesNoAnonymousFunctions::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => {
+                CustomTsgolintOxlintRulesNoBannedWords::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoComments(_) => {
+                CustomTsgolintOxlintRulesNoComments::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => CustomTsgolintOxlintRulesNoCurl::HAS_CONFIG,
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(_) => {
+                CustomTsgolintOxlintRulesNoGlobalFunctions::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => {
+                CustomTsgolintOxlintRulesNoImportSideEffects::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => {
+                CustomTsgolintOxlintRulesNoInfiniteLoop::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::HAS_CONFIG
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
+                CustomTsgolintOxlintRulesNoPrivateKeyword::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 CustomTsgolintOxlintRulesNoProcessStreamWrite::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoProtected(_) => {
+                CustomTsgolintOxlintRulesNoProtected::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(_) => {
+                CustomTsgolintOxlintRulesNoSingleUseConst::HAS_CONFIG
             }
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(_) => {
                 CustomTsgolintOxlintRulesNoSingleUseInterface::HAS_CONFIG
@@ -19904,6 +20573,12 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoStringRaw(_) => {
+                CustomTsgolintOxlintRulesNoStringRaw::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
+                CustomTsgolintOxlintRulesNoTrackedClose::HAS_CONFIG
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::HAS_CONFIG
@@ -19917,17 +20592,29 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignal::HAS_CONFIG
             }
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
+                CustomTsgolintOxlintRulesRequireAccessModifiers::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
+                CustomTsgolintOxlintRulesRequireCatchBinding::HAS_CONFIG
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::HAS_CONFIG
             }
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
-                CustomTsgolintOxlintRulesRequireZodCompile::HAS_CONFIG
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => {
+                CustomTsgolintOxlintRulesRequireObjectParams::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
+                CustomTsgolintOxlintRulesRequireOsEol::HAS_CONFIG
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
+                CustomTsgolintOxlintRulesRequireZodCompile::HAS_CONFIG
             }
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => {
                 CustomTsgolintOxlintRulesZodSchemasFileOnly::HAS_CONFIG
@@ -20925,11 +21612,48 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::INFO,
             Self::VueValidDefineProps(_) => VueValidDefineProps::INFO,
             Self::VueValidNextTick(_) => VueValidNextTick::INFO,
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(_) => {
+                CustomTsgolintOxlintRulesAsyncDisposeLast::INFO
+            }
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(_) => {
+                CustomTsgolintOxlintRulesClassNameMatchesFilename::INFO
+            }
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(_) => {
+                CustomTsgolintOxlintRulesLoggerNameMatchesClass::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
+                CustomTsgolintOxlintRulesNoAnonymousFunctions::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => {
+                CustomTsgolintOxlintRulesNoBannedWords::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoComments(_) => {
+                CustomTsgolintOxlintRulesNoComments::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => CustomTsgolintOxlintRulesNoCurl::INFO,
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(_) => {
+                CustomTsgolintOxlintRulesNoGlobalFunctions::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => {
+                CustomTsgolintOxlintRulesNoImportSideEffects::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => {
+                CustomTsgolintOxlintRulesNoInfiniteLoop::INFO
+            }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::INFO
             }
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
+                CustomTsgolintOxlintRulesNoPrivateKeyword::INFO
+            }
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 CustomTsgolintOxlintRulesNoProcessStreamWrite::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoProtected(_) => {
+                CustomTsgolintOxlintRulesNoProtected::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(_) => {
+                CustomTsgolintOxlintRulesNoSingleUseConst::INFO
             }
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(_) => {
                 CustomTsgolintOxlintRulesNoSingleUseInterface::INFO
@@ -20939,6 +21663,12 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoStringRaw(_) => {
+                CustomTsgolintOxlintRulesNoStringRaw::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
+                CustomTsgolintOxlintRulesNoTrackedClose::INFO
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::INFO
@@ -20952,17 +21682,29 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignal::INFO
             }
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
+                CustomTsgolintOxlintRulesRequireAccessModifiers::INFO
+            }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::INFO
+            }
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
+                CustomTsgolintOxlintRulesRequireCatchBinding::INFO
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::INFO
             }
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
-                CustomTsgolintOxlintRulesRequireZodCompile::INFO
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => {
+                CustomTsgolintOxlintRulesRequireObjectParams::INFO
+            }
+            Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
+                CustomTsgolintOxlintRulesRequireOsEol::INFO
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::INFO
+            }
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
+                CustomTsgolintOxlintRulesRequireZodCompile::INFO
             }
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => {
                 CustomTsgolintOxlintRulesZodSchemasFileOnly::INFO
@@ -21847,19 +22589,38 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.types_info(),
             Self::VueValidDefineProps(rule) => rule.types_info(),
             Self::VueValidNextTick(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoComments(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoCurl(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoStaticWithThisArgs(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.types_info(),
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.types_info(),
         }
     }
@@ -22736,19 +23497,38 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run_info(),
             Self::VueValidDefineProps(rule) => rule.run_info(),
             Self::VueValidNextTick(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesAsyncDisposeLast(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoComments(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoCurl(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoGlobalFunctions(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoSingleUseConst(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoSingleUseInterface(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoStaticWithThisArgs(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run_info(),
-            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.run_info(),
         }
     }
@@ -23763,11 +24543,48 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         RuleEnum::VueValidDefineOptions(VueValidDefineOptions::default()),
         RuleEnum::VueValidDefineProps(VueValidDefineProps::default()),
         RuleEnum::VueValidNextTick(VueValidNextTick::default()),
+        RuleEnum::CustomTsgolintOxlintRulesAsyncDisposeLast(
+            CustomTsgolintOxlintRulesAsyncDisposeLast::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesClassNameMatchesFilename(
+            CustomTsgolintOxlintRulesClassNameMatchesFilename::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesLoggerNameMatchesClass(
+            CustomTsgolintOxlintRulesLoggerNameMatchesClass::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoAnonymousFunctions(
+            CustomTsgolintOxlintRulesNoAnonymousFunctions::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoBannedWords(
+            CustomTsgolintOxlintRulesNoBannedWords::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoComments(
+            CustomTsgolintOxlintRulesNoComments::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoCurl(CustomTsgolintOxlintRulesNoCurl::default()),
+        RuleEnum::CustomTsgolintOxlintRulesNoGlobalFunctions(
+            CustomTsgolintOxlintRulesNoGlobalFunctions::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoImportSideEffects(
+            CustomTsgolintOxlintRulesNoImportSideEffects::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoInfiniteLoop(
+            CustomTsgolintOxlintRulesNoInfiniteLoop::default(),
+        ),
         RuleEnum::CustomTsgolintOxlintRulesNoPassthroughFunctions(
             CustomTsgolintOxlintRulesNoPassthroughFunctions::default(),
         ),
+        RuleEnum::CustomTsgolintOxlintRulesNoPrivateKeyword(
+            CustomTsgolintOxlintRulesNoPrivateKeyword::default(),
+        ),
         RuleEnum::CustomTsgolintOxlintRulesNoProcessStreamWrite(
             CustomTsgolintOxlintRulesNoProcessStreamWrite::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoProtected(
+            CustomTsgolintOxlintRulesNoProtected::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoSingleUseConst(
+            CustomTsgolintOxlintRulesNoSingleUseConst::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesNoSingleUseInterface(
             CustomTsgolintOxlintRulesNoSingleUseInterface::default(),
@@ -23777,6 +24594,12 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         ),
         RuleEnum::CustomTsgolintOxlintRulesNoStringError(
             CustomTsgolintOxlintRulesNoStringError::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoStringRaw(
+            CustomTsgolintOxlintRulesNoStringRaw::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoTrackedClose(
+            CustomTsgolintOxlintRulesNoTrackedClose::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesNoVoidPromise(
             CustomTsgolintOxlintRulesNoVoidPromise::default(),
@@ -23790,17 +24613,29 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         RuleEnum::CustomTsgolintOxlintRulesRequireAbortSignal(
             CustomTsgolintOxlintRulesRequireAbortSignal::default(),
         ),
+        RuleEnum::CustomTsgolintOxlintRulesRequireAccessModifiers(
+            CustomTsgolintOxlintRulesRequireAccessModifiers::default(),
+        ),
         RuleEnum::CustomTsgolintOxlintRulesRequireAsyncDisposable(
             CustomTsgolintOxlintRulesRequireAsyncDisposable::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesRequireCatchBinding(
+            CustomTsgolintOxlintRulesRequireCatchBinding::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireFsUtf8(
             CustomTsgolintOxlintRulesRequireFsUtf8::default(),
         ),
-        RuleEnum::CustomTsgolintOxlintRulesRequireZodCompile(
-            CustomTsgolintOxlintRulesRequireZodCompile::default(),
+        RuleEnum::CustomTsgolintOxlintRulesRequireObjectParams(
+            CustomTsgolintOxlintRulesRequireObjectParams::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesRequireOsEol(
+            CustomTsgolintOxlintRulesRequireOsEol::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireTrack(
             CustomTsgolintOxlintRulesRequireTrack::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesRequireZodCompile(
+            CustomTsgolintOxlintRulesRequireZodCompile::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesZodSchemasFileOnly(
             CustomTsgolintOxlintRulesZodSchemasFileOnly::default(),

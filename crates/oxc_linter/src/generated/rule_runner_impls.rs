@@ -5558,6 +5558,64 @@ impl RuleRunner for crate::rules::vue::valid_next_tick::ValidNextTick {
 }
 
 impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::async_dispose_last::AsyncDisposeLast
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::class_name_matches_filename::ClassNameMatchesFilename {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::logger_name_matches_class::LoggerNameMatchesClass {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::no_anonymous_functions::NoAnonymousFunctions
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_banned_words::NoBannedWords {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_comments::NoComments {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_curl::NoCurl {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::no_global_functions::NoGlobalFunctions
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::no_import_side_effects::NoImportSideEffects
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_infinite_loop::NoInfiniteLoop {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
     for crate::rules::custom_tsgolint_oxlint_rules::no_passthrough_functions::NoPassthroughFunctions
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
@@ -5565,7 +5623,26 @@ impl RuleRunner
 }
 
 impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::no_private_keyword::NoPrivateKeyword
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
     for crate::rules::custom_tsgolint_oxlint_rules::no_process_stream_write::NoProcessStreamWrite
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_protected::NoProtected {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::no_single_use_const::NoSingleUseConst
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
@@ -5586,6 +5663,16 @@ impl RuleRunner
 }
 
 impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_string_error::NoStringError {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_string_raw::NoStringRaw {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_tracked_close::NoTrackedClose {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
 }
@@ -5615,7 +5702,21 @@ impl RuleRunner
 }
 
 impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::require_access_modifiers::RequireAccessModifiers
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
     for crate::rules::custom_tsgolint_oxlint_rules::require_async_disposable::RequireAsyncDisposable
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::require_catch_binding::RequireCatchBinding
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
@@ -5627,13 +5728,25 @@ impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8:
 }
 
 impl RuleRunner
-    for crate::rules::custom_tsgolint_oxlint_rules::require_zod_compile::RequireZodCompile
+    for crate::rules::custom_tsgolint_oxlint_rules::require_object_params::RequireObjectParams
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
 }
 
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_os_eol::RequireOsEol {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
 impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_track::RequireTrack {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::require_zod_compile::RequireZodCompile
+{
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
 }
