@@ -32,14 +32,16 @@ impl<'a> StaticPropertyName<'a> {
             Self::Number(_) => None,
         }
     }
+}
 
-    /// Call `f` with the complete name, including the `Number::toString` name of a numeric key.
-    ///
-    /// A numeric key is formatted into a stack buffer, so this never allocates.
-    fn with_js_str<R>(self, f: impl FnOnce(JSStr<'_>) -> R) -> R {
-        match self {
-            Self::Str(name) => f(name),
-            Self::Number(value) => f(JSStr::from(dragonbox_ecma::Buffer::new().format(value))),
+/// Call `f` with the full text of `name`, which is `Number::toString` for a numeric key.
+///
+/// A numeric key is formatted into a stack buffer, so this never allocates.
+fn with_name_text<R>(name: StaticPropertyName<'_>, f: impl FnOnce(JSStr<'_>) -> R) -> R {
+    match name {
+        StaticPropertyName::Str(name) => f(name),
+        StaticPropertyName::Number(value) => {
+            f(JSStr::from(dragonbox_ecma::Buffer::new().format(value)))
         }
     }
 }
@@ -69,7 +71,7 @@ impl PartialEq for StaticPropertyName<'_> {
             // `Number::toString` maps both zeros to "0" and is otherwise injective.
             (Self::Number(a), Self::Number(b)) => a == b || (a.is_nan() && b.is_nan()),
             (Self::Str(name), number) | (number, Self::Str(name)) => {
-                number.with_js_str(|number| number == name)
+                with_name_text(number, |number| number == name)
             }
         }
     }
@@ -79,13 +81,13 @@ impl Eq for StaticPropertyName<'_> {}
 
 impl Hash for StaticPropertyName<'_> {
     fn hash<H: Hasher>(&self, state: &mut H) {
-        self.with_js_str(|name| name.hash(state));
+        with_name_text(*self, |name| name.hash(state));
     }
 }
 
 impl PartialEq<str> for StaticPropertyName<'_> {
     fn eq(&self, other: &str) -> bool {
-        self.with_js_str(|name| name == other)
+        with_name_text(*self, |name| name == other)
     }
 }
 
@@ -97,7 +99,7 @@ impl PartialEq<&str> for StaticPropertyName<'_> {
 
 impl PartialEq<JSStr<'_>> for StaticPropertyName<'_> {
     fn eq(&self, other: &JSStr<'_>) -> bool {
-        self.with_js_str(|name| name == *other)
+        with_name_text(*self, |name| name == *other)
     }
 }
 
@@ -111,7 +113,7 @@ impl fmt::Display for StaticPropertyName<'_> {
     /// Display a name for diagnostics, escaping lone surrogates in the same lowercase spelling as
     /// the Debug form and printed output.
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        self.with_js_str(|name| {
+        with_name_text(*self, |name| {
             if let Some(name) = name.as_str() {
                 return f.write_str(name);
             }
@@ -129,7 +131,7 @@ impl fmt::Display for StaticPropertyName<'_> {
 
 impl fmt::Debug for StaticPropertyName<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        self.with_js_str(|name| fmt::Debug::fmt(&name, f))
+        with_name_text(*self, |name| fmt::Debug::fmt(&name, f))
     }
 }
 
