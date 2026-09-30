@@ -654,7 +654,9 @@ impl<'a> AsyncGeneratorExecutor<'a> {
         let mut capitalize_next = false;
 
         let mut chars = input_str.chars();
-        if let Some(first) = chars.next().and_then(oxc_str::JSChar::to_char)
+        let first = chars.next();
+        let drops_lone_surrogate_start = first.is_some_and(|first| first.to_char().is_none());
+        if let Some(first) = first.and_then(oxc_str::JSChar::to_char)
             && is_identifier_start(first)
         {
             name.push(first);
@@ -681,10 +683,11 @@ impl<'a> AsyncGeneratorExecutor<'a> {
             return static_ident!("_");
         }
 
-        // A dropped first character can leave a name that starts with an identifier part,
-        // such as `1` from `"!1"` or `"\uD8001"`.
+        // A dropped leading lone surrogate can leave a name that starts with an identifier part,
+        // such as `1` from `"\uD8001"`.
         let starts_identifier = name.as_str().chars().next().is_some_and(is_identifier_start);
-        if !starts_identifier || is_reserved_keyword(name.as_str()) {
+        if (drops_lone_surrogate_start && !starts_identifier) || is_reserved_keyword(name.as_str())
+        {
             name.push_ascii_byte_start(b'_');
         }
 
