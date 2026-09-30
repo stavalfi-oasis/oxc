@@ -13021,6 +13021,14 @@ impl RuleEnum {
             Self::VueReturnInComputedProperty(_) => Ok(Self::VueReturnInComputedProperty(
                 VueReturnInComputedProperty::from_configuration(value)?,
             )),
+            Self::CustomTsgolintOxlintRulesNoBannedWords(_) => {
+                Ok(Self::CustomTsgolintOxlintRulesNoBannedWords(
+                    CustomTsgolintOxlintRulesNoBannedWords::from_configuration(value)?,
+                ))
+            }
+            Self::CustomTsgolintOxlintRulesNoCurl(_) => Ok(Self::CustomTsgolintOxlintRulesNoCurl(
+                CustomTsgolintOxlintRulesNoCurl::from_configuration(value)?,
+            )),
             _ => Ok(RULES[self.id()].clone()),
         }
     }
@@ -13059,6 +13067,8 @@ impl RuleEnum {
             Self::TypescriptStrictVoidReturn(rule) => rule.to_configuration(),
             Self::TypescriptSwitchExhaustivenessCheck(rule) => rule.to_configuration(),
             Self::TypescriptUnboundMethod(rule) => rule.to_configuration(),
+            Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.to_configuration(),
+            Self::CustomTsgolintOxlintRulesNoCurl(rule) => rule.to_configuration(),
             _ => None,
         }
     }
