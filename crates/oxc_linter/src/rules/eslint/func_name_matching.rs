@@ -212,7 +212,7 @@ impl Rule for FuncNameMatching {
                 };
                 let Some(func_name) = function_expression_name(init) else { return };
 
-                self.report_if_should_warn(name.into(), &func_name, false, ctx);
+                self.report_if_should_warn(StaticPropertyName::from(name), &func_name, false, ctx);
             }
             AstKind::AssignmentExpression(assign_expr) => {
                 let Some(func_name) = function_expression_name(&assign_expr.right) else { return };
@@ -230,7 +230,12 @@ impl Rule for FuncNameMatching {
                     return;
                 }
 
-                self.report_if_should_warn(name.into(), &func_name, is_property, ctx);
+                self.report_if_should_warn(
+                    StaticPropertyName::from(name),
+                    &func_name,
+                    is_property,
+                    ctx,
+                );
             }
             AstKind::ObjectProperty(property) => {
                 self.check_object_property(property, node, ctx);
@@ -288,7 +293,12 @@ impl FuncNameMatching {
                     }
                     DescriptorName::Unresolved => {}
                     DescriptorName::NotDescriptor => {
-                        self.report_if_should_warn("value".into(), &function_name, true, ctx);
+                        self.report_if_should_warn(
+                            StaticPropertyName::from("value"),
+                            &function_name,
+                            true,
+                            ctx,
+                        );
                     }
                 }
             } else {
@@ -301,7 +311,12 @@ impl FuncNameMatching {
         if let Some(property_name) = string_literal_key_name(&property.key)
             && is_valid_identifier(property_name)
         {
-            self.report_if_should_warn(property_name.into(), &function_name, true, ctx);
+            self.report_if_should_warn(
+                StaticPropertyName::from(property_name),
+                &function_name,
+                true,
+                ctx,
+            );
         }
     }
 
@@ -323,7 +338,12 @@ impl FuncNameMatching {
         if let Some(property_name) = string_literal_key_name(&property.key)
             && is_valid_identifier(property_name)
         {
-            self.report_if_should_warn(property_name.into(), &function_name, true, ctx);
+            self.report_if_should_warn(
+                StaticPropertyName::from(property_name),
+                &function_name,
+                true,
+                ctx,
+            );
         }
     }
 }
@@ -350,7 +370,9 @@ fn property_descriptor_name<'a>(node: &AstNode<'a>, ctx: &LintContext<'a>) -> De
                 .arguments
                 .get(1)
                 .and_then(string_literal_argument)
-                .map_or(DescriptorName::Unresolved, |name| DescriptorName::Name(name.into()))
+                .map_or(DescriptorName::Unresolved, |name| {
+                    DescriptorName::Name(StaticPropertyName::from(name))
+                })
         }
         AstKind::ObjectProperty(descriptor_property) => {
             if descriptor_property.computed || !property_key_is_identifier(&descriptor_property.key)

@@ -161,14 +161,14 @@ impl<'a> GetMethod<'a> for TSSignature<'a> {
                 span: sig.key.span(),
             }),
             TSSignature::TSCallSignatureDeclaration(sig) => Some(Method {
-                name: "call".into(),
+                name: StaticPropertyName::from("call"),
                 r#static: false,
                 call_signature: true,
                 kind: MethodKind::Normal,
                 span: sig.span,
             }),
             TSSignature::TSConstructSignatureDeclaration(decl) => Some(Method {
-                name: "new".into(),
+                name: StaticPropertyName::from("new"),
                 r#static: false,
                 call_signature: false,
                 kind: MethodKind::Normal,
@@ -192,7 +192,7 @@ impl<'a> GetMethod<'a> for ModuleDeclaration<'a> {
                             FunctionType::FunctionDeclaration | FunctionType::TSDeclareFunction
                         ) {
                             func_decl.id.as_ref().map(|id| Method {
-                                name: id.name.into(),
+                                name: StaticPropertyName::from(id.name),
                                 r#static: false,
                                 call_signature: false,
                                 kind: MethodKind::Normal,
@@ -208,7 +208,7 @@ impl<'a> GetMethod<'a> for ModuleDeclaration<'a> {
             ModuleDeclaration::ExportDeclaration(export_decl) => {
                 if let Declaration::FunctionDeclaration(func_decl) = &export_decl.declaration {
                     return func_decl.id.as_ref().map(|id| Method {
-                        name: id.name.into(),
+                        name: StaticPropertyName::from(id.name),
                         r#static: false,
                         call_signature: false,
                         kind: MethodKind::Normal,
@@ -231,7 +231,7 @@ impl<'a> GetMethod<'a> for Declaration<'a> {
                     FunctionType::FunctionDeclaration | FunctionType::TSDeclareFunction
                 ) {
                     func_decl.id.as_ref().map(|id| Method {
-                        name: id.name.into(),
+                        name: StaticPropertyName::from(id.name),
                         r#static: false,
                         call_signature: false,
                         kind: MethodKind::Normal,

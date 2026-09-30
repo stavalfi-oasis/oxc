@@ -4,7 +4,7 @@ use schemars::JsonSchema;
 use serde::Deserialize;
 
 use oxc_ast::{
-    AstKind,
+    AstKind, StaticPropertyName,
     ast::{
         AccessorProperty, Decorator, FormalParameter, MethodDefinition, MethodDefinitionKind,
         PropertyDefinition, TSAccessibility,
@@ -241,7 +241,7 @@ impl ExplicitMemberAccessibility {
 
         let check = check.unwrap_or(self.accessibility);
 
-        let method_name = method.key.name().unwrap_or_else(|| "".into());
+        let method_name = method.key.name().unwrap_or_else(|| StaticPropertyName::from(""));
 
         if check == AccessibilityLevel::Off
             || self.ignored_method_names.iter().any(|n| method_name == n.as_str())
@@ -271,7 +271,7 @@ impl ExplicitMemberAccessibility {
             return;
         }
 
-        let name = prop.key.name().unwrap_or_else(|| "".into());
+        let name = prop.key.name().unwrap_or_else(|| StaticPropertyName::from(""));
         Self::check_member_accessibility(
             check,
             prop.accessibility,
@@ -294,7 +294,7 @@ impl ExplicitMemberAccessibility {
             return;
         }
 
-        let name = prop.key.name().unwrap_or_else(|| "".into());
+        let name = prop.key.name().unwrap_or_else(|| StaticPropertyName::from(""));
         Self::check_member_accessibility(
             check,
             prop.accessibility,

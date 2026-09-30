@@ -336,13 +336,13 @@ fn assigned_this_property_name<'a>(left: &AssignmentTarget<'a>) -> Option<JSStr<
 
     match left {
         AssignmentTarget::StaticMemberExpression(expr) if is_this_object(&expr.object) => {
-            Some(expr.property.name.into())
+            Some(expr.property.name.as_js_str())
         }
         AssignmentTarget::ComputedMemberExpression(expr) if is_this_object(&expr.object) => {
             expr.static_property_name()
         }
         AssignmentTarget::PrivateFieldExpression(expr) if is_this_object(&expr.object) => {
-            Some(expr.field.name.into())
+            Some(expr.field.name.as_js_str())
         }
         _ => None,
     }
