@@ -5558,7 +5558,21 @@ impl RuleRunner for crate::rules::vue::valid_next_tick::ValidNextTick {
 }
 
 impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::no_passthrough_functions::NoPassthroughFunctions
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
     for crate::rules::custom_tsgolint_oxlint_rules::no_process_stream_write::NoProcessStreamWrite
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::no_single_use_interface::NoSingleUseInterface
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
@@ -5608,6 +5622,13 @@ impl RuleRunner
 }
 
 impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8::RequireFsUtf8 {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::require_zod_compile::RequireZodCompile
+{
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
 }

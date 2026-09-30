@@ -987,7 +987,9 @@ pub(crate) mod vue {
 /// Oasis type-aware rules. The stubs here only carry metadata and config —
 /// the implementations live in the tsgolint fork.
 pub(crate) mod custom_tsgolint_oxlint_rules {
+    pub mod no_passthrough_functions;
     pub mod no_process_stream_write;
+    pub mod no_single_use_interface;
     pub mod no_static_with_this_args;
     pub mod no_string_error;
     pub mod no_void_promise;
@@ -996,6 +998,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod require_abort_signal;
     pub mod require_async_disposable;
     pub mod require_fs_utf8;
+    pub mod require_zod_compile;
     pub mod require_track;
     pub mod zod_schemas_file_only;
 }
