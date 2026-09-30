@@ -185,8 +185,10 @@ impl PropNameCasing {
         };
         let name = match key_opt {
             Some(StaticPropertyName::Str(name)) => name.as_str().map(Cow::Borrowed),
-            // A numeric key is checked by its number text.
-            Some(name @ StaticPropertyName::Number(_)) => Some(Cow::Owned(name.to_string())),
+            // A numeric or regex key is checked by its text.
+            Some(name @ (StaticPropertyName::Number(_) | StaticPropertyName::Regex(..))) => {
+                Some(Cow::Owned(name.to_string()))
+            }
             None => None,
         };
         let Some(name) = name else { return };

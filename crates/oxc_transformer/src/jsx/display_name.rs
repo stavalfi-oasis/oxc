@@ -110,7 +110,9 @@ impl<'a> Traverse<'a, TransformState<'a>> for ReactDisplayName {
                     // so we diverge from Babel here, but that's probably an improvement
                     match prop.key().static_name() {
                         Some(StaticPropertyName::Str(name)) => break name,
-                        Some(name @ StaticPropertyName::Number(_)) => {
+                        Some(
+                            name @ (StaticPropertyName::Number(_) | StaticPropertyName::Regex(..)),
+                        ) => {
                             break JSStr::from(format_str!(ctx.allocator(), "{name}"));
                         }
                         None => return,

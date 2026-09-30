@@ -330,7 +330,7 @@ fn literal_element_name<'a>(
             Some(StaticPropertyName::from(if b.value { "true" } else { "false" }))
         }
         Expression::BigIntLiteral(b) => Some(StaticPropertyName::from(b.value.as_str())),
-        Expression::RegExpLiteral(r) => r.raw.map(|raw| StaticPropertyName::Str(JSStr::from(raw))),
+        Expression::RegExpLiteral(r) => Some(StaticPropertyName::from(&r.regex)),
         _ => None,
     }
 }

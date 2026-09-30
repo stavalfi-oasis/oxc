@@ -192,6 +192,8 @@ fn test() {
         "var x = { ['__proto__']: null, get __proto__() {} };", // { "ecmaVersion": 6 },
         "var x = { ['__proto__']: null, set __proto__(value) {} };", // { "ecmaVersion": 6 },
         "var x = { __proto__: null, a: 5, a: 6 };", // { "ecmaVersion": 6 }
+        // Regex keys compare with canonical flag order.
+        "var x = { [/a/ig]: 1, [/a/gi]: 2 };",
         // Lone surrogates keep their identity across key syntaxes.
         r#"var x = { "\uD800": 1, "\uD800": 2 };"#,
         r#"var x = { "\uDC00": 1, ["\uDC00"]: 2 };"#,

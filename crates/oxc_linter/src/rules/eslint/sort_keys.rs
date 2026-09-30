@@ -206,7 +206,7 @@ fn compare_keys(
 fn key_text<'s>(name: StaticPropertyName<'s>, buffer: &'s mut String) -> JSStr<'s> {
     match name {
         StaticPropertyName::Str(name) => name,
-        StaticPropertyName::Number(_) => {
+        StaticPropertyName::Number(_) | StaticPropertyName::Regex(..) => {
             *buffer = name.to_string();
             JSStr::from(buffer.as_str())
         }

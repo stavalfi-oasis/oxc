@@ -365,8 +365,10 @@ fn check_longform_methods<'a>(
             StaticPropertyName::Str(name) => {
                 name.as_str().is_some_and(|name| pattern.is_match(name))
             }
-            // A numeric key matches its number text.
-            StaticPropertyName::Number(_) => pattern.is_match(&static_name.to_string()),
+            // A numeric or regex key matches its text.
+            StaticPropertyName::Number(_) | StaticPropertyName::Regex(..) => {
+                pattern.is_match(&static_name.to_string())
+            }
         }
     {
         return;

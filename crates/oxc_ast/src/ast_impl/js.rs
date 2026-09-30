@@ -463,9 +463,7 @@ impl<'a> PropertyKey<'a> {
         match self {
             Self::StaticIdentifier(ident) => Some(StaticPropertyName::from(ident.name)),
             Self::StringLiteral(lit) => Some(StaticPropertyName::from(lit.value)),
-            Self::RegExpLiteral(lit) => {
-                lit.raw.map(|raw| StaticPropertyName::Str(JSStr::from(raw)))
-            }
+            Self::RegExpLiteral(lit) => Some(StaticPropertyName::from(&lit.regex)),
             Self::NumericLiteral(lit) => Some(StaticPropertyName::Number(lit.value)),
             Self::BigIntLiteral(lit) => Some(StaticPropertyName::from(lit.value.as_str())),
             Self::NullLiteral(_) => Some(StaticPropertyName::from("null")),

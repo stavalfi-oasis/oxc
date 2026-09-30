@@ -143,10 +143,11 @@ impl Rule for NoStaticOnlyClass {
                                 Some(StaticPropertyName::Str(name)) => {
                                     name.as_str().map(str::to_owned)
                                 }
-                                // A numeric key keeps its number text.
-                                Some(name @ StaticPropertyName::Number(_)) => {
-                                    Some(name.to_string())
-                                }
+                                // A numeric or regex key keeps its text.
+                                Some(
+                                    name @ (StaticPropertyName::Number(_)
+                                    | StaticPropertyName::Regex(..)),
+                                ) => Some(name.to_string()),
                                 None => None,
                             };
                             let Some(name) = name else {
@@ -187,10 +188,11 @@ impl Rule for NoStaticOnlyClass {
                                 Some(StaticPropertyName::Str(name)) => {
                                     name.as_str().map(str::to_owned)
                                 }
-                                // A numeric key keeps its number text.
-                                Some(name @ StaticPropertyName::Number(_)) => {
-                                    Some(name.to_string())
-                                }
+                                // A numeric or regex key keeps its text.
+                                Some(
+                                    name @ (StaticPropertyName::Number(_)
+                                    | StaticPropertyName::Regex(..)),
+                                ) => Some(name.to_string()),
                                 None => None,
                             };
                             let Some(name) = name else {
