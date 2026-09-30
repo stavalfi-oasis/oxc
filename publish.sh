@@ -1,13 +1,24 @@
 #!/usr/bin/env bash
-# publish.sh — build this fork's standalone `oxlint` binary (apps/oxlint, not the
-# napi addon npm ships) and publish the npm/oxlint-poc package as a tarball to the
-# Oasis rustfs bucket, consumed by the poc monorepo as a tarball-URL dependency.
+# publish.sh — build this fork's oxlint and publish the npm/oxlint-poc package as
+# a tarball to the Oasis rustfs bucket, consumed by the poc monorepo as a
+# tarball-URL dependency.
+#
+# This builds the napi addon and the JS bundle, exactly as upstream's npm package
+# does, NOT the standalone `apps/oxlint` binary. The standalone binary cannot run
+# `jsPlugins` — JS plugin rules need the Node runtime that hosts the addon, so
+# under a bare Rust binary every custom-oxlint-rules/* rule in poc silently
+# reports nothing. Verified: upstream npm oxlint 1.86.0 reports violations from
+# poc's JS plugin where the standalone 1.86 binary reports none.
+#
+# rustfs is an object store, not an npm registry, so the .node addon is shipped
+# inside the package rather than as a per-platform optionalDependency. The
+# generated bindings.js already prefers a local ./oxlint.<platform>.node over the
+# @oxlint/binding-<platform> package, which is what makes that work.
 set -euo pipefail
 
-# Provision the Rust toolchain from nixpkgs when it isn't already on PATH.
-# zig is the cross-linker cargo-zigbuild drives for the linux target.
-if ! command -v cargo >/dev/null 2>&1; then
-  exec nix shell nixpkgs#rustup nixpkgs#cargo-zigbuild nixpkgs#zig \
+# cmake builds mimalloc, which the napi build pulls in via --features allocator.
+if ! command -v cargo >/dev/null 2>&1 || ! command -v cmake >/dev/null 2>&1; then
+  exec nix shell nixpkgs#rustup nixpkgs#cargo-zigbuild nixpkgs#zig nixpkgs#cmake \
     --command "${BASH_SOURCE[0]}" "$@"
 fi
 
@@ -18,41 +29,38 @@ export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY:-minioadmin}"
 export AWS_REGION="${AWS_REGION:-us-east-1}"
 unset AWS_PROFILE
 
-# Space-separated npm platform names. Override to shorten the edit loop, e.g.
-# TARGETS=darwin-arm64 ./publish.sh
-TARGETS="${TARGETS:-darwin-arm64 linux-x64}"
-
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$repo_root"
 
 version="$(git describe --tags --abbrev=0 --match 'oxlint_v*' | sed 's/^oxlint_v//')-$(git rev-parse HEAD)"
 tarball="oxlint-${version}.tgz"
 
-stage="$(mktemp -d)/package"
-trap 'rm -rf "$(dirname "$stage")"' EXIT
-cp -r npm/oxlint-poc "$stage"
-cp LICENSE README.md npm/oxlint/configuration_schema.json "$stage/"
-npm --prefix "$stage" version "$version" --no-git-tag-version --allow-same-version >/dev/null
-
 rustup show active-toolchain >/dev/null
 
-for npm_platform in $TARGETS; do
-  case "$npm_platform" in
-    # target-cpu is a portability floor, not `native`: the tarball has to run on
-    # every teammate's machine, not just the one that built it.
-    darwin-arm64) triple=aarch64-apple-darwin;      builder=build;    cpu=apple-m1 ;;
-    linux-x64)    triple=x86_64-unknown-linux-gnu;  builder=zigbuild; cpu=x86-64-v3 ;;
-    *) echo "unknown target: $npm_platform" >&2; exit 1 ;;
-  esac
+if [[ ! -d node_modules ]]; then
+  echo ">> pnpm install"
+  pnpm install --frozen-lockfile
+fi
 
-  echo ">> building oxlint for ${npm_platform} (${triple})"
-  rustup target add "$triple"
-  # The workspace [profile.release] already pins opt-level=3, lto=fat,
-  # codegen-units=1, panic=abort — only target-cpu is left to set here.
-  RUSTFLAGS="-C target-cpu=${cpu}" \
-    cargo "$builder" --release --target "$triple" -p oxlint --bin oxlint
-  cp "target/${triple}/release/oxlint" "$stage/bin/oxlint-${npm_platform}"
-done
+# `build` == build-napi-release + build-js. The release profile it uses is the
+# workspace [profile.release]: opt-level=3, lto=fat, codegen-units=1,
+# panic=abort, strip=symbols. --features allocator adds mimalloc.
+echo ">> building the napi addon and JS bundle"
+(cd apps/oxlint && pnpm run build)
+
+stage="$(mktemp -d)/package"
+trap 'rm -rf "$(dirname "$stage")"' EXIT
+cp -r oasis/npm-package "$stage"
+mkdir -p "$stage/bin"
+cp -r apps/oxlint/dist "$stage/dist"
+cp LICENSE README.md npm/oxlint/configuration_schema.json "$stage/"
+cp npm/oxlint/bin/oxlint "$stage/bin/oxlint"
+
+# bindings.js resolves ./oxlint.<platform>.node relative to its own directory,
+# which is dist/ once bundled.
+cp apps/oxlint/src-js/*.node "$stage/dist/"
+
+npm --prefix "$stage" version "$version" --no-git-tag-version --allow-same-version >/dev/null
 
 out="$(dirname "$stage")/${tarball}"
 tar -czf "$out" -C "$(dirname "$stage")" package

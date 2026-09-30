@@ -1,0 +1,39 @@
+{
+  "name": "oxlint",
+  "version": "0.0.0-set-by-publish-sh-at-pack-time",
+  "description": "Oasis fork of oxlint — bundles the napi addon so it installs from a plain tarball URL.",
+  "license": "MIT",
+  "repository": "github:stavalfi-oasis/oxc",
+  "bin": {
+    "oxlint": "bin/oxlint"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./plugins-dev": {
+      "types": "./dist/plugins-dev.d.ts",
+      "default": "./dist/plugins-dev.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "oxlint-tsgolint": ">=7.0.2003"
+  },
+  "peerDependenciesMeta": {
+    "oxlint-tsgolint": {
+      "optional": true
+    }
+  },
+  "files": [
+    "bin/oxlint",
+    "configuration_schema.json",
+    "dist",
+    "LICENSE",
+    "README.md"
+  ]
+}
