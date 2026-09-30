@@ -66,12 +66,18 @@ pub struct SourcemapBuilder<'a> {
 impl<'a> SourcemapBuilder<'a> {
     pub fn new(path: &Path, source_text: &'a str) -> Self {
         let line_offset_tables = Self::generate_line_offset_tables(source_text);
+        // Pre-allocate `tokens` and `names` to avoid repeated reallocations (and the `memcpy`s they
+        // trigger) as source mappings are added. A mapping is emitted for roughly each AST node, so
+        // estimate capacity from source length. `Vec::with_capacity` does not zero memory, so
+        // over-allocation only costs a single `malloc`, and any excess is reclaimed by
+        // `shrink_to_fit` in `into_sourcemap`.
+        let source_len = source_text.len();
         Self {
             source_name: path.to_string_lossy().into_owned(),
             original_source: source_text,
-            names: Vec::new(),
+            names: Vec::with_capacity(source_len / 64),
             names_map: FxHashMap::default(),
-            tokens: Vec::new(),
+            tokens: Vec::with_capacity(source_len / 4),
             last_generated_update: 0,
             last_position: None,
             line_offset_tables,
@@ -381,7 +387,11 @@ impl<'a> SourcemapBuilder<'a> {
     }
 
     fn generate_line_offset_tables(content: &str) -> LineOffsetTables {
-        let mut lines = vec![];
+        // Pre-allocate `lines` to avoid repeated reallocations (and the `memcpy`s they trigger) as
+        // each line is pushed. Estimate line count from source length, assuming a short average line
+        // length so we over-allocate rather than under-allocate. `Vec::with_capacity` does not zero
+        // memory, so over-allocation only costs a single `malloc`.
+        let mut lines = Vec::with_capacity(content.len() / 24 + 1);
         let mut column_offsets = IndexVec::new();
 
         // Used as a buffer to reduce memory reallocations.
