@@ -20,7 +20,8 @@ use super::{AllowWarnDeny, ConfigStore, DisableDirectives, ResolvedLinterState, 
 
 use crate::{
     CompositeFix, FixKind, Fixer, Message, PossibleFixes, RuleTimingRecord, RuleTimingSource,
-    RuleTimingStore, WEBSITE_BASE_RULES_URL, suppression::DiffManager,
+    RuleTimingStore, WEBSITE_BASE_RULES_URL, config::plugins::plugin_display_name,
+    suppression::DiffManager,
 };
 
 /// State required to initialize the `tsgolint` linter.
@@ -814,11 +815,23 @@ impl From<TsGoLintDiagnostic> for OxcDiagnostic {
     }
 }
 
+/// tsgolint reports a bare rule name, but rules backed by tsgolint are not all in
+/// the `typescript` plugin — `custom_tsgolint_oxlint_rules` holds the Oasis ones.
+/// Recover the plugin from the rule registry so the diagnostic is labelled with
+/// the same plugin the config uses to enable it.
+fn tsgolint_plugin_name(rule_name: &str) -> &'static str {
+    crate::rules::RULES
+        .iter()
+        .find(|rule| rule.name() == rule_name)
+        .map_or("typescript", |rule| plugin_display_name(rule.plugin_name()))
+}
+
 impl From<TsGoLintRuleDiagnostic> for OxcDiagnostic {
     fn from(val: TsGoLintRuleDiagnostic) -> Self {
+        let plugin = tsgolint_plugin_name(&val.rule);
         let mut d = OxcDiagnostic::warn(val.message.description)
-            .with_url(format!("{}/{}/{}.html", WEBSITE_BASE_RULES_URL, "typescript", val.rule))
-            .with_error_code("typescript", val.rule);
+            .with_url(format!("{}/{}/{}.html", WEBSITE_BASE_RULES_URL, plugin, val.rule))
+            .with_error_code(plugin, val.rule);
         if let Some(help) = val.message.help {
             d = d.with_help(help);
         }
