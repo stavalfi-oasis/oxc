@@ -143,7 +143,7 @@ impl Rule for NoStaticOnlyClass {
                                 Some(StaticPropertyName::Str(name)) => {
                                     name.as_str().map(str::to_owned)
                                 }
-                                // A numeric key keeps its `Number::toString` name.
+                                // A numeric key keeps its number text.
                                 Some(name @ StaticPropertyName::Number(_)) => {
                                     Some(name.to_string())
                                 }
@@ -187,7 +187,7 @@ impl Rule for NoStaticOnlyClass {
                                 Some(StaticPropertyName::Str(name)) => {
                                     name.as_str().map(str::to_owned)
                                 }
-                                // A numeric key keeps its `Number::toString` name.
+                                // A numeric key keeps its number text.
                                 Some(name @ StaticPropertyName::Number(_)) => {
                                     Some(name.to_string())
                                 }

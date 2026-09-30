@@ -1764,7 +1764,6 @@ name = "oxc_ast"
 version = "0.152.0"
 dependencies = [
  "bitflags",
- "dragonbox_ecma",
  "oxc_allocator",
  "oxc_ast_macros",
  "oxc_data_structures",

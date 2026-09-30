@@ -16,6 +16,7 @@ use oxc_diagnostics::OxcDiagnostic;
 use oxc_macros::declare_oxc_lint;
 use oxc_semantic::SymbolId;
 use oxc_span::{GetSpan, Span};
+use oxc_syntax::number::ToJsString;
 
 use crate::{
     AstNode,
@@ -119,7 +120,7 @@ impl NoDupeKeys {
         // Walk all properties in source order so duplicate group names are both visited
         for prop_kind in &obj.properties {
             let ObjectPropertyKind::ObjectProperty(prop) = prop_kind else { continue };
-            let Some(group_name) = static_key_name(&prop.key) else { continue };
+            let Some(group_name) = static_key_name(&prop.key, ctx) else { continue };
             if !groups.iter().any(|&group| group_name == group) {
                 continue;
             }
@@ -217,7 +218,7 @@ fn collect_group_keys<'a>(
             for el in &arr.elements {
                 let Some(expr) = el.as_expression() else { continue };
                 let expr = expr.without_parentheses();
-                if let Some(name) = literal_element_name(expr)
+                if let Some(name) = literal_element_name(expr, ctx)
                     && name != ""
                 {
                     report_or_add(name, expr.span(), seen, ctx);
@@ -276,7 +277,7 @@ fn collect_object_keys<'a>(
         .iter()
         .filter_map(|p| {
             let prop = p.as_property()?;
-            if prop.kind == PropertyKind::Get { static_key_name(&prop.key) } else { None }
+            if prop.kind == PropertyKind::Get { static_key_name(&prop.key, ctx) } else { None }
         })
         .collect();
 
@@ -284,7 +285,7 @@ fn collect_object_keys<'a>(
 
     for prop_kind in &obj.properties {
         let ObjectPropertyKind::ObjectProperty(prop) = prop_kind else { continue };
-        let Some(name) = static_key_name(&prop.key) else { continue };
+        let Some(name) = static_key_name(&prop.key, ctx) else { continue };
         // upstream skips empty names (`if (name)`)
         if name == "" {
             continue;
@@ -317,11 +318,14 @@ fn report_or_add<'a>(
 
 /// Mirrors upstream `getStringLiteralValue`: the prop-name string of a literal array element.
 /// Non-string literals are stringified like JS `String(value)`; `null` has no name.
-fn literal_element_name<'a>(expr: &Expression<'a>) -> Option<StaticPropertyName<'a>> {
+fn literal_element_name<'a>(
+    expr: &Expression<'a>,
+    ctx: &LintContext<'a>,
+) -> Option<StaticPropertyName<'a>> {
     match expr {
         Expression::StringLiteral(s) => Some(StaticPropertyName::from(s.value)),
         Expression::TemplateLiteral(t) => t.single_quasi().map(StaticPropertyName::from),
-        Expression::NumericLiteral(n) => Some(StaticPropertyName::Number(n.value)),
+        Expression::NumericLiteral(n) => Some(js_number_name(n.value, ctx)),
         Expression::BooleanLiteral(b) => {
             Some(StaticPropertyName::from(if b.value { "true" } else { "false" }))
         }
@@ -332,17 +336,27 @@ fn literal_element_name<'a>(expr: &Expression<'a>) -> Option<StaticPropertyName<
 }
 
 /// `PropertyKey::static_name` adjusted to upstream `getStaticPropertyName` semantics:
+/// numeric keys are formatted like JS `String(n)` (`1e-7` → "1e-7", not "0.0000001"),
 /// a computed `[true]` key is named "true", and a computed `[null]` key has no name
 /// (upstream's `getStringLiteralValue` bails on `value == null`; a plain `null` key
 /// is an identifier, not this variant).
-fn static_key_name<'a>(key: &PropertyKey<'a>) -> Option<StaticPropertyName<'a>> {
+fn static_key_name<'a>(
+    key: &PropertyKey<'a>,
+    ctx: &LintContext<'a>,
+) -> Option<StaticPropertyName<'a>> {
     match key {
+        PropertyKey::NumericLiteral(n) => Some(js_number_name(n.value, ctx)),
         PropertyKey::BooleanLiteral(b) => {
             Some(StaticPropertyName::from(if b.value { "true" } else { "false" }))
         }
         PropertyKey::NullLiteral(_) => None,
         _ => key.static_name(),
     }
+}
+
+/// The name of a numeric key formatted like JS `String(n)`.
+fn js_number_name<'a>(value: f64, ctx: &LintContext<'a>) -> StaticPropertyName<'a> {
+    StaticPropertyName::Str(JSStr::from_str_in(&value.to_js_string(), &ctx.allocator()))
 }
 
 // ---- script setup helpers ----
@@ -428,7 +442,7 @@ fn collect_prop_names_from_call<'a>(
             Expression::ObjectExpression(obj) => {
                 for prop_kind in &obj.properties {
                     if let ObjectPropertyKind::ObjectProperty(p) = prop_kind
-                        && let Some(name) = static_key_name(&p.key)
+                        && let Some(name) = static_key_name(&p.key, ctx)
                     {
                         props.push(name);
                     }
@@ -437,7 +451,7 @@ fn collect_prop_names_from_call<'a>(
             Expression::ArrayExpression(arr) => {
                 for el in &arr.elements {
                     let Some(expr) = el.as_expression() else { continue };
-                    if let Some(name) = literal_element_name(expr.without_parentheses()) {
+                    if let Some(name) = literal_element_name(expr.without_parentheses(), ctx) {
                         props.push(name);
                     }
                 }
@@ -463,7 +477,7 @@ fn collect_ts_type_prop_names<'a>(
             TSSignature::TSMethodSignature(s) => &s.key,
             _ => return,
         };
-        if let Some(name) = static_key_name(key) {
+        if let Some(name) = static_key_name(key, ctx) {
             out.push(name);
         }
     });

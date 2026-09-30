@@ -158,7 +158,7 @@ impl Rule for NoNamedAsDefaultMember {
                     for prop in &*object_pattern.properties {
                         let name = match prop.key.static_name() {
                             Some(StaticPropertyName::Str(name)) => name.as_str().map(Cow::Borrowed),
-                            // A numeric key reads the export named by its `Number::toString` name.
+                            // A numeric key reads the export named by its number text.
                             Some(name @ StaticPropertyName::Number(_)) => {
                                 Some(Cow::Owned(name.to_string()))
                             }

@@ -395,7 +395,7 @@ impl<'a> LegacyDecorator<'a> {
                 // which strips leading underscores (e.g. `prop` and `_prop` both become "prop").
                 let key_name = match accessor.key.name() {
                     Some(StaticPropertyName::Str(name)) => name.as_str().map(Cow::Borrowed),
-                    // A numeric key names the storage by its `Number::toString` name.
+                    // A numeric key names the storage by its number text.
                     Some(name @ StaticPropertyName::Number(_)) => {
                         Some(Cow::Owned(name.to_string()))
                     }

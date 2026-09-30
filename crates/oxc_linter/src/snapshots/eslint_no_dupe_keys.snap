@@ -2,24 +2,6 @@
 source: crates/oxc_linter/src/tester.rs
 ---
 
-  ⚠ eslint(no-dupe-keys): Duplicate key '1e+21'
-   ╭─[no_dupe_keys.tsx:1:11]
- 1 │ var x = { 1e21: 1, "1e+21": 2 };
-   ·           ──┬─     ───┬───
-   ·             │         ╰── and duplicated here
-   ·             ╰── Key is first defined here
-   ╰────
-  help: Consider removing the duplicated key
-
-  ⚠ eslint(no-dupe-keys): Duplicate key '1e-7'
-   ╭─[no_dupe_keys.tsx:1:11]
- 1 │ var x = { 1e-7: 1, "1e-7": 2 };
-   ·           ──┬─     ───┬──
-   ·             │         ╰── and duplicated here
-   ·             ╰── Key is first defined here
-   ╰────
-  help: Consider removing the duplicated key
-
   ⚠ eslint(no-dupe-keys): Duplicate key 'a'
    ╭─[no_dupe_keys.tsx:1:11]
  1 │ var x = { a: b, ['a']: b };

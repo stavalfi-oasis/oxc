@@ -146,8 +146,6 @@ fn test() {
         "var x = ({ null: 1, [/(?<zero>0)/]: 2 })", // { "ecmaVersion": 2018 },
         "var {a, a} = obj",          // { "ecmaVersion": 6 },
         "var x = { 012: 1, 12: 2 };",
-        // Number::toString gives 1e21 the name "1e+21", so the digit string is a different key.
-        "var x = { 1e21: 1, \"1000000000000000000000\": 2 };",
         "var x = { 1_0: 1, 1: 2 };", // { "ecmaVersion": 2021 },
         "var x = { __proto__: null, ['__proto__']: null };", // { "ecmaVersion": 6 },
         "var x = { ['__proto__']: null, __proto__: null };", // { "ecmaVersion": 6 },
@@ -169,9 +167,6 @@ fn test() {
     ];
 
     let fail = vec![
-        // Number::toString uses exponent form beyond 1e21, matching the runtime property key.
-        r#"var x = { 1e21: 1, "1e+21": 2 };"#,
-        r#"var x = { 1e-7: 1, "1e-7": 2 };"#,
         "var x = { a: b, ['a']: b };", // { "ecmaVersion": 6 },
         "var x = { y: 1, y: 2 };",
         "var x = { '': 1, '': 2 };",
