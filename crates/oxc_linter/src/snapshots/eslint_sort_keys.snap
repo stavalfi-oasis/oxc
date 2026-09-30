@@ -805,10 +805,10 @@ source: crates/oxc_linter/src/tester.rs
 
   ⚠ eslint(sort-keys): Object keys should be sorted
    ╭─[sort_keys.tsx:1:11]
- 1 │ var obj = {"a1": 1, "\uD800": 2}
+ 1 │ var obj = {"\uD800": 1, "a1": 2}
    ·           ──────────────────────
    ╰────
-  help: Replace `"a1": 1, "\uD800": 2` with `"\uD800": 2, "a1": 1`.
+  help: Replace `"\uD800": 1, "a1": 2` with `"a1": 2, "\uD800": 1`.
 
   ⚠ eslint(sort-keys): Object keys should be sorted
    ╭─[sort_keys.tsx:1:11]

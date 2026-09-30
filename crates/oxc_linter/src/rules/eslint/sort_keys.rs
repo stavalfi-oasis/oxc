@@ -1,4 +1,4 @@
-use std::{borrow::Cow, cmp::Ordering};
+use std::{borrow::Cow, cmp::Ordering, str::Chars};
 
 use oxc_ast::{
     AstKind, StaticPropertyName,
@@ -7,7 +7,7 @@ use oxc_ast::{
 use oxc_diagnostics::OxcDiagnostic;
 use oxc_macros::declare_oxc_lint;
 use oxc_span::{GetSpan, Span};
-use oxc_str::{JSChar, JSStr};
+use oxc_str::JSStr;
 use oxc_syntax::line_terminator::LineTerminatorSplitter;
 use schemars::JsonSchema;
 use serde::Deserialize;
@@ -214,37 +214,20 @@ fn key_text<'s>(name: StaticPropertyName<'s>, buffer: &'s mut String) -> JSStr<'
 }
 
 fn compare_key_names(a: JSStr<'_>, b: JSStr<'_>, options: &SortKeysOptions) -> Ordering {
+    if options.natural
+        && let (Some(a), Some(b)) = (a.as_str(), b.as_str())
+    {
+        return natural_compare(a, b, options.case_sensitive);
+    }
+    // A key with a lone surrogate has no natural order, so it falls back to code point order.
     // Canonical WTF-8 bytes order like code points, so lone surrogates need no decoding.
     // ESLint compares UTF-16 code units instead, which differs for astral characters (#26242).
-    if !options.natural {
-        let (a, b) = (a.as_bytes(), b.as_bytes());
-        return if options.case_sensitive {
-            a.cmp(b)
-        } else {
-            a.iter().map(u8::to_ascii_lowercase).cmp(b.iter().map(u8::to_ascii_lowercase))
-        };
-    }
-    natural_compare(
-        a.chars().map(JSChar::to_u32),
-        b.chars().map(JSChar::to_u32),
-        options.case_sensitive,
-    )
-}
-
-fn ascii_lowercase(code_point: u32) -> u32 {
-    if (u32::from(b'A')..=u32::from(b'Z')).contains(&code_point) {
-        code_point + u32::from(b'a' - b'A')
+    let (a, b) = (a.as_bytes(), b.as_bytes());
+    if options.case_sensitive {
+        a.cmp(b)
     } else {
-        code_point
+        a.iter().map(u8::to_ascii_lowercase).cmp(b.iter().map(u8::to_ascii_lowercase))
     }
-}
-
-fn is_alphanumeric(code_point: u32) -> bool {
-    char::from_u32(code_point).is_some_and(char::is_alphanumeric)
-}
-
-fn to_digit(code_point: u32) -> Option<u32> {
-    char::from_u32(code_point).and_then(|c| c.to_digit(10))
 }
 
 /// Count contiguous groups of statically-named properties, separated by
@@ -486,13 +469,9 @@ fn build_property_text<'a>(
     Cow::Owned(format!("{before_value}{replacement}{after_value}"))
 }
 
-/// Natural ordering over code points, so it also accepts lone surrogates.
-fn natural_compare(
-    mut a_chars: impl Iterator<Item = u32>,
-    mut b_chars: impl Iterator<Item = u32>,
-    case_sensitive: bool,
-) -> Ordering {
-    const LEFT_BRACKET: u32 = '[' as u32;
+fn natural_compare(a: &str, b: &str, case_sensitive: bool) -> Ordering {
+    let mut a_chars = a.chars();
+    let mut b_chars = b.chars();
 
     loop {
         let a_next = a_chars.next();
@@ -503,30 +482,30 @@ fn natural_compare(
             (Some(_), None) => return Ordering::Greater,
             (None, Some(_)) => return Ordering::Less,
             (Some(a_raw), Some(b_raw)) => {
-                let a_char = if case_sensitive { a_raw } else { ascii_lowercase(a_raw) };
-                let b_char = if case_sensitive { b_raw } else { ascii_lowercase(b_raw) };
+                let a_char = if case_sensitive { a_raw } else { a_raw.to_ascii_lowercase() };
+                let b_char = if case_sensitive { b_raw } else { b_raw.to_ascii_lowercase() };
 
                 if a_char == b_char {
                     continue;
                 }
-                if let (Some(a_digit), Some(b_digit)) = (to_digit(a_char), to_digit(b_char)) {
-                    let n1 = take_numeric(&mut a_chars, a_digit);
-                    let n2 = take_numeric(&mut b_chars, b_digit);
+                if a_char.is_ascii_digit() && b_char.is_ascii_digit() {
+                    let n1 = take_numeric(&mut a_chars, a_char);
+                    let n2 = take_numeric(&mut b_chars, b_char);
                     match n1.cmp(&n2) {
                         Ordering::Equal => continue,
                         ord => return ord,
                     }
                 }
-                if is_alphanumeric(a_char) && !is_alphanumeric(b_char) {
+                if a_char.is_alphanumeric() && !b_char.is_alphanumeric() {
                     return Ordering::Greater;
                 }
-                if !is_alphanumeric(a_char) && is_alphanumeric(b_char) {
+                if !a_char.is_alphanumeric() && b_char.is_alphanumeric() {
                     return Ordering::Less;
                 }
-                if a_char == LEFT_BRACKET && is_alphanumeric(b_char) {
+                if a_char == '[' && b_char.is_alphanumeric() {
                     return Ordering::Greater;
                 }
-                if is_alphanumeric(a_char) && b_char == LEFT_BRACKET {
+                if a_char.is_alphanumeric() && b_char == '[' {
                     return Ordering::Less;
                 }
                 return a_char.cmp(&b_char);
@@ -535,10 +514,10 @@ fn natural_compare(
     }
 }
 
-fn take_numeric(iter: &mut impl Iterator<Item = u32>, first: u32) -> u32 {
-    let mut sum = first;
+fn take_numeric(iter: &mut Chars, first: char) -> u32 {
+    let mut sum = first.to_digit(10).unwrap();
     for c in iter.by_ref() {
-        if let Some(digit) = to_digit(c) {
+        if let Some(digit) = c.to_digit(10) {
             sum = sum * 10 + digit;
         } else {
             break;
@@ -996,7 +975,7 @@ fn test() {
         (r#"var obj = {"\uD800": 1, "\uD800\uDC00": 2}"#, None),
         (r#"var obj = {"\uDC00": 1, "\uD800": 2}"#, Some(serde_json::json!(["desc"]))),
         (
-            r#"var obj = {"\uD800": 1, "a1": 2, "a2": 3}"#,
+            r#"var obj = {"a1": 1, "a2": 2, "\uD800": 3}"#,
             Some(serde_json::json!(["asc", { "natural": true }])),
         ),
         (
@@ -1349,7 +1328,7 @@ fn test() {
         (r#"var obj = {"\uD800\uDC00": 1, "\uD800": 2}"#, None),
         (r#"var obj = {"\uD800": 1, "\uDC00": 2}"#, Some(serde_json::json!(["desc"]))),
         (
-            r#"var obj = {"a1": 1, "\uD800": 2}"#,
+            r#"var obj = {"\uD800": 1, "a1": 2}"#,
             Some(serde_json::json!(["asc", { "natural": true }])),
         ),
         (
