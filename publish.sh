@@ -25,7 +25,7 @@ TARGETS="${TARGETS:-darwin-arm64 linux-x64}"
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$repo_root"
 
-version="$(git describe --tags --abbrev=0 --match 'oxlint_v*' | sed 's/^oxlint_v//')-poc-$(git rev-parse HEAD)"
+version="$(git describe --tags --abbrev=0 --match 'oxlint_v*' | sed 's/^oxlint_v//')-$(git rev-parse HEAD)"
 tarball="oxlint-${version}.tgz"
 
 stage="$(mktemp -d)/package"
