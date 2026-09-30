@@ -5556,3 +5556,8 @@ impl RuleRunner for crate::rules::vue::valid_next_tick::ValidNextTick {
     ]));
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Run;
 }
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_string_error::NoStringError {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}

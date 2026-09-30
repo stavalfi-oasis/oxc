@@ -984,6 +984,12 @@ pub(crate) mod vue {
     pub mod valid_next_tick;
 }
 
+/// Oasis type-aware rules. The stubs here only carry metadata and config —
+/// the implementations live in the tsgolint fork.
+pub(crate) mod custom_tsgolint_oxlint_rules {
+    pub mod no_string_error;
+}
+
 pub(crate) mod shared;
 
 // Re-export RuleEnum, RULES, and all rule type aliases from generated code

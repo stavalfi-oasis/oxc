@@ -10,6 +10,7 @@
 )]
 #[cfg(feature = "ruledocs")]
 use crate::rule::RuleInfo;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_string_error::NoStringError as CustomTsgolintOxlintRulesNoStringError;
 pub use crate::rules::eslint::accessor_pairs::AccessorPairs as EslintAccessorPairs;
 pub use crate::rules::eslint::array_callback_return::ArrayCallbackReturn as EslintArrayCallbackReturn;
 pub use crate::rules::eslint::arrow_body_style::ArrowBodyStyle as EslintArrowBodyStyle;
@@ -1770,6 +1771,7 @@ pub enum RuleEnum {
     VueValidDefineOptions(VueValidDefineOptions),
     VueValidDefineProps(VueValidDefineProps),
     VueValidNextTick(VueValidNextTick),
+    CustomTsgolintOxlintRulesNoStringError(CustomTsgolintOxlintRulesNoStringError),
 }
 const IMPORT_CONSISTENT_TYPE_SPECIFIER_STYLE_ID: usize = 0usize;
 const IMPORT_DEFAULT_ID: usize = 1usize;
@@ -2642,7 +2644,8 @@ const VUE_VALID_DEFINE_EMITS_ID: usize = 867usize;
 const VUE_VALID_DEFINE_OPTIONS_ID: usize = 868usize;
 const VUE_VALID_DEFINE_PROPS_ID: usize = 869usize;
 const VUE_VALID_NEXT_TICK_ID: usize = 870usize;
-static RULE_NAMES: [&str; 871usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID: usize = 871usize;
+static RULE_NAMES: [&str; 872usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3514,6 +3517,7 @@ static RULE_NAMES: [&str; 871usize] = [
     VueValidDefineOptions::NAME,
     VueValidDefineProps::NAME,
     VueValidNextTick::NAME,
+    CustomTsgolintOxlintRulesNoStringError::NAME,
 ];
 impl RuleEnum {
     pub fn id(&self) -> usize {
@@ -4521,6 +4525,9 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VUE_VALID_DEFINE_OPTIONS_ID,
             Self::VueValidDefineProps(_) => VUE_VALID_DEFINE_PROPS_ID,
             Self::VueValidNextTick(_) => VUE_VALID_NEXT_TICK_ID,
+            Self::CustomTsgolintOxlintRulesNoStringError(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID
+            }
         }
     }
     pub fn name(&self) -> &'static str {
@@ -5575,6 +5582,9 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::CATEGORY,
             Self::VueValidDefineProps(_) => VueValidDefineProps::CATEGORY,
             Self::VueValidNextTick(_) => VueValidNextTick::CATEGORY,
+            Self::CustomTsgolintOxlintRulesNoStringError(_) => {
+                CustomTsgolintOxlintRulesNoStringError::CATEGORY
+            }
         }
     }
     #[doc = r" This [`Rule`]'s auto-fix capabilities."]
@@ -6567,6 +6577,9 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::FIX,
             Self::VueValidDefineProps(_) => VueValidDefineProps::FIX,
             Self::VueValidNextTick(_) => VueValidNextTick::FIX,
+            Self::CustomTsgolintOxlintRulesNoStringError(_) => {
+                CustomTsgolintOxlintRulesNoStringError::FIX
+            }
         }
     }
     #[cfg(feature = "ruledocs")]
@@ -7833,6 +7846,9 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::documentation(),
             Self::VueValidDefineProps(_) => VueValidDefineProps::documentation(),
             Self::VueValidNextTick(_) => VueValidNextTick::documentation(),
+            Self::CustomTsgolintOxlintRulesNoStringError(_) => {
+                CustomTsgolintOxlintRulesNoStringError::documentation()
+            }
         }
     }
     #[cfg(feature = "ruledocs")]
@@ -10336,6 +10352,10 @@ impl RuleEnum {
                 .or_else(|| VueValidDefineProps::schema(generator)),
             Self::VueValidNextTick(_) => VueValidNextTick::config_schema(generator)
                 .or_else(|| VueValidNextTick::schema(generator)),
+            Self::CustomTsgolintOxlintRulesNoStringError(_) => {
+                CustomTsgolintOxlintRulesNoStringError::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoStringError::schema(generator))
+            }
         }
     }
     pub fn plugin_name(&self) -> &'static str {
@@ -11211,6 +11231,7 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => "vue",
             Self::VueValidDefineProps(_) => "vue",
             Self::VueValidNextTick(_) => "vue",
+            Self::CustomTsgolintOxlintRulesNoStringError(_) => "custom_tsgolint_oxlint_rules",
         }
     }
     pub fn from_configuration(
@@ -13220,6 +13241,7 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run(node, ctx),
             Self::VueValidDefineProps(rule) => rule.run(node, ctx),
             Self::VueValidNextTick(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run(node, ctx),
         }
     }
     pub(crate) fn run<'a, const TIMINGS: bool>(
@@ -14108,6 +14130,7 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run_once(ctx),
             Self::VueValidDefineProps(rule) => rule.run_once(ctx),
             Self::VueValidNextTick(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run_once(ctx),
         }
     }
     pub(crate) fn run_once<const TIMINGS: bool>(
@@ -15115,6 +15138,9 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::VueValidDefineProps(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::VueValidNextTick(rule) => rule.run_on_jest_node(jest_node, ctx),
+            Self::CustomTsgolintOxlintRulesNoStringError(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
         }
     }
     pub(crate) fn run_on_jest_node<'a, 'c, const TIMINGS: bool>(
@@ -16004,6 +16030,7 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.should_run(ctx),
             Self::VueValidDefineProps(rule) => rule.should_run(ctx),
             Self::VueValidNextTick(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.should_run(ctx),
         }
     }
     pub fn is_tsgolint_rule(&self) -> bool {
@@ -17269,6 +17296,9 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::IS_TSGOLINT_RULE,
             Self::VueValidDefineProps(_) => VueValidDefineProps::IS_TSGOLINT_RULE,
             Self::VueValidNextTick(_) => VueValidNextTick::IS_TSGOLINT_RULE,
+            Self::CustomTsgolintOxlintRulesNoStringError(_) => {
+                CustomTsgolintOxlintRulesNoStringError::IS_TSGOLINT_RULE
+            }
         }
     }
     #[doc = r" The version of oxlint in which this rule was first available."]
@@ -18322,6 +18352,9 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::VERSION,
             Self::VueValidDefineProps(_) => VueValidDefineProps::VERSION,
             Self::VueValidNextTick(_) => VueValidNextTick::VERSION,
+            Self::CustomTsgolintOxlintRulesNoStringError(_) => {
+                CustomTsgolintOxlintRulesNoStringError::VERSION
+            }
         }
     }
     #[doc = r" Whether this rule declares a configuration type."]
@@ -19414,6 +19447,9 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::HAS_CONFIG,
             Self::VueValidDefineProps(_) => VueValidDefineProps::HAS_CONFIG,
             Self::VueValidNextTick(_) => VueValidNextTick::HAS_CONFIG,
+            Self::CustomTsgolintOxlintRulesNoStringError(_) => {
+                CustomTsgolintOxlintRulesNoStringError::HAS_CONFIG
+            }
         }
     }
     #[doc = r" Additional information about this rule."]
@@ -20407,6 +20443,9 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::INFO,
             Self::VueValidDefineProps(_) => VueValidDefineProps::INFO,
             Self::VueValidNextTick(_) => VueValidNextTick::INFO,
+            Self::CustomTsgolintOxlintRulesNoStringError(_) => {
+                CustomTsgolintOxlintRulesNoStringError::INFO
+            }
         }
     }
     #[doc = r" A short, one-line summary of what this rule does."]
@@ -21287,6 +21326,7 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.types_info(),
             Self::VueValidDefineProps(rule) => rule.types_info(),
             Self::VueValidNextTick(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.types_info(),
         }
     }
     pub fn run_info(&self) -> RuleRunFunctionsImplemented {
@@ -22162,6 +22202,7 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run_info(),
             Self::VueValidDefineProps(rule) => rule.run_info(),
             Self::VueValidNextTick(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run_info(),
         }
     }
 }
@@ -23175,5 +23216,8 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         RuleEnum::VueValidDefineOptions(VueValidDefineOptions::default()),
         RuleEnum::VueValidDefineProps(VueValidDefineProps::default()),
         RuleEnum::VueValidNextTick(VueValidNextTick::default()),
+        RuleEnum::CustomTsgolintOxlintRulesNoStringError(
+            CustomTsgolintOxlintRulesNoStringError::default(),
+        ),
     ]
 });
