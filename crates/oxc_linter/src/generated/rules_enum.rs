@@ -10,7 +10,12 @@
 )]
 #[cfg(feature = "ruledocs")]
 use crate::rule::RuleInfo;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_process_stream_write::NoProcessStreamWrite as CustomTsgolintOxlintRulesNoProcessStreamWrite;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_string_error::NoStringError as CustomTsgolintOxlintRulesNoStringError;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_void_promise::NoVoidPromise as CustomTsgolintOxlintRulesNoVoidPromise;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_zod_defaults::NoZodDefaults as CustomTsgolintOxlintRulesNoZodDefaults;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_zod_passthrough::NoZodPassthrough as CustomTsgolintOxlintRulesNoZodPassthrough;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8::RequireFsUtf8 as CustomTsgolintOxlintRulesRequireFsUtf8;
 pub use crate::rules::eslint::accessor_pairs::AccessorPairs as EslintAccessorPairs;
 pub use crate::rules::eslint::array_callback_return::ArrayCallbackReturn as EslintArrayCallbackReturn;
 pub use crate::rules::eslint::arrow_body_style::ArrowBodyStyle as EslintArrowBodyStyle;
@@ -1771,7 +1776,12 @@ pub enum RuleEnum {
     VueValidDefineOptions(VueValidDefineOptions),
     VueValidDefineProps(VueValidDefineProps),
     VueValidNextTick(VueValidNextTick),
+    CustomTsgolintOxlintRulesNoProcessStreamWrite(CustomTsgolintOxlintRulesNoProcessStreamWrite),
     CustomTsgolintOxlintRulesNoStringError(CustomTsgolintOxlintRulesNoStringError),
+    CustomTsgolintOxlintRulesNoVoidPromise(CustomTsgolintOxlintRulesNoVoidPromise),
+    CustomTsgolintOxlintRulesNoZodDefaults(CustomTsgolintOxlintRulesNoZodDefaults),
+    CustomTsgolintOxlintRulesNoZodPassthrough(CustomTsgolintOxlintRulesNoZodPassthrough),
+    CustomTsgolintOxlintRulesRequireFsUtf8(CustomTsgolintOxlintRulesRequireFsUtf8),
 }
 const IMPORT_CONSISTENT_TYPE_SPECIFIER_STYLE_ID: usize = 0usize;
 const IMPORT_DEFAULT_ID: usize = 1usize;
@@ -2644,8 +2654,13 @@ const VUE_VALID_DEFINE_EMITS_ID: usize = 867usize;
 const VUE_VALID_DEFINE_OPTIONS_ID: usize = 868usize;
 const VUE_VALID_DEFINE_PROPS_ID: usize = 869usize;
 const VUE_VALID_NEXT_TICK_ID: usize = 870usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID: usize = 871usize;
-static RULE_NAMES: [&str; 872usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROCESS_STREAM_WRITE_ID: usize = 871usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID: usize = 872usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID: usize = 873usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_DEFAULTS_ID: usize = 874usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 875usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 876usize;
+static RULE_NAMES: [&str; 877usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3517,7 +3532,12 @@ static RULE_NAMES: [&str; 872usize] = [
     VueValidDefineOptions::NAME,
     VueValidDefineProps::NAME,
     VueValidNextTick::NAME,
+    CustomTsgolintOxlintRulesNoProcessStreamWrite::NAME,
     CustomTsgolintOxlintRulesNoStringError::NAME,
+    CustomTsgolintOxlintRulesNoVoidPromise::NAME,
+    CustomTsgolintOxlintRulesNoZodDefaults::NAME,
+    CustomTsgolintOxlintRulesNoZodPassthrough::NAME,
+    CustomTsgolintOxlintRulesRequireFsUtf8::NAME,
 ];
 impl RuleEnum {
     pub fn id(&self) -> usize {
@@ -4525,8 +4545,23 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VUE_VALID_DEFINE_OPTIONS_ID,
             Self::VueValidDefineProps(_) => VUE_VALID_DEFINE_PROPS_ID,
             Self::VueValidNextTick(_) => VUE_VALID_NEXT_TICK_ID,
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROCESS_STREAM_WRITE_ID
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_DEFAULTS_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID
+            }
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID
             }
         }
     }
@@ -5582,8 +5617,23 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::CATEGORY,
             Self::VueValidDefineProps(_) => VueValidDefineProps::CATEGORY,
             Self::VueValidNextTick(_) => VueValidNextTick::CATEGORY,
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
+                CustomTsgolintOxlintRulesNoProcessStreamWrite::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
+                CustomTsgolintOxlintRulesNoVoidPromise::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => {
+                CustomTsgolintOxlintRulesNoZodDefaults::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => {
+                CustomTsgolintOxlintRulesNoZodPassthrough::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
+                CustomTsgolintOxlintRulesRequireFsUtf8::CATEGORY
             }
         }
     }
@@ -6577,8 +6627,23 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::FIX,
             Self::VueValidDefineProps(_) => VueValidDefineProps::FIX,
             Self::VueValidNextTick(_) => VueValidNextTick::FIX,
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
+                CustomTsgolintOxlintRulesNoProcessStreamWrite::FIX
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
+                CustomTsgolintOxlintRulesNoVoidPromise::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => {
+                CustomTsgolintOxlintRulesNoZodDefaults::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => {
+                CustomTsgolintOxlintRulesNoZodPassthrough::FIX
+            }
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
+                CustomTsgolintOxlintRulesRequireFsUtf8::FIX
             }
         }
     }
@@ -7846,8 +7911,23 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::documentation(),
             Self::VueValidDefineProps(_) => VueValidDefineProps::documentation(),
             Self::VueValidNextTick(_) => VueValidNextTick::documentation(),
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
+                CustomTsgolintOxlintRulesNoProcessStreamWrite::documentation()
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
+                CustomTsgolintOxlintRulesNoVoidPromise::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => {
+                CustomTsgolintOxlintRulesNoZodDefaults::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => {
+                CustomTsgolintOxlintRulesNoZodPassthrough::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
+                CustomTsgolintOxlintRulesRequireFsUtf8::documentation()
             }
         }
     }
@@ -10352,9 +10432,29 @@ impl RuleEnum {
                 .or_else(|| VueValidDefineProps::schema(generator)),
             Self::VueValidNextTick(_) => VueValidNextTick::config_schema(generator)
                 .or_else(|| VueValidNextTick::schema(generator)),
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
+                CustomTsgolintOxlintRulesNoProcessStreamWrite::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoProcessStreamWrite::schema(generator))
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesNoStringError::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
+                CustomTsgolintOxlintRulesNoVoidPromise::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoVoidPromise::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => {
+                CustomTsgolintOxlintRulesNoZodDefaults::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoZodDefaults::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => {
+                CustomTsgolintOxlintRulesNoZodPassthrough::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoZodPassthrough::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
+                CustomTsgolintOxlintRulesRequireFsUtf8::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireFsUtf8::schema(generator))
             }
         }
     }
@@ -11231,7 +11331,14 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => "vue",
             Self::VueValidDefineProps(_) => "vue",
             Self::VueValidNextTick(_) => "vue",
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => "custom_tsgolint_oxlint_rules",
         }
     }
     pub fn from_configuration(
@@ -13241,7 +13348,12 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run(node, ctx),
             Self::VueValidDefineProps(rule) => rule.run(node, ctx),
             Self::VueValidNextTick(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run(node, ctx),
         }
     }
     pub(crate) fn run<'a, const TIMINGS: bool>(
@@ -14130,7 +14242,12 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run_once(ctx),
             Self::VueValidDefineProps(rule) => rule.run_once(ctx),
             Self::VueValidNextTick(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run_once(ctx),
         }
     }
     pub(crate) fn run_once<const TIMINGS: bool>(
@@ -15138,7 +15255,22 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::VueValidDefineProps(rule) => rule.run_on_jest_node(jest_node, ctx),
             Self::VueValidNextTick(rule) => rule.run_on_jest_node(jest_node, ctx),
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
         }
@@ -16030,7 +16162,12 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.should_run(ctx),
             Self::VueValidDefineProps(rule) => rule.should_run(ctx),
             Self::VueValidNextTick(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.should_run(ctx),
         }
     }
     pub fn is_tsgolint_rule(&self) -> bool {
@@ -17296,8 +17433,23 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::IS_TSGOLINT_RULE,
             Self::VueValidDefineProps(_) => VueValidDefineProps::IS_TSGOLINT_RULE,
             Self::VueValidNextTick(_) => VueValidNextTick::IS_TSGOLINT_RULE,
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
+                CustomTsgolintOxlintRulesNoProcessStreamWrite::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
+                CustomTsgolintOxlintRulesNoVoidPromise::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => {
+                CustomTsgolintOxlintRulesNoZodDefaults::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => {
+                CustomTsgolintOxlintRulesNoZodPassthrough::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
+                CustomTsgolintOxlintRulesRequireFsUtf8::IS_TSGOLINT_RULE
             }
         }
     }
@@ -18352,8 +18504,23 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::VERSION,
             Self::VueValidDefineProps(_) => VueValidDefineProps::VERSION,
             Self::VueValidNextTick(_) => VueValidNextTick::VERSION,
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
+                CustomTsgolintOxlintRulesNoProcessStreamWrite::VERSION
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
+                CustomTsgolintOxlintRulesNoVoidPromise::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => {
+                CustomTsgolintOxlintRulesNoZodDefaults::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => {
+                CustomTsgolintOxlintRulesNoZodPassthrough::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
+                CustomTsgolintOxlintRulesRequireFsUtf8::VERSION
             }
         }
     }
@@ -19447,8 +19614,23 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::HAS_CONFIG,
             Self::VueValidDefineProps(_) => VueValidDefineProps::HAS_CONFIG,
             Self::VueValidNextTick(_) => VueValidNextTick::HAS_CONFIG,
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
+                CustomTsgolintOxlintRulesNoProcessStreamWrite::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
+                CustomTsgolintOxlintRulesNoVoidPromise::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => {
+                CustomTsgolintOxlintRulesNoZodDefaults::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => {
+                CustomTsgolintOxlintRulesNoZodPassthrough::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
+                CustomTsgolintOxlintRulesRequireFsUtf8::HAS_CONFIG
             }
         }
     }
@@ -20443,8 +20625,23 @@ impl RuleEnum {
             Self::VueValidDefineOptions(_) => VueValidDefineOptions::INFO,
             Self::VueValidDefineProps(_) => VueValidDefineProps::INFO,
             Self::VueValidNextTick(_) => VueValidNextTick::INFO,
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
+                CustomTsgolintOxlintRulesNoProcessStreamWrite::INFO
+            }
             Self::CustomTsgolintOxlintRulesNoStringError(_) => {
                 CustomTsgolintOxlintRulesNoStringError::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
+                CustomTsgolintOxlintRulesNoVoidPromise::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => {
+                CustomTsgolintOxlintRulesNoZodDefaults::INFO
+            }
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => {
+                CustomTsgolintOxlintRulesNoZodPassthrough::INFO
+            }
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
+                CustomTsgolintOxlintRulesRequireFsUtf8::INFO
             }
         }
     }
@@ -21326,7 +21523,12 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.types_info(),
             Self::VueValidDefineProps(rule) => rule.types_info(),
             Self::VueValidNextTick(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.types_info(),
         }
     }
     pub fn run_info(&self) -> RuleRunFunctionsImplemented {
@@ -22202,7 +22404,12 @@ impl RuleEnum {
             Self::VueValidDefineOptions(rule) => rule.run_info(),
             Self::VueValidDefineProps(rule) => rule.run_info(),
             Self::VueValidNextTick(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run_info(),
         }
     }
 }
@@ -23216,8 +23423,23 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         RuleEnum::VueValidDefineOptions(VueValidDefineOptions::default()),
         RuleEnum::VueValidDefineProps(VueValidDefineProps::default()),
         RuleEnum::VueValidNextTick(VueValidNextTick::default()),
+        RuleEnum::CustomTsgolintOxlintRulesNoProcessStreamWrite(
+            CustomTsgolintOxlintRulesNoProcessStreamWrite::default(),
+        ),
         RuleEnum::CustomTsgolintOxlintRulesNoStringError(
             CustomTsgolintOxlintRulesNoStringError::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoVoidPromise(
+            CustomTsgolintOxlintRulesNoVoidPromise::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoZodDefaults(
+            CustomTsgolintOxlintRulesNoZodDefaults::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoZodPassthrough(
+            CustomTsgolintOxlintRulesNoZodPassthrough::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesRequireFsUtf8(
+            CustomTsgolintOxlintRulesRequireFsUtf8::default(),
         ),
     ]
 });
