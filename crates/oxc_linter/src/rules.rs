@@ -1013,6 +1013,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod require_abort_signal;
     pub mod require_access_modifiers;
     pub mod require_async_disposable;
+    pub mod require_async_queue;
     pub mod require_catch_binding;
     pub mod require_fs_utf8;
     pub mod require_object_params;

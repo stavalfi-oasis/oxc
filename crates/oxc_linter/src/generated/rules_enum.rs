@@ -36,6 +36,7 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::no_zod_passthrough::NoZodPas
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_abort_signal::RequireAbortSignal as CustomTsgolintOxlintRulesRequireAbortSignal;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_access_modifiers::RequireAccessModifiers as CustomTsgolintOxlintRulesRequireAccessModifiers;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_async_disposable::RequireAsyncDisposable as CustomTsgolintOxlintRulesRequireAsyncDisposable;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_async_queue::RequireAsyncQueue as CustomTsgolintOxlintRulesRequireAsyncQueue;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_catch_binding::RequireCatchBinding as CustomTsgolintOxlintRulesRequireCatchBinding;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8::RequireFsUtf8 as CustomTsgolintOxlintRulesRequireFsUtf8;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_object_params::RequireObjectParams as CustomTsgolintOxlintRulesRequireObjectParams;
@@ -1839,6 +1840,7 @@ pub enum RuleEnum {
     CustomTsgolintOxlintRulesRequireAsyncDisposable(
         CustomTsgolintOxlintRulesRequireAsyncDisposable,
     ),
+    CustomTsgolintOxlintRulesRequireAsyncQueue(CustomTsgolintOxlintRulesRequireAsyncQueue),
     CustomTsgolintOxlintRulesRequireCatchBinding(CustomTsgolintOxlintRulesRequireCatchBinding),
     CustomTsgolintOxlintRulesRequireFsUtf8(CustomTsgolintOxlintRulesRequireFsUtf8),
     CustomTsgolintOxlintRulesRequireObjectParams(CustomTsgolintOxlintRulesRequireObjectParams),
@@ -2744,14 +2746,15 @@ const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 893usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID: usize = 894usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 895usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 896usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 897usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 898usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 899usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 900usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 901usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 902usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 903usize;
-static RULE_NAMES: [&str; 904usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID: usize = 897usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 898usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 899usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 900usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 901usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 902usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 903usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 904usize;
+static RULE_NAMES: [&str; 905usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3649,6 +3652,7 @@ static RULE_NAMES: [&str; 904usize] = [
     CustomTsgolintOxlintRulesRequireAbortSignal::NAME,
     CustomTsgolintOxlintRulesRequireAccessModifiers::NAME,
     CustomTsgolintOxlintRulesRequireAsyncDisposable::NAME,
+    CustomTsgolintOxlintRulesRequireAsyncQueue::NAME,
     CustomTsgolintOxlintRulesRequireCatchBinding::NAME,
     CustomTsgolintOxlintRulesRequireFsUtf8::NAME,
     CustomTsgolintOxlintRulesRequireObjectParams::NAME,
@@ -4738,6 +4742,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID
+            }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID
             }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID
@@ -5890,6 +5897,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::CATEGORY
             }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => {
+                CustomTsgolintOxlintRulesRequireAsyncQueue::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::CATEGORY
             }
@@ -6978,6 +6988,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::FIX
+            }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => {
+                CustomTsgolintOxlintRulesRequireAsyncQueue::FIX
             }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::FIX
@@ -8343,6 +8356,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => {
+                CustomTsgolintOxlintRulesRequireAsyncQueue::documentation()
             }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::documentation()
@@ -10973,6 +10989,10 @@ impl RuleEnum {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireAsyncDisposable::schema(generator))
             }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => {
+                CustomTsgolintOxlintRulesRequireAsyncQueue::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireAsyncQueue::schema(generator))
+            }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireCatchBinding::schema(generator))
@@ -11920,6 +11940,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => "custom_tsgolint_oxlint_rules",
@@ -13972,6 +13993,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run(node, ctx),
@@ -14893,6 +14915,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run_once(ctx),
@@ -15983,6 +16006,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
@@ -16919,6 +16945,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.should_run(ctx),
@@ -18269,6 +18296,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::IS_TSGOLINT_RULE
             }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => {
+                CustomTsgolintOxlintRulesRequireAsyncQueue::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::IS_TSGOLINT_RULE
             }
@@ -19418,6 +19448,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => {
+                CustomTsgolintOxlintRulesRequireAsyncQueue::VERSION
             }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::VERSION
@@ -20608,6 +20641,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::HAS_CONFIG
             }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => {
+                CustomTsgolintOxlintRulesRequireAsyncQueue::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::HAS_CONFIG
             }
@@ -21698,6 +21734,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(_) => {
                 CustomTsgolintOxlintRulesRequireAsyncDisposable::INFO
             }
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => {
+                CustomTsgolintOxlintRulesRequireAsyncQueue::INFO
+            }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::INFO
             }
@@ -22625,6 +22664,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.types_info(),
@@ -23533,6 +23573,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run_info(),
@@ -24628,6 +24669,9 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireAsyncDisposable(
             CustomTsgolintOxlintRulesRequireAsyncDisposable::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesRequireAsyncQueue(
+            CustomTsgolintOxlintRulesRequireAsyncQueue::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireCatchBinding(
             CustomTsgolintOxlintRulesRequireCatchBinding::default(),
