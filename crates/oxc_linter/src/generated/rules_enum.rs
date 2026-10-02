@@ -15,6 +15,7 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::class_name_matches_filename:
 pub use crate::rules::custom_tsgolint_oxlint_rules::logger_name_matches_class::LoggerNameMatchesClass as CustomTsgolintOxlintRulesLoggerNameMatchesClass;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_anonymous_functions::NoAnonymousFunctions as CustomTsgolintOxlintRulesNoAnonymousFunctions;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_array_length_assignment::NoArrayLengthAssignment as CustomTsgolintOxlintRulesNoArrayLengthAssignment;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_async_static_method::NoAsyncStaticMethod as CustomTsgolintOxlintRulesNoAsyncStaticMethod;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_banned_words::NoBannedWords as CustomTsgolintOxlintRulesNoBannedWords;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_comments::NoComments as CustomTsgolintOxlintRulesNoComments;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_curl::NoCurl as CustomTsgolintOxlintRulesNoCurl;
@@ -1816,6 +1817,7 @@ pub enum RuleEnum {
         CustomTsgolintOxlintRulesLoggerNameMatchesClass,
     ),
     CustomTsgolintOxlintRulesNoAnonymousFunctions(CustomTsgolintOxlintRulesNoAnonymousFunctions),
+    CustomTsgolintOxlintRulesNoAsyncStaticMethod(CustomTsgolintOxlintRulesNoAsyncStaticMethod),
     CustomTsgolintOxlintRulesNoArrayLengthAssignment(
         CustomTsgolintOxlintRulesNoArrayLengthAssignment,
     ),
@@ -2734,41 +2736,42 @@ const CUSTOM_TSGOLINT_OXLINT_RULES_ASYNC_DISPOSE_LAST_ID: usize = 871usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_CLASS_NAME_MATCHES_FILENAME_ID: usize = 872usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_LOGGER_NAME_MATCHES_CLASS_ID: usize = 873usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ANONYMOUS_FUNCTIONS_ID: usize = 874usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ARRAY_LENGTH_ASSIGNMENT_ID: usize = 875usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BANNED_WORDS_ID: usize = 876usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_COMMENTS_ID: usize = 877usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_CURL_ID: usize = 878usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_DISPOSE_ASSIGNMENT_ID: usize = 879usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_GLOBAL_FUNCTIONS_ID: usize = 880usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_IMPORT_SIDE_EFFECTS_ID: usize = 881usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_INFINITE_LOOP_ID: usize = 882usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PASSTHROUGH_FUNCTIONS_ID: usize = 883usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIVATE_KEYWORD_ID: usize = 884usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROCESS_STREAM_WRITE_ID: usize = 885usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROTECTED_ID: usize = 886usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_CONST_ID: usize = 887usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_INTERFACE_ID: usize = 888usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STATIC_WITH_THIS_ARGS_ID: usize = 889usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID: usize = 890usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_RAW_ID: usize = 891usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_TRACKED_CLOSE_ID: usize = 892usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_USELESS_TEMPLATE_CAST_ID: usize = 893usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID: usize = 894usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_DEFAULTS_ID: usize = 895usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 896usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID: usize = 897usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 898usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 899usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID: usize = 900usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 901usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 902usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 903usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 904usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 905usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 906usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 907usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 908usize;
-static RULE_NAMES: [&str; 909usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ASYNC_STATIC_METHOD_ID: usize = 875usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ARRAY_LENGTH_ASSIGNMENT_ID: usize = 876usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BANNED_WORDS_ID: usize = 877usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_COMMENTS_ID: usize = 878usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_CURL_ID: usize = 879usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_DISPOSE_ASSIGNMENT_ID: usize = 880usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_GLOBAL_FUNCTIONS_ID: usize = 881usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_IMPORT_SIDE_EFFECTS_ID: usize = 882usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_INFINITE_LOOP_ID: usize = 883usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PASSTHROUGH_FUNCTIONS_ID: usize = 884usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIVATE_KEYWORD_ID: usize = 885usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROCESS_STREAM_WRITE_ID: usize = 886usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROTECTED_ID: usize = 887usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_CONST_ID: usize = 888usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_INTERFACE_ID: usize = 889usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STATIC_WITH_THIS_ARGS_ID: usize = 890usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID: usize = 891usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_RAW_ID: usize = 892usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_TRACKED_CLOSE_ID: usize = 893usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_USELESS_TEMPLATE_CAST_ID: usize = 894usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID: usize = 895usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_DEFAULTS_ID: usize = 896usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 897usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID: usize = 898usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 899usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 900usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID: usize = 901usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 902usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 903usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 904usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 905usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 906usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 907usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 908usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 909usize;
+static RULE_NAMES: [&str; 910usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3644,6 +3647,7 @@ static RULE_NAMES: [&str; 909usize] = [
     CustomTsgolintOxlintRulesClassNameMatchesFilename::NAME,
     CustomTsgolintOxlintRulesLoggerNameMatchesClass::NAME,
     CustomTsgolintOxlintRulesNoAnonymousFunctions::NAME,
+    CustomTsgolintOxlintRulesNoAsyncStaticMethod::NAME,
     CustomTsgolintOxlintRulesNoArrayLengthAssignment::NAME,
     CustomTsgolintOxlintRulesNoBannedWords::NAME,
     CustomTsgolintOxlintRulesNoComments::NAME,
@@ -4696,6 +4700,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_ANONYMOUS_FUNCTIONS_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_ASYNC_STATIC_METHOD_ID
             }
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_ARRAY_LENGTH_ASSIGNMENT_ID
@@ -5863,6 +5870,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
                 CustomTsgolintOxlintRulesNoAnonymousFunctions::CATEGORY
             }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(_) => {
+                CustomTsgolintOxlintRulesNoAsyncStaticMethod::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(_) => {
                 CustomTsgolintOxlintRulesNoArrayLengthAssignment::CATEGORY
             }
@@ -6966,6 +6976,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
                 CustomTsgolintOxlintRulesNoAnonymousFunctions::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(_) => {
+                CustomTsgolintOxlintRulesNoAsyncStaticMethod::FIX
             }
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(_) => {
                 CustomTsgolintOxlintRulesNoArrayLengthAssignment::FIX
@@ -8344,6 +8357,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
                 CustomTsgolintOxlintRulesNoAnonymousFunctions::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(_) => {
+                CustomTsgolintOxlintRulesNoAsyncStaticMethod::documentation()
             }
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(_) => {
                 CustomTsgolintOxlintRulesNoArrayLengthAssignment::documentation()
@@ -10967,6 +10983,10 @@ impl RuleEnum {
                 CustomTsgolintOxlintRulesNoAnonymousFunctions::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesNoAnonymousFunctions::schema(generator))
             }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(_) => {
+                CustomTsgolintOxlintRulesNoAsyncStaticMethod::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoAsyncStaticMethod::schema(generator))
+            }
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(_) => {
                 CustomTsgolintOxlintRulesNoArrayLengthAssignment::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesNoArrayLengthAssignment::schema(generator))
@@ -11988,6 +12008,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
@@ -14063,6 +14084,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoComments(rule) => rule.run(node, ctx),
@@ -14989,6 +15011,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoComments(rule) => rule.run_once(ctx),
@@ -16042,6 +16065,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
@@ -17035,6 +17061,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoComments(rule) => rule.should_run(ctx),
@@ -18346,6 +18373,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
                 CustomTsgolintOxlintRulesNoAnonymousFunctions::IS_TSGOLINT_RULE
             }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(_) => {
+                CustomTsgolintOxlintRulesNoAsyncStaticMethod::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(_) => {
                 CustomTsgolintOxlintRulesNoArrayLengthAssignment::IS_TSGOLINT_RULE
             }
@@ -19512,6 +19542,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
                 CustomTsgolintOxlintRulesNoAnonymousFunctions::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(_) => {
+                CustomTsgolintOxlintRulesNoAsyncStaticMethod::VERSION
             }
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(_) => {
                 CustomTsgolintOxlintRulesNoArrayLengthAssignment::VERSION
@@ -20717,6 +20750,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
                 CustomTsgolintOxlintRulesNoAnonymousFunctions::HAS_CONFIG
             }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(_) => {
+                CustomTsgolintOxlintRulesNoAsyncStaticMethod::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(_) => {
                 CustomTsgolintOxlintRulesNoArrayLengthAssignment::HAS_CONFIG
             }
@@ -21822,6 +21858,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(_) => {
                 CustomTsgolintOxlintRulesNoAnonymousFunctions::INFO
             }
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(_) => {
+                CustomTsgolintOxlintRulesNoAsyncStaticMethod::INFO
+            }
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(_) => {
                 CustomTsgolintOxlintRulesNoArrayLengthAssignment::INFO
             }
@@ -22806,6 +22845,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoComments(rule) => rule.types_info(),
@@ -23719,6 +23759,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesClassNameMatchesFilename(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesLoggerNameMatchesClass(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoAnonymousFunctions(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoAsyncStaticMethod(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoArrayLengthAssignment(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoComments(rule) => rule.run_info(),
@@ -24777,6 +24818,9 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         ),
         RuleEnum::CustomTsgolintOxlintRulesNoAnonymousFunctions(
             CustomTsgolintOxlintRulesNoAnonymousFunctions::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoAsyncStaticMethod(
+            CustomTsgolintOxlintRulesNoAsyncStaticMethod::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesNoArrayLengthAssignment(
             CustomTsgolintOxlintRulesNoArrayLengthAssignment::default(),
