@@ -45,6 +45,7 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8::RequireFsUt
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_object_params::RequireObjectParams as CustomTsgolintOxlintRulesRequireObjectParams;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_os_eol::RequireOsEol as CustomTsgolintOxlintRulesRequireOsEol;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_track::RequireTrack as CustomTsgolintOxlintRulesRequireTrack;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_type_annotation::RequireTypeAnnotation as CustomTsgolintOxlintRulesRequireTypeAnnotation;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_zod_compile::RequireZodCompile as CustomTsgolintOxlintRulesRequireZodCompile;
 pub use crate::rules::custom_tsgolint_oxlint_rules::zod_schemas_file_only::ZodSchemasFileOnly as CustomTsgolintOxlintRulesZodSchemasFileOnly;
 pub use crate::rules::eslint::accessor_pairs::AccessorPairs as EslintAccessorPairs;
@@ -1854,6 +1855,7 @@ pub enum RuleEnum {
     CustomTsgolintOxlintRulesRequireObjectParams(CustomTsgolintOxlintRulesRequireObjectParams),
     CustomTsgolintOxlintRulesRequireOsEol(CustomTsgolintOxlintRulesRequireOsEol),
     CustomTsgolintOxlintRulesRequireTrack(CustomTsgolintOxlintRulesRequireTrack),
+    CustomTsgolintOxlintRulesRequireTypeAnnotation(CustomTsgolintOxlintRulesRequireTypeAnnotation),
     CustomTsgolintOxlintRulesRequireZodCompile(CustomTsgolintOxlintRulesRequireZodCompile),
     CustomTsgolintOxlintRulesZodSchemasFileOnly(CustomTsgolintOxlintRulesZodSchemasFileOnly),
 }
@@ -2763,9 +2765,10 @@ const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 902usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 903usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 904usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 905usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 906usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 907usize;
-static RULE_NAMES: [&str; 908usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 906usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 907usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 908usize;
+static RULE_NAMES: [&str; 909usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3672,6 +3675,7 @@ static RULE_NAMES: [&str; 908usize] = [
     CustomTsgolintOxlintRulesRequireObjectParams::NAME,
     CustomTsgolintOxlintRulesRequireOsEol::NAME,
     CustomTsgolintOxlintRulesRequireTrack::NAME,
+    CustomTsgolintOxlintRulesRequireTypeAnnotation::NAME,
     CustomTsgolintOxlintRulesRequireZodCompile::NAME,
     CustomTsgolintOxlintRulesZodSchemasFileOnly::NAME,
 ];
@@ -4783,6 +4787,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID
+            }
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID
             }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID
@@ -5947,6 +5954,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::CATEGORY
             }
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
+                CustomTsgolintOxlintRulesRequireTypeAnnotation::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
                 CustomTsgolintOxlintRulesRequireZodCompile::CATEGORY
             }
@@ -7047,6 +7057,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::FIX
+            }
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
+                CustomTsgolintOxlintRulesRequireTypeAnnotation::FIX
             }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
                 CustomTsgolintOxlintRulesRequireZodCompile::FIX
@@ -8424,6 +8437,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
+                CustomTsgolintOxlintRulesRequireTypeAnnotation::documentation()
             }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
                 CustomTsgolintOxlintRulesRequireZodCompile::documentation()
@@ -11075,6 +11091,10 @@ impl RuleEnum {
                 CustomTsgolintOxlintRulesRequireTrack::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireTrack::schema(generator))
             }
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
+                CustomTsgolintOxlintRulesRequireTypeAnnotation::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireTypeAnnotation::schema(generator))
+            }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
                 CustomTsgolintOxlintRulesRequireZodCompile::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireZodCompile::schema(generator))
@@ -12015,6 +12035,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => "custom_tsgolint_oxlint_rules",
         }
@@ -14071,6 +14094,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.run(node, ctx),
         }
@@ -14996,6 +15020,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.run_once(ctx),
         }
@@ -16108,6 +16133,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
@@ -17038,6 +17066,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.should_run(ctx),
         }
@@ -18410,6 +18439,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::IS_TSGOLINT_RULE
             }
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
+                CustomTsgolintOxlintRulesRequireTypeAnnotation::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
                 CustomTsgolintOxlintRulesRequireZodCompile::IS_TSGOLINT_RULE
             }
@@ -19571,6 +19603,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
+                CustomTsgolintOxlintRulesRequireTypeAnnotation::VERSION
             }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
                 CustomTsgolintOxlintRulesRequireZodCompile::VERSION
@@ -20773,6 +20808,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::HAS_CONFIG
             }
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
+                CustomTsgolintOxlintRulesRequireTypeAnnotation::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
                 CustomTsgolintOxlintRulesRequireZodCompile::HAS_CONFIG
             }
@@ -21875,6 +21913,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::INFO
             }
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
+                CustomTsgolintOxlintRulesRequireTypeAnnotation::INFO
+            }
             Self::CustomTsgolintOxlintRulesRequireZodCompile(_) => {
                 CustomTsgolintOxlintRulesRequireZodCompile::INFO
             }
@@ -22796,6 +22837,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.types_info(),
         }
@@ -23708,6 +23750,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.run_info(),
         }
@@ -24825,6 +24868,9 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireTrack(
             CustomTsgolintOxlintRulesRequireTrack::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesRequireTypeAnnotation(
+            CustomTsgolintOxlintRulesRequireTypeAnnotation::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireZodCompile(
             CustomTsgolintOxlintRulesRequireZodCompile::default(),

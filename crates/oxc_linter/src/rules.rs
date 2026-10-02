@@ -1022,6 +1022,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod require_object_params;
     pub mod require_os_eol;
     pub mod require_track;
+    pub mod require_type_annotation;
     pub mod require_zod_compile;
     pub mod zod_schemas_file_only;
 }

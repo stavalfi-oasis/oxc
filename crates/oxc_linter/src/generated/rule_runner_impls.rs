@@ -5771,6 +5771,13 @@ impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_track::R
 }
 
 impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::require_type_annotation::RequireTypeAnnotation
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
     for crate::rules::custom_tsgolint_oxlint_rules::require_zod_compile::RequireZodCompile
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
