@@ -30,6 +30,7 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::no_static_with_this_args::No
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_string_error::NoStringError as CustomTsgolintOxlintRulesNoStringError;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_string_raw::NoStringRaw as CustomTsgolintOxlintRulesNoStringRaw;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_tracked_close::NoTrackedClose as CustomTsgolintOxlintRulesNoTrackedClose;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_useless_template_cast::NoUselessTemplateCast as CustomTsgolintOxlintRulesNoUselessTemplateCast;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_void_promise::NoVoidPromise as CustomTsgolintOxlintRulesNoVoidPromise;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_zod_defaults::NoZodDefaults as CustomTsgolintOxlintRulesNoZodDefaults;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_zod_passthrough::NoZodPassthrough as CustomTsgolintOxlintRulesNoZodPassthrough;
@@ -1830,6 +1831,7 @@ pub enum RuleEnum {
     CustomTsgolintOxlintRulesNoStringError(CustomTsgolintOxlintRulesNoStringError),
     CustomTsgolintOxlintRulesNoStringRaw(CustomTsgolintOxlintRulesNoStringRaw),
     CustomTsgolintOxlintRulesNoTrackedClose(CustomTsgolintOxlintRulesNoTrackedClose),
+    CustomTsgolintOxlintRulesNoUselessTemplateCast(CustomTsgolintOxlintRulesNoUselessTemplateCast),
     CustomTsgolintOxlintRulesNoVoidPromise(CustomTsgolintOxlintRulesNoVoidPromise),
     CustomTsgolintOxlintRulesNoZodDefaults(CustomTsgolintOxlintRulesNoZodDefaults),
     CustomTsgolintOxlintRulesNoZodPassthrough(CustomTsgolintOxlintRulesNoZodPassthrough),
@@ -2740,21 +2742,22 @@ const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STATIC_WITH_THIS_ARGS_ID: usize = 887usize
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID: usize = 888usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_RAW_ID: usize = 889usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_TRACKED_CLOSE_ID: usize = 890usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID: usize = 891usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_DEFAULTS_ID: usize = 892usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 893usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID: usize = 894usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 895usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 896usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID: usize = 897usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 898usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 899usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 900usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 901usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 902usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 903usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 904usize;
-static RULE_NAMES: [&str; 905usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_USELESS_TEMPLATE_CAST_ID: usize = 891usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID: usize = 892usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_DEFAULTS_ID: usize = 893usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 894usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID: usize = 895usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 896usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 897usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID: usize = 898usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 899usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 900usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 901usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 902usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 903usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 904usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 905usize;
+static RULE_NAMES: [&str; 906usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3646,6 +3649,7 @@ static RULE_NAMES: [&str; 905usize] = [
     CustomTsgolintOxlintRulesNoStringError::NAME,
     CustomTsgolintOxlintRulesNoStringRaw::NAME,
     CustomTsgolintOxlintRulesNoTrackedClose::NAME,
+    CustomTsgolintOxlintRulesNoUselessTemplateCast::NAME,
     CustomTsgolintOxlintRulesNoVoidPromise::NAME,
     CustomTsgolintOxlintRulesNoZodDefaults::NAME,
     CustomTsgolintOxlintRulesNoZodPassthrough::NAME,
@@ -4724,6 +4728,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_TRACKED_CLOSE_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_USELESS_TEMPLATE_CAST_ID
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID
@@ -5879,6 +5886,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
                 CustomTsgolintOxlintRulesNoTrackedClose::CATEGORY
             }
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(_) => {
+                CustomTsgolintOxlintRulesNoUselessTemplateCast::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::CATEGORY
             }
@@ -6970,6 +6980,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
                 CustomTsgolintOxlintRulesNoTrackedClose::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(_) => {
+                CustomTsgolintOxlintRulesNoUselessTemplateCast::FIX
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::FIX
@@ -8338,6 +8351,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
                 CustomTsgolintOxlintRulesNoTrackedClose::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(_) => {
+                CustomTsgolintOxlintRulesNoUselessTemplateCast::documentation()
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::documentation()
@@ -10965,6 +10981,10 @@ impl RuleEnum {
                 CustomTsgolintOxlintRulesNoTrackedClose::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesNoTrackedClose::schema(generator))
             }
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(_) => {
+                CustomTsgolintOxlintRulesNoUselessTemplateCast::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoUselessTemplateCast::schema(generator))
+            }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesNoVoidPromise::schema(generator))
@@ -11930,6 +11950,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoStringError(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoStringRaw(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoZodDefaults(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(_) => "custom_tsgolint_oxlint_rules",
@@ -13987,6 +14010,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.run(node, ctx),
@@ -14909,6 +14933,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.run_once(ctx),
@@ -15988,6 +16013,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
@@ -16939,6 +16967,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.should_run(ctx),
@@ -18278,6 +18307,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
                 CustomTsgolintOxlintRulesNoTrackedClose::IS_TSGOLINT_RULE
             }
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(_) => {
+                CustomTsgolintOxlintRulesNoUselessTemplateCast::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::IS_TSGOLINT_RULE
             }
@@ -19430,6 +19462,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
                 CustomTsgolintOxlintRulesNoTrackedClose::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(_) => {
+                CustomTsgolintOxlintRulesNoUselessTemplateCast::VERSION
             }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::VERSION
@@ -20623,6 +20658,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
                 CustomTsgolintOxlintRulesNoTrackedClose::HAS_CONFIG
             }
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(_) => {
+                CustomTsgolintOxlintRulesNoUselessTemplateCast::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::HAS_CONFIG
             }
@@ -21716,6 +21754,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoTrackedClose(_) => {
                 CustomTsgolintOxlintRulesNoTrackedClose::INFO
             }
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(_) => {
+                CustomTsgolintOxlintRulesNoUselessTemplateCast::INFO
+            }
             Self::CustomTsgolintOxlintRulesNoVoidPromise(_) => {
                 CustomTsgolintOxlintRulesNoVoidPromise::INFO
             }
@@ -22658,6 +22699,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.types_info(),
@@ -23567,6 +23609,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoStringError(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoStringRaw(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoTrackedClose(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoUselessTemplateCast(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoVoidPromise(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoZodDefaults(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoZodPassthrough(rule) => rule.run_info(),
@@ -24651,6 +24694,9 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         ),
         RuleEnum::CustomTsgolintOxlintRulesNoTrackedClose(
             CustomTsgolintOxlintRulesNoTrackedClose::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoUselessTemplateCast(
+            CustomTsgolintOxlintRulesNoUselessTemplateCast::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesNoVoidPromise(
             CustomTsgolintOxlintRulesNoVoidPromise::default(),
