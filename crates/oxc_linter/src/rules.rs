@@ -1015,6 +1015,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod no_void_promise;
     pub mod no_zod_defaults;
     pub mod no_zod_passthrough;
+    pub mod prefer_super_over_this;
     pub mod require_abort_signal;
     pub mod require_access_modifiers;
     pub mod require_async_disposable;

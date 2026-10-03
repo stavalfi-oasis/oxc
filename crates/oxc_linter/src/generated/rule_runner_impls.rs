@@ -5728,6 +5728,13 @@ impl RuleRunner
 }
 
 impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::prefer_super_over_this::PreferSuperOverThis
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
     for crate::rules::custom_tsgolint_oxlint_rules::require_abort_signal::RequireAbortSignal
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
