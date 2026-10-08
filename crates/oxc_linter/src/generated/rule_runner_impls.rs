@@ -5791,7 +5791,24 @@ impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_os_eol::
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
 }
 
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_bare_logger_outside_super::NoBareLoggerOutsideSuper {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_logger_child_in_super::RequireLoggerChildInSuper {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
 impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_track::RequireTrack {
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::super_first_statement::SuperFirstStatement
+{
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
 }

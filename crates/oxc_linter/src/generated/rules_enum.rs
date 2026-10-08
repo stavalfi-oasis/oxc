@@ -17,6 +17,7 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::no_anonymous_functions::NoAn
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_array_length_assignment::NoArrayLengthAssignment as CustomTsgolintOxlintRulesNoArrayLengthAssignment;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_async_static_method::NoAsyncStaticMethod as CustomTsgolintOxlintRulesNoAsyncStaticMethod;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_banned_words::NoBannedWords as CustomTsgolintOxlintRulesNoBannedWords;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_bare_logger_outside_super::NoBareLoggerOutsideSuper as CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_client_response_json::NoClientResponseJson as CustomTsgolintOxlintRulesNoClientResponseJson;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_comments::NoComments as CustomTsgolintOxlintRulesNoComments;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_curl::NoCurl as CustomTsgolintOxlintRulesNoCurl;
@@ -46,11 +47,13 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::require_async_disposable::Re
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_async_queue::RequireAsyncQueue as CustomTsgolintOxlintRulesRequireAsyncQueue;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_catch_binding::RequireCatchBinding as CustomTsgolintOxlintRulesRequireCatchBinding;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8::RequireFsUtf8 as CustomTsgolintOxlintRulesRequireFsUtf8;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_logger_child_in_super::RequireLoggerChildInSuper as CustomTsgolintOxlintRulesRequireLoggerChildInSuper;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_object_params::RequireObjectParams as CustomTsgolintOxlintRulesRequireObjectParams;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_os_eol::RequireOsEol as CustomTsgolintOxlintRulesRequireOsEol;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_track::RequireTrack as CustomTsgolintOxlintRulesRequireTrack;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_type_annotation::RequireTypeAnnotation as CustomTsgolintOxlintRulesRequireTypeAnnotation;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_zod_compile::RequireZodCompile as CustomTsgolintOxlintRulesRequireZodCompile;
+pub use crate::rules::custom_tsgolint_oxlint_rules::super_first_statement::SuperFirstStatement as CustomTsgolintOxlintRulesSuperFirstStatement;
 pub use crate::rules::custom_tsgolint_oxlint_rules::zod_schemas_file_only::ZodSchemasFileOnly as CustomTsgolintOxlintRulesZodSchemasFileOnly;
 pub use crate::rules::eslint::accessor_pairs::AccessorPairs as EslintAccessorPairs;
 pub use crate::rules::eslint::array_callback_return::ArrayCallbackReturn as EslintArrayCallbackReturn;
@@ -1864,7 +1867,14 @@ pub enum RuleEnum {
     CustomTsgolintOxlintRulesRequireFsUtf8(CustomTsgolintOxlintRulesRequireFsUtf8),
     CustomTsgolintOxlintRulesRequireObjectParams(CustomTsgolintOxlintRulesRequireObjectParams),
     CustomTsgolintOxlintRulesRequireOsEol(CustomTsgolintOxlintRulesRequireOsEol),
+    CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(
+        CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper,
+    ),
+    CustomTsgolintOxlintRulesRequireLoggerChildInSuper(
+        CustomTsgolintOxlintRulesRequireLoggerChildInSuper,
+    ),
     CustomTsgolintOxlintRulesRequireTrack(CustomTsgolintOxlintRulesRequireTrack),
+    CustomTsgolintOxlintRulesSuperFirstStatement(CustomTsgolintOxlintRulesSuperFirstStatement),
     CustomTsgolintOxlintRulesRequireTypeAnnotation(CustomTsgolintOxlintRulesRequireTypeAnnotation),
     CustomTsgolintOxlintRulesRequireZodCompile(CustomTsgolintOxlintRulesRequireZodCompile),
     CustomTsgolintOxlintRulesZodSchemasFileOnly(CustomTsgolintOxlintRulesZodSchemasFileOnly),
@@ -2778,11 +2788,14 @@ const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 905usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 906usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 907usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 908usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 909usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 910usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 911usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 912usize;
-static RULE_NAMES: [&str; 913usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BARE_LOGGER_OUTSIDE_SUPER_ID: usize = 909usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LOGGER_CHILD_IN_SUPER_ID: usize = 910usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 911usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_SUPER_FIRST_STATEMENT_ID: usize = 912usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 913usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 914usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 915usize;
+static RULE_NAMES: [&str; 916usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3692,7 +3705,10 @@ static RULE_NAMES: [&str; 913usize] = [
     CustomTsgolintOxlintRulesRequireFsUtf8::NAME,
     CustomTsgolintOxlintRulesRequireObjectParams::NAME,
     CustomTsgolintOxlintRulesRequireOsEol::NAME,
+    CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::NAME,
+    CustomTsgolintOxlintRulesRequireLoggerChildInSuper::NAME,
     CustomTsgolintOxlintRulesRequireTrack::NAME,
+    CustomTsgolintOxlintRulesSuperFirstStatement::NAME,
     CustomTsgolintOxlintRulesRequireTypeAnnotation::NAME,
     CustomTsgolintOxlintRulesRequireZodCompile::NAME,
     CustomTsgolintOxlintRulesZodSchemasFileOnly::NAME,
@@ -4815,8 +4831,17 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID
             }
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_BARE_LOGGER_OUTSIDE_SUPER_ID
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LOGGER_CHILD_IN_SUPER_ID
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID
+            }
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_SUPER_FIRST_STATEMENT_ID
             }
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID
@@ -5993,8 +6018,17 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
                 CustomTsgolintOxlintRulesRequireOsEol::CATEGORY
             }
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(_) => {
+                CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
+                CustomTsgolintOxlintRulesRequireLoggerChildInSuper::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::CATEGORY
+            }
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => {
+                CustomTsgolintOxlintRulesSuperFirstStatement::CATEGORY
             }
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
                 CustomTsgolintOxlintRulesRequireTypeAnnotation::CATEGORY
@@ -7109,8 +7143,17 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
                 CustomTsgolintOxlintRulesRequireOsEol::FIX
             }
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(_) => {
+                CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::FIX
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
+                CustomTsgolintOxlintRulesRequireLoggerChildInSuper::FIX
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::FIX
+            }
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => {
+                CustomTsgolintOxlintRulesSuperFirstStatement::FIX
             }
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
                 CustomTsgolintOxlintRulesRequireTypeAnnotation::FIX
@@ -8501,8 +8544,17 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
                 CustomTsgolintOxlintRulesRequireOsEol::documentation()
             }
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(_) => {
+                CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
+                CustomTsgolintOxlintRulesRequireLoggerChildInSuper::documentation()
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => {
+                CustomTsgolintOxlintRulesSuperFirstStatement::documentation()
             }
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
                 CustomTsgolintOxlintRulesRequireTypeAnnotation::documentation()
@@ -11171,9 +11223,24 @@ impl RuleEnum {
                 CustomTsgolintOxlintRulesRequireOsEol::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireOsEol::schema(generator))
             }
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(_) => {
+                CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::config_schema(generator).or_else(
+                    || CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::schema(generator),
+                )
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
+                CustomTsgolintOxlintRulesRequireLoggerChildInSuper::config_schema(generator)
+                    .or_else(|| {
+                        CustomTsgolintOxlintRulesRequireLoggerChildInSuper::schema(generator)
+                    })
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireTrack::schema(generator))
+            }
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => {
+                CustomTsgolintOxlintRulesSuperFirstStatement::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesSuperFirstStatement::schema(generator))
             }
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
                 CustomTsgolintOxlintRulesRequireTypeAnnotation::config_schema(generator)
@@ -12126,7 +12193,14 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
@@ -14189,7 +14263,10 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.run(node, ctx),
@@ -15119,7 +15196,10 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.run_once(ctx),
@@ -16242,7 +16322,16 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => {
@@ -17181,7 +17270,10 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.should_run(ctx),
@@ -18564,8 +18656,17 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
                 CustomTsgolintOxlintRulesRequireOsEol::IS_TSGOLINT_RULE
             }
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(_) => {
+                CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
+                CustomTsgolintOxlintRulesRequireLoggerChildInSuper::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::IS_TSGOLINT_RULE
+            }
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => {
+                CustomTsgolintOxlintRulesSuperFirstStatement::IS_TSGOLINT_RULE
             }
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
                 CustomTsgolintOxlintRulesRequireTypeAnnotation::IS_TSGOLINT_RULE
@@ -19741,8 +19842,17 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
                 CustomTsgolintOxlintRulesRequireOsEol::VERSION
             }
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(_) => {
+                CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
+                CustomTsgolintOxlintRulesRequireLoggerChildInSuper::VERSION
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => {
+                CustomTsgolintOxlintRulesSuperFirstStatement::VERSION
             }
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
                 CustomTsgolintOxlintRulesRequireTypeAnnotation::VERSION
@@ -20957,8 +21067,17 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
                 CustomTsgolintOxlintRulesRequireOsEol::HAS_CONFIG
             }
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(_) => {
+                CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
+                CustomTsgolintOxlintRulesRequireLoggerChildInSuper::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::HAS_CONFIG
+            }
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => {
+                CustomTsgolintOxlintRulesSuperFirstStatement::HAS_CONFIG
             }
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
                 CustomTsgolintOxlintRulesRequireTypeAnnotation::HAS_CONFIG
@@ -22074,8 +22193,17 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => {
                 CustomTsgolintOxlintRulesRequireOsEol::INFO
             }
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(_) => {
+                CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::INFO
+            }
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
+                CustomTsgolintOxlintRulesRequireLoggerChildInSuper::INFO
+            }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::INFO
+            }
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => {
+                CustomTsgolintOxlintRulesSuperFirstStatement::INFO
             }
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
                 CustomTsgolintOxlintRulesRequireTypeAnnotation::INFO
@@ -23004,7 +23132,10 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.types_info(),
@@ -23921,7 +24052,10 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireZodCompile(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.run_info(),
@@ -25050,8 +25184,17 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         RuleEnum::CustomTsgolintOxlintRulesRequireOsEol(
             CustomTsgolintOxlintRulesRequireOsEol::default(),
         ),
+        RuleEnum::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(
+            CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(
+            CustomTsgolintOxlintRulesRequireLoggerChildInSuper::default(),
+        ),
         RuleEnum::CustomTsgolintOxlintRulesRequireTrack(
             CustomTsgolintOxlintRulesRequireTrack::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesSuperFirstStatement(
+            CustomTsgolintOxlintRulesSuperFirstStatement::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireTypeAnnotation(
             CustomTsgolintOxlintRulesRequireTypeAnnotation::default(),
