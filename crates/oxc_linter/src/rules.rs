@@ -992,6 +992,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod logger_name_matches_class;
     pub mod new_only_in_constructor;
     pub mod no_anonymous_functions;
+    pub mod no_async_global_functions;
     pub mod no_async_static_method;
     pub mod no_array_length_assignment;
     pub mod no_banned_words;
