@@ -5575,6 +5575,13 @@ impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::logger_name_matc
 }
 
 impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::new_only_in_constructor::NewOnlyInConstructor
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
     for crate::rules::custom_tsgolint_oxlint_rules::no_anonymous_functions::NoAnonymousFunctions
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
