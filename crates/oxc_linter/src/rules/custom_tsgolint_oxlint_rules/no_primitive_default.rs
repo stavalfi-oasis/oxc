@@ -8,22 +8,25 @@ pub struct NoPrimitiveDefault;
 declare_oxc_lint!(
     /// ### What it does
     ///
-    /// Disallows `??`, `??=`, `||` and `||=` when the right-hand side is typed
-    /// as a string or a number. The check reads the type, not the syntax, so a
-    /// named constant or a call returning a string is caught just like a
-    /// literal. An empty string is exempt.
+    /// Disallows `??`, `??=`, `||` and `||=` when the right-hand side is a
+    /// compile-time string or number constant other than `""` or `0`. The
+    /// check reads the type, so a named `const`, and a template literal whose
+    /// every substitution is itself known at compile time, are caught just
+    /// like a bare literal.
     ///
     /// ### Why is this bad?
     ///
-    /// `|| 0` and `?? "unknown"` invent a value for something that was
+    /// `?? "unknown"` and `|| 8080` invent a value for something that was
     /// genuinely absent, and the invented value is indistinguishable
-    /// downstream from a real one — a count that was never measured reads as
-    /// zero, a name that was never set reads as "unknown". The missing case is
-    /// information, and substituting a primitive throws it away at the point
+    /// downstream from a real one — a port that was never configured reads as
+    /// 8080, a name that was never set reads as "unknown". The missing case is
+    /// information, and substituting a constant throws it away at the point
     /// furthest from anyone who could interpret it.
     ///
-    /// `{}`, `[]` and `""` are allowed: an empty container or an empty string
-    /// is not a made-up value, it is the identity of the thing being built.
+    /// A value computed at runtime is exempt: it is the caller's data, not a
+    /// value this code made up. So are `{}`, `[]`, `""` and `0` — an empty
+    /// container, an empty string and a zero are the identity of the thing
+    /// being built, not a guess about it.
     ///
     /// ### Examples
     ///
@@ -31,26 +34,28 @@ declare_oxc_lint!(
     /// ```ts
     /// declare const name: string | undefined;
     /// declare const port: number | undefined;
-    /// declare function fallbackName(): string;
     /// const DEFAULT_PORT = 8080;
+    /// const owner = "acme";
     ///
     /// const a = name ?? "unknown";
-    /// const b = port || 0;
+    /// const b = port || 1000;
     /// const c = port ?? DEFAULT_PORT;
-    /// const d = name || fallbackName();
+    /// const d = name ?? `tenant-${owner}`;
     /// ```
     ///
     /// Examples of **correct** code for this rule:
     /// ```ts
     /// declare const config: { a: number } | undefined;
     /// declare const items: string[] | undefined;
-    /// declare const enabled: boolean | undefined;
     /// declare const name: string | undefined;
+    /// declare const count: number | undefined;
+    /// declare function fallbackName(): string;
     ///
     /// const a = config ?? {};
     /// const b = items ?? [];
-    /// const c = enabled ?? false;
-    /// const d = name ?? "";
+    /// const c = name ?? "";
+    /// const d = count ?? 0;
+    /// const e = name ?? fallbackName();
     ///
     /// if (name === undefined) {
     ///   throw new Error("name is required");
@@ -60,7 +65,7 @@ declare_oxc_lint!(
     custom_tsgolint_oxlint_rules,
     restriction,
     version = "1.86.0",
-    short_description = "Disallow `??` and `||` with a string or number fallback.",
+    short_description = "Disallow `??` and `||` with a made-up string or number constant.",
 );
 
 impl Rule for NoPrimitiveDefault {}
