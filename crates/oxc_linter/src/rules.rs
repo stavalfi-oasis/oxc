@@ -1029,6 +1029,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod require_os_eol;
     pub mod no_bare_logger_outside_super;
     pub mod require_logger_child_in_super;
+    pub mod require_test_timeout;
     pub mod require_track;
     pub mod super_first_statement;
     pub mod require_type_annotation;
