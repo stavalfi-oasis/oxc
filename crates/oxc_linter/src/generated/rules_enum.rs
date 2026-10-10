@@ -28,6 +28,7 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::no_global_functions::NoGloba
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_import_side_effects::NoImportSideEffects as CustomTsgolintOxlintRulesNoImportSideEffects;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_infinite_loop::NoInfiniteLoop as CustomTsgolintOxlintRulesNoInfiniteLoop;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_passthrough_functions::NoPassthroughFunctions as CustomTsgolintOxlintRulesNoPassthroughFunctions;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_primitive_collection_key::NoPrimitiveCollectionKey as CustomTsgolintOxlintRulesNoPrimitiveCollectionKey;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_private_keyword::NoPrivateKeyword as CustomTsgolintOxlintRulesNoPrivateKeyword;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_process_stream_write::NoProcessStreamWrite as CustomTsgolintOxlintRulesNoProcessStreamWrite;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_protected::NoProtected as CustomTsgolintOxlintRulesNoProtected;
@@ -1845,6 +1846,9 @@ pub enum RuleEnum {
     CustomTsgolintOxlintRulesNoPassthroughFunctions(
         CustomTsgolintOxlintRulesNoPassthroughFunctions,
     ),
+    CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(
+        CustomTsgolintOxlintRulesNoPrimitiveCollectionKey,
+    ),
     CustomTsgolintOxlintRulesNoPrivateKeyword(CustomTsgolintOxlintRulesNoPrivateKeyword),
     CustomTsgolintOxlintRulesNoProcessStreamWrite(CustomTsgolintOxlintRulesNoProcessStreamWrite),
     CustomTsgolintOxlintRulesNoProtected(CustomTsgolintOxlintRulesNoProtected),
@@ -2775,38 +2779,39 @@ const CUSTOM_TSGOLINT_OXLINT_RULES_NO_GLOBAL_FUNCTIONS_ID: usize = 884usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_IMPORT_SIDE_EFFECTS_ID: usize = 885usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_INFINITE_LOOP_ID: usize = 886usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PASSTHROUGH_FUNCTIONS_ID: usize = 887usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIVATE_KEYWORD_ID: usize = 888usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROCESS_STREAM_WRITE_ID: usize = 889usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROTECTED_ID: usize = 890usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_CONST_ID: usize = 891usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_INTERFACE_ID: usize = 892usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STATIC_WITH_THIS_ARGS_ID: usize = 893usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID: usize = 894usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_RAW_ID: usize = 895usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_TRACKED_CLOSE_ID: usize = 896usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_USELESS_TEMPLATE_CAST_ID: usize = 897usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID: usize = 898usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_DEFAULTS_ID: usize = 899usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 900usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_PREFER_SUPER_OVER_THIS_ID: usize = 901usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID: usize = 902usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_IN_WHILE_ID: usize = 903usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 904usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 905usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID: usize = 906usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 907usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 908usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 909usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 910usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BARE_LOGGER_OUTSIDE_SUPER_ID: usize = 911usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LOGGER_CHILD_IN_SUPER_ID: usize = 912usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_IT_TIMEOUT_ID: usize = 913usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 914usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_SUPER_FIRST_STATEMENT_ID: usize = 915usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 916usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 917usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 918usize;
-static RULE_NAMES: [&str; 919usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIMITIVE_COLLECTION_KEY_ID: usize = 888usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIVATE_KEYWORD_ID: usize = 889usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROCESS_STREAM_WRITE_ID: usize = 890usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROTECTED_ID: usize = 891usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_CONST_ID: usize = 892usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_SINGLE_USE_INTERFACE_ID: usize = 893usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STATIC_WITH_THIS_ARGS_ID: usize = 894usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_ERROR_ID: usize = 895usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_STRING_RAW_ID: usize = 896usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_TRACKED_CLOSE_ID: usize = 897usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_USELESS_TEMPLATE_CAST_ID: usize = 898usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_VOID_PROMISE_ID: usize = 899usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_DEFAULTS_ID: usize = 900usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 901usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_PREFER_SUPER_OVER_THIS_ID: usize = 902usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID: usize = 903usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_IN_WHILE_ID: usize = 904usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 905usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 906usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID: usize = 907usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 908usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 909usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 910usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 911usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BARE_LOGGER_OUTSIDE_SUPER_ID: usize = 912usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LOGGER_CHILD_IN_SUPER_ID: usize = 913usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_IT_TIMEOUT_ID: usize = 914usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 915usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_SUPER_FIRST_STATEMENT_ID: usize = 916usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 917usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 918usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 919usize;
+static RULE_NAMES: [&str; 920usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3695,6 +3700,7 @@ static RULE_NAMES: [&str; 919usize] = [
     CustomTsgolintOxlintRulesNoImportSideEffects::NAME,
     CustomTsgolintOxlintRulesNoInfiniteLoop::NAME,
     CustomTsgolintOxlintRulesNoPassthroughFunctions::NAME,
+    CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::NAME,
     CustomTsgolintOxlintRulesNoPrivateKeyword::NAME,
     CustomTsgolintOxlintRulesNoProcessStreamWrite::NAME,
     CustomTsgolintOxlintRulesNoProtected::NAME,
@@ -4781,6 +4787,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_PASSTHROUGH_FUNCTIONS_ID
+            }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIMITIVE_COLLECTION_KEY_ID
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIVATE_KEYWORD_ID
@@ -5978,6 +5987,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::CATEGORY
             }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::CATEGORY
             }
@@ -7111,6 +7123,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::FIX
+            }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::FIX
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::FIX
@@ -8521,6 +8536,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::documentation()
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::documentation()
@@ -11187,6 +11205,11 @@ impl RuleEnum {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesNoPassthroughFunctions::schema(generator))
             }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::config_schema(generator).or_else(
+                    || CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::schema(generator),
+                )
+            }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesNoPrivateKeyword::schema(generator))
@@ -12222,6 +12245,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoImportSideEffects(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => "custom_tsgolint_oxlint_rules",
@@ -13387,6 +13413,11 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoCurl(_) => Ok(Self::CustomTsgolintOxlintRulesNoCurl(
                 CustomTsgolintOxlintRulesNoCurl::from_configuration(value)?,
             )),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
+                Ok(Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(
+                    CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::from_configuration(value)?,
+                ))
+            }
             _ => Ok(RULES[self.id()].clone()),
         }
     }
@@ -13429,6 +13460,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoAsyncGlobalFunctions(rule) => rule.to_configuration(),
             Self::CustomTsgolintOxlintRulesNoBannedWords(rule) => rule.to_configuration(),
             Self::CustomTsgolintOxlintRulesNoCurl(rule) => rule.to_configuration(),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => {
+                rule.to_configuration()
+            }
             _ => None,
         }
     }
@@ -14323,6 +14357,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.run(node, ctx),
@@ -15259,6 +15294,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.run_once(ctx),
@@ -16346,6 +16382,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
@@ -17345,6 +17384,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.should_run(ctx),
@@ -18692,6 +18732,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::IS_TSGOLINT_RULE
             }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::IS_TSGOLINT_RULE
             }
@@ -19886,6 +19929,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::VERSION
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::VERSION
@@ -21121,6 +21167,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::HAS_CONFIG
             }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::HAS_CONFIG
             }
@@ -22256,6 +22305,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(_) => {
                 CustomTsgolintOxlintRulesNoPassthroughFunctions::INFO
             }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::INFO
+            }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::INFO
             }
@@ -23246,6 +23298,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.types_info(),
@@ -24169,6 +24222,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoImportSideEffects(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.run_info(),
@@ -25261,6 +25315,9 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         ),
         RuleEnum::CustomTsgolintOxlintRulesNoPassthroughFunctions(
             CustomTsgolintOxlintRulesNoPassthroughFunctions::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(
+            CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesNoPrivateKeyword(
             CustomTsgolintOxlintRulesNoPrivateKeyword::default(),
