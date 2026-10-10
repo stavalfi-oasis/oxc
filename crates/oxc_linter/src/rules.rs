@@ -1005,7 +1005,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod no_infinite_loop;
     pub mod no_passthrough_functions;
     pub mod no_primitive_collection_key;
-    pub mod no_primitive_nullish_default;
+    pub mod no_primitive_default;
     pub mod no_private_keyword;
     pub mod no_process_stream_write;
     pub mod no_protected;

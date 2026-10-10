@@ -5665,7 +5665,9 @@ impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_primitive_col
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
 }
 
-impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_primitive_nullish_default::NoPrimitiveNullishDefault {
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::no_primitive_default::NoPrimitiveDefault
+{
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
 }

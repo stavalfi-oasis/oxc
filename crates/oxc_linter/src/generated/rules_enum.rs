@@ -29,7 +29,7 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::no_import_side_effects::NoIm
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_infinite_loop::NoInfiniteLoop as CustomTsgolintOxlintRulesNoInfiniteLoop;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_passthrough_functions::NoPassthroughFunctions as CustomTsgolintOxlintRulesNoPassthroughFunctions;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_primitive_collection_key::NoPrimitiveCollectionKey as CustomTsgolintOxlintRulesNoPrimitiveCollectionKey;
-pub use crate::rules::custom_tsgolint_oxlint_rules::no_primitive_nullish_default::NoPrimitiveNullishDefault as CustomTsgolintOxlintRulesNoPrimitiveNullishDefault;
+pub use crate::rules::custom_tsgolint_oxlint_rules::no_primitive_default::NoPrimitiveDefault as CustomTsgolintOxlintRulesNoPrimitiveDefault;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_private_keyword::NoPrivateKeyword as CustomTsgolintOxlintRulesNoPrivateKeyword;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_process_stream_write::NoProcessStreamWrite as CustomTsgolintOxlintRulesNoProcessStreamWrite;
 pub use crate::rules::custom_tsgolint_oxlint_rules::no_protected::NoProtected as CustomTsgolintOxlintRulesNoProtected;
@@ -1850,9 +1850,7 @@ pub enum RuleEnum {
     CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(
         CustomTsgolintOxlintRulesNoPrimitiveCollectionKey,
     ),
-    CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(
-        CustomTsgolintOxlintRulesNoPrimitiveNullishDefault,
-    ),
+    CustomTsgolintOxlintRulesNoPrimitiveDefault(CustomTsgolintOxlintRulesNoPrimitiveDefault),
     CustomTsgolintOxlintRulesNoPrivateKeyword(CustomTsgolintOxlintRulesNoPrivateKeyword),
     CustomTsgolintOxlintRulesNoProcessStreamWrite(CustomTsgolintOxlintRulesNoProcessStreamWrite),
     CustomTsgolintOxlintRulesNoProtected(CustomTsgolintOxlintRulesNoProtected),
@@ -2784,7 +2782,7 @@ const CUSTOM_TSGOLINT_OXLINT_RULES_NO_IMPORT_SIDE_EFFECTS_ID: usize = 885usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_INFINITE_LOOP_ID: usize = 886usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PASSTHROUGH_FUNCTIONS_ID: usize = 887usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIMITIVE_COLLECTION_KEY_ID: usize = 888usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIMITIVE_NULLISH_DEFAULT_ID: usize = 889usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIMITIVE_DEFAULT_ID: usize = 889usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIVATE_KEYWORD_ID: usize = 890usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROCESS_STREAM_WRITE_ID: usize = 891usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_PROTECTED_ID: usize = 892usize;
@@ -3706,7 +3704,7 @@ static RULE_NAMES: [&str; 921usize] = [
     CustomTsgolintOxlintRulesNoInfiniteLoop::NAME,
     CustomTsgolintOxlintRulesNoPassthroughFunctions::NAME,
     CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::NAME,
-    CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::NAME,
+    CustomTsgolintOxlintRulesNoPrimitiveDefault::NAME,
     CustomTsgolintOxlintRulesNoPrivateKeyword::NAME,
     CustomTsgolintOxlintRulesNoProcessStreamWrite::NAME,
     CustomTsgolintOxlintRulesNoProtected::NAME,
@@ -4797,8 +4795,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIMITIVE_COLLECTION_KEY_ID
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(_) => {
-                CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIMITIVE_NULLISH_DEFAULT_ID
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIMITIVE_DEFAULT_ID
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_NO_PRIVATE_KEYWORD_ID
@@ -5999,8 +5997,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
                 CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::CATEGORY
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(_) => {
-                CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::CATEGORY
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveDefault::CATEGORY
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::CATEGORY
@@ -7139,8 +7137,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
                 CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::FIX
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(_) => {
-                CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::FIX
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveDefault::FIX
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::FIX
@@ -8555,8 +8553,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
                 CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::documentation()
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(_) => {
-                CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::documentation()
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveDefault::documentation()
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::documentation()
@@ -11228,11 +11226,9 @@ impl RuleEnum {
                     || CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::schema(generator),
                 )
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(_) => {
-                CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::config_schema(generator)
-                    .or_else(|| {
-                        CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::schema(generator)
-                    })
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveDefault::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesNoPrimitiveDefault::schema(generator))
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::config_schema(generator)
@@ -12274,9 +12270,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(_) => {
-                "custom_tsgolint_oxlint_rules"
-            }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(_) => {
                 "custom_tsgolint_oxlint_rules"
@@ -14385,7 +14379,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => rule.run(node, ctx),
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.run(node, ctx),
@@ -15323,7 +15317,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => rule.run_once(ctx),
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.run_once(ctx),
@@ -16414,7 +16408,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(rule) => {
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => {
@@ -17417,7 +17411,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => rule.should_run(ctx),
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.should_run(ctx),
@@ -18768,8 +18762,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
                 CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::IS_TSGOLINT_RULE
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(_) => {
-                CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::IS_TSGOLINT_RULE
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveDefault::IS_TSGOLINT_RULE
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::IS_TSGOLINT_RULE
@@ -19969,8 +19963,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
                 CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::VERSION
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(_) => {
-                CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::VERSION
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveDefault::VERSION
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::VERSION
@@ -21209,8 +21203,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
                 CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::HAS_CONFIG
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(_) => {
-                CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::HAS_CONFIG
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveDefault::HAS_CONFIG
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::HAS_CONFIG
@@ -22350,8 +22344,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(_) => {
                 CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::INFO
             }
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(_) => {
-                CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::INFO
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => {
+                CustomTsgolintOxlintRulesNoPrimitiveDefault::INFO
             }
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(_) => {
                 CustomTsgolintOxlintRulesNoPrivateKeyword::INFO
@@ -23344,7 +23338,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => rule.types_info(),
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.types_info(),
@@ -24269,7 +24263,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoInfiniteLoop(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoPassthroughFunctions(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => rule.run_info(),
-            Self::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoPrivateKeyword(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoProcessStreamWrite(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoProtected(rule) => rule.run_info(),
@@ -25366,8 +25360,8 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         RuleEnum::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(
             CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::default(),
         ),
-        RuleEnum::CustomTsgolintOxlintRulesNoPrimitiveNullishDefault(
-            CustomTsgolintOxlintRulesNoPrimitiveNullishDefault::default(),
+        RuleEnum::CustomTsgolintOxlintRulesNoPrimitiveDefault(
+            CustomTsgolintOxlintRulesNoPrimitiveDefault::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesNoPrivateKeyword(
             CustomTsgolintOxlintRulesNoPrivateKeyword::default(),
