@@ -13439,6 +13439,11 @@ impl RuleEnum {
                     CustomTsgolintOxlintRulesNoPrimitiveCollectionKey::from_configuration(value)?,
                 ))
             }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(_) => {
+                Ok(Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(
+                    CustomTsgolintOxlintRulesNoPrimitiveDefault::from_configuration(value)?,
+                ))
+            }
             _ => Ok(RULES[self.id()].clone()),
         }
     }
@@ -13484,6 +13489,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesNoPrimitiveCollectionKey(rule) => {
                 rule.to_configuration()
             }
+            Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(rule) => rule.to_configuration(),
             _ => None,
         }
     }

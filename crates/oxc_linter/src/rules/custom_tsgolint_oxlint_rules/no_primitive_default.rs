@@ -1,9 +1,20 @@
 use oxc_macros::declare_oxc_lint;
+use schemars::JsonSchema;
+use serde::{Deserialize, Serialize};
 
-use crate::rule::Rule;
+use crate::rule::{DefaultRuleConfig, Rule};
 
-#[derive(Debug, Default, Clone)]
-pub struct NoPrimitiveDefault;
+#[derive(Debug, Default, Clone, Deserialize)]
+pub struct NoPrimitiveDefault(Box<NoPrimitiveDefaultConfig>);
+
+#[derive(Debug, Default, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+#[serde(rename_all = "camelCase", default, deny_unknown_fields)]
+pub struct NoPrimitiveDefaultConfig {
+    /// Exact string constants that are part of the codebase's own vocabulary
+    /// rather than a stand-in for a missing value, and so may be used as a
+    /// fallback. `""` and `0` are always allowed and need no entry.
+    pub allow: Vec<String>,
+}
 
 declare_oxc_lint!(
     /// ### What it does
@@ -64,8 +75,17 @@ declare_oxc_lint!(
     NoPrimitiveDefault(tsgolint),
     custom_tsgolint_oxlint_rules,
     restriction,
+    config = NoPrimitiveDefaultConfig,
     version = "1.86.0",
     short_description = "Disallow `??` and `||` with a made-up string or number constant.",
 );
 
-impl Rule for NoPrimitiveDefault {}
+impl Rule for NoPrimitiveDefault {
+    fn from_configuration(value: serde_json::Value) -> Result<Self, serde_json::error::Error> {
+        DefaultRuleConfig::<Self>::from_value(value).map(DefaultRuleConfig::into_inner)
+    }
+
+    fn to_configuration(&self) -> Option<Result<serde_json::Value, serde_json::Error>> {
+        Some(serde_json::to_value(&*self.0))
+    }
+}
