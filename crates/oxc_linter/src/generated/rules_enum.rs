@@ -49,10 +49,10 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::require_async_disposable::Re
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_async_queue::RequireAsyncQueue as CustomTsgolintOxlintRulesRequireAsyncQueue;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_catch_binding::RequireCatchBinding as CustomTsgolintOxlintRulesRequireCatchBinding;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8::RequireFsUtf8 as CustomTsgolintOxlintRulesRequireFsUtf8;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_it_timeout::RequireItTimeout as CustomTsgolintOxlintRulesRequireItTimeout;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_logger_child_in_super::RequireLoggerChildInSuper as CustomTsgolintOxlintRulesRequireLoggerChildInSuper;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_object_params::RequireObjectParams as CustomTsgolintOxlintRulesRequireObjectParams;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_os_eol::RequireOsEol as CustomTsgolintOxlintRulesRequireOsEol;
-pub use crate::rules::custom_tsgolint_oxlint_rules::require_test_timeout::RequireTestTimeout as CustomTsgolintOxlintRulesRequireTestTimeout;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_track::RequireTrack as CustomTsgolintOxlintRulesRequireTrack;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_type_annotation::RequireTypeAnnotation as CustomTsgolintOxlintRulesRequireTypeAnnotation;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_zod_compile::RequireZodCompile as CustomTsgolintOxlintRulesRequireZodCompile;
@@ -1880,7 +1880,7 @@ pub enum RuleEnum {
     CustomTsgolintOxlintRulesRequireLoggerChildInSuper(
         CustomTsgolintOxlintRulesRequireLoggerChildInSuper,
     ),
-    CustomTsgolintOxlintRulesRequireTestTimeout(CustomTsgolintOxlintRulesRequireTestTimeout),
+    CustomTsgolintOxlintRulesRequireItTimeout(CustomTsgolintOxlintRulesRequireItTimeout),
     CustomTsgolintOxlintRulesRequireTrack(CustomTsgolintOxlintRulesRequireTrack),
     CustomTsgolintOxlintRulesSuperFirstStatement(CustomTsgolintOxlintRulesSuperFirstStatement),
     CustomTsgolintOxlintRulesRequireTypeAnnotation(CustomTsgolintOxlintRulesRequireTypeAnnotation),
@@ -2800,7 +2800,7 @@ const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 909usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 910usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BARE_LOGGER_OUTSIDE_SUPER_ID: usize = 911usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LOGGER_CHILD_IN_SUPER_ID: usize = 912usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TEST_TIMEOUT_ID: usize = 913usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_IT_TIMEOUT_ID: usize = 913usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 914usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_SUPER_FIRST_STATEMENT_ID: usize = 915usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 916usize;
@@ -3720,7 +3720,7 @@ static RULE_NAMES: [&str; 919usize] = [
     CustomTsgolintOxlintRulesRequireOsEol::NAME,
     CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper::NAME,
     CustomTsgolintOxlintRulesRequireLoggerChildInSuper::NAME,
-    CustomTsgolintOxlintRulesRequireTestTimeout::NAME,
+    CustomTsgolintOxlintRulesRequireItTimeout::NAME,
     CustomTsgolintOxlintRulesRequireTrack::NAME,
     CustomTsgolintOxlintRulesSuperFirstStatement::NAME,
     CustomTsgolintOxlintRulesRequireTypeAnnotation::NAME,
@@ -4857,8 +4857,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LOGGER_CHILD_IN_SUPER_ID
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(_) => {
-                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TEST_TIMEOUT_ID
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_IT_TIMEOUT_ID
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID
@@ -6053,8 +6053,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
                 CustomTsgolintOxlintRulesRequireLoggerChildInSuper::CATEGORY
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(_) => {
-                CustomTsgolintOxlintRulesRequireTestTimeout::CATEGORY
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(_) => {
+                CustomTsgolintOxlintRulesRequireItTimeout::CATEGORY
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::CATEGORY
@@ -7187,8 +7187,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
                 CustomTsgolintOxlintRulesRequireLoggerChildInSuper::FIX
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(_) => {
-                CustomTsgolintOxlintRulesRequireTestTimeout::FIX
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(_) => {
+                CustomTsgolintOxlintRulesRequireItTimeout::FIX
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::FIX
@@ -8597,8 +8597,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
                 CustomTsgolintOxlintRulesRequireLoggerChildInSuper::documentation()
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(_) => {
-                CustomTsgolintOxlintRulesRequireTestTimeout::documentation()
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(_) => {
+                CustomTsgolintOxlintRulesRequireItTimeout::documentation()
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::documentation()
@@ -11292,9 +11292,9 @@ impl RuleEnum {
                         CustomTsgolintOxlintRulesRequireLoggerChildInSuper::schema(generator)
                     })
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(_) => {
-                CustomTsgolintOxlintRulesRequireTestTimeout::config_schema(generator)
-                    .or_else(|| CustomTsgolintOxlintRulesRequireTestTimeout::schema(generator))
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(_) => {
+                CustomTsgolintOxlintRulesRequireItTimeout::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireItTimeout::schema(generator))
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::config_schema(generator)
@@ -12267,7 +12267,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesSuperFirstStatement(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(_) => {
@@ -14348,7 +14348,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => rule.run(node, ctx),
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.run(node, ctx),
@@ -15284,7 +15284,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => rule.run_once(ctx),
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.run_once(ctx),
@@ -16421,7 +16421,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(rule) => {
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => {
@@ -17370,7 +17370,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => rule.should_run(ctx),
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.should_run(ctx),
@@ -18767,8 +18767,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
                 CustomTsgolintOxlintRulesRequireLoggerChildInSuper::IS_TSGOLINT_RULE
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(_) => {
-                CustomTsgolintOxlintRulesRequireTestTimeout::IS_TSGOLINT_RULE
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(_) => {
+                CustomTsgolintOxlintRulesRequireItTimeout::IS_TSGOLINT_RULE
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::IS_TSGOLINT_RULE
@@ -19962,8 +19962,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
                 CustomTsgolintOxlintRulesRequireLoggerChildInSuper::VERSION
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(_) => {
-                CustomTsgolintOxlintRulesRequireTestTimeout::VERSION
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(_) => {
+                CustomTsgolintOxlintRulesRequireItTimeout::VERSION
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::VERSION
@@ -21196,8 +21196,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
                 CustomTsgolintOxlintRulesRequireLoggerChildInSuper::HAS_CONFIG
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(_) => {
-                CustomTsgolintOxlintRulesRequireTestTimeout::HAS_CONFIG
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(_) => {
+                CustomTsgolintOxlintRulesRequireItTimeout::HAS_CONFIG
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::HAS_CONFIG
@@ -22331,8 +22331,8 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(_) => {
                 CustomTsgolintOxlintRulesRequireLoggerChildInSuper::INFO
             }
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(_) => {
-                CustomTsgolintOxlintRulesRequireTestTimeout::INFO
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(_) => {
+                CustomTsgolintOxlintRulesRequireItTimeout::INFO
             }
             Self::CustomTsgolintOxlintRulesRequireTrack(_) => {
                 CustomTsgolintOxlintRulesRequireTrack::INFO
@@ -23271,7 +23271,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => rule.types_info(),
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.types_info(),
@@ -24194,7 +24194,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesNoBareLoggerOutsideSuper(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(rule) => rule.run_info(),
-            Self::CustomTsgolintOxlintRulesRequireTestTimeout(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireItTimeout(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireTrack(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesSuperFirstStatement(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireTypeAnnotation(rule) => rule.run_info(),
@@ -25337,8 +25337,8 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         RuleEnum::CustomTsgolintOxlintRulesRequireLoggerChildInSuper(
             CustomTsgolintOxlintRulesRequireLoggerChildInSuper::default(),
         ),
-        RuleEnum::CustomTsgolintOxlintRulesRequireTestTimeout(
-            CustomTsgolintOxlintRulesRequireTestTimeout::default(),
+        RuleEnum::CustomTsgolintOxlintRulesRequireItTimeout(
+            CustomTsgolintOxlintRulesRequireItTimeout::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireTrack(
             CustomTsgolintOxlintRulesRequireTrack::default(),

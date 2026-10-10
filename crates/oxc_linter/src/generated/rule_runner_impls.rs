@@ -5814,7 +5814,7 @@ impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_logger_c
 }
 
 impl RuleRunner
-    for crate::rules::custom_tsgolint_oxlint_rules::require_test_timeout::RequireTestTimeout
+    for crate::rules::custom_tsgolint_oxlint_rules::require_it_timeout::RequireItTimeout
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;

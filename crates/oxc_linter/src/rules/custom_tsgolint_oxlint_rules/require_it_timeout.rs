@@ -3,7 +3,7 @@ use oxc_macros::declare_oxc_lint;
 use crate::rule::Rule;
 
 #[derive(Debug, Default, Clone)]
-pub struct RequireTestTimeout;
+pub struct RequireItTimeout;
 
 declare_oxc_lint!(
     /// ### What it does
@@ -31,11 +31,11 @@ declare_oxc_lint!(
     /// it('works', { timeout: 5_000 }, async () => {});
     /// describe('group', () => {});
     /// ```
-    RequireTestTimeout(tsgolint),
+    RequireItTimeout(tsgolint),
     custom_tsgolint_oxlint_rules,
     restriction,
     version = "1.86.0",
     short_description = "Require a `timeout` option on every `it(...)` test.",
 );
 
-impl Rule for RequireTestTimeout {}
+impl Rule for RequireItTimeout {}
