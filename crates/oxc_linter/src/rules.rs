@@ -1003,6 +1003,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod no_global_functions;
     pub mod no_import_side_effects;
     pub mod no_infinite_loop;
+    pub mod no_object_destructuring;
     pub mod no_passthrough_functions;
     pub mod no_primitive_collection_key;
     pub mod no_primitive_default;

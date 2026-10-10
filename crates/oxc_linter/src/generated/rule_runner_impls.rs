@@ -5654,6 +5654,13 @@ impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::no_infinite_loop
 }
 
 impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::no_object_destructuring::NoObjectDestructuring
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
     for crate::rules::custom_tsgolint_oxlint_rules::no_passthrough_functions::NoPassthroughFunctions
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
