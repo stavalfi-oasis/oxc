@@ -7,13 +7,21 @@ use crate::rule::{DefaultRuleConfig, Rule};
 #[derive(Debug, Default, Clone, Deserialize)]
 pub struct NoPrimitiveDefault(Box<NoPrimitiveDefaultConfig>);
 
+/// A constant named by the `allow` option: a string, or a whole number.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+#[serde(untagged)]
+pub enum AllowedConstant {
+    Str(String),
+    Int(i64),
+}
+
 #[derive(Debug, Default, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 #[serde(rename_all = "camelCase", default, deny_unknown_fields)]
 pub struct NoPrimitiveDefaultConfig {
-    /// Exact string constants that are part of the codebase's own vocabulary
-    /// rather than a stand-in for a missing value, and so may be used as a
-    /// fallback. `""` and `0` are always allowed and need no entry.
-    pub allow: Vec<String>,
+    /// Exact string or number constants that are part of the codebase's own
+    /// vocabulary rather than a stand-in for a missing value, and so may be
+    /// used as a fallback. `""` and `0` are always allowed and need no entry.
+    pub allow: Vec<AllowedConstant>,
 }
 
 declare_oxc_lint!(
