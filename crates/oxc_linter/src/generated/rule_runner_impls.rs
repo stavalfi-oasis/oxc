@@ -5805,6 +5805,13 @@ impl RuleRunner
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
 }
 
+impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::require_constant_env_key::RequireConstantEnvKey
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
 impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8::RequireFsUtf8 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;
     const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;

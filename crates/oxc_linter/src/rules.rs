@@ -1027,6 +1027,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod require_async_disposable;
     pub mod require_async_queue;
     pub mod require_catch_binding;
+    pub mod require_constant_env_key;
     pub mod require_fs_utf8;
     pub mod require_object_params;
     pub mod require_os_eol;

@@ -51,6 +51,7 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::require_access_modifiers::Re
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_async_disposable::RequireAsyncDisposable as CustomTsgolintOxlintRulesRequireAsyncDisposable;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_async_queue::RequireAsyncQueue as CustomTsgolintOxlintRulesRequireAsyncQueue;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_catch_binding::RequireCatchBinding as CustomTsgolintOxlintRulesRequireCatchBinding;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_constant_env_key::RequireConstantEnvKey as CustomTsgolintOxlintRulesRequireConstantEnvKey;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8::RequireFsUtf8 as CustomTsgolintOxlintRulesRequireFsUtf8;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_it_timeout::RequireItTimeout as CustomTsgolintOxlintRulesRequireItTimeout;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_logger_child_in_super::RequireLoggerChildInSuper as CustomTsgolintOxlintRulesRequireLoggerChildInSuper;
@@ -1879,6 +1880,7 @@ pub enum RuleEnum {
     ),
     CustomTsgolintOxlintRulesRequireAsyncQueue(CustomTsgolintOxlintRulesRequireAsyncQueue),
     CustomTsgolintOxlintRulesRequireCatchBinding(CustomTsgolintOxlintRulesRequireCatchBinding),
+    CustomTsgolintOxlintRulesRequireConstantEnvKey(CustomTsgolintOxlintRulesRequireConstantEnvKey),
     CustomTsgolintOxlintRulesRequireFsUtf8(CustomTsgolintOxlintRulesRequireFsUtf8),
     CustomTsgolintOxlintRulesRequireObjectParams(CustomTsgolintOxlintRulesRequireObjectParams),
     CustomTsgolintOxlintRulesRequireOsEol(CustomTsgolintOxlintRulesRequireOsEol),
@@ -2806,18 +2808,19 @@ const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 907usize
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 908usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID: usize = 909usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 910usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 911usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 912usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 913usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BARE_LOGGER_OUTSIDE_SUPER_ID: usize = 914usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LOGGER_CHILD_IN_SUPER_ID: usize = 915usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_IT_TIMEOUT_ID: usize = 916usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 917usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_SUPER_FIRST_STATEMENT_ID: usize = 918usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 919usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 920usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 921usize;
-static RULE_NAMES: [&str; 922usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CONSTANT_ENV_KEY_ID: usize = 911usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 912usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 913usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 914usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BARE_LOGGER_OUTSIDE_SUPER_ID: usize = 915usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LOGGER_CHILD_IN_SUPER_ID: usize = 916usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_IT_TIMEOUT_ID: usize = 917usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 918usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_SUPER_FIRST_STATEMENT_ID: usize = 919usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 920usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 921usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 922usize;
+static RULE_NAMES: [&str; 923usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3729,6 +3732,7 @@ static RULE_NAMES: [&str; 922usize] = [
     CustomTsgolintOxlintRulesRequireAsyncDisposable::NAME,
     CustomTsgolintOxlintRulesRequireAsyncQueue::NAME,
     CustomTsgolintOxlintRulesRequireCatchBinding::NAME,
+    CustomTsgolintOxlintRulesRequireConstantEnvKey::NAME,
     CustomTsgolintOxlintRulesRequireFsUtf8::NAME,
     CustomTsgolintOxlintRulesRequireObjectParams::NAME,
     CustomTsgolintOxlintRulesRequireOsEol::NAME,
@@ -4864,6 +4868,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID
+            }
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CONSTANT_ENV_KEY_ID
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID
@@ -6070,6 +6077,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::CATEGORY
             }
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(_) => {
+                CustomTsgolintOxlintRulesRequireConstantEnvKey::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::CATEGORY
             }
@@ -7212,6 +7222,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::FIX
+            }
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(_) => {
+                CustomTsgolintOxlintRulesRequireConstantEnvKey::FIX
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::FIX
@@ -8631,6 +8644,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(_) => {
+                CustomTsgolintOxlintRulesRequireConstantEnvKey::documentation()
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::documentation()
@@ -11332,6 +11348,10 @@ impl RuleEnum {
                 CustomTsgolintOxlintRulesRequireCatchBinding::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireCatchBinding::schema(generator))
             }
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(_) => {
+                CustomTsgolintOxlintRulesRequireConstantEnvKey::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireConstantEnvKey::schema(generator))
+            }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireFsUtf8::schema(generator))
@@ -12328,6 +12348,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => "custom_tsgolint_oxlint_rules",
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(_) => {
+                "custom_tsgolint_oxlint_rules"
+            }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireObjectParams(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireOsEol(_) => "custom_tsgolint_oxlint_rules",
@@ -14430,6 +14453,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run(node, ctx),
@@ -15369,6 +15393,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run_once(ctx),
@@ -16505,6 +16530,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
@@ -17467,6 +17495,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.should_run(ctx),
@@ -18863,6 +18892,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::IS_TSGOLINT_RULE
             }
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(_) => {
+                CustomTsgolintOxlintRulesRequireConstantEnvKey::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::IS_TSGOLINT_RULE
             }
@@ -20066,6 +20098,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(_) => {
+                CustomTsgolintOxlintRulesRequireConstantEnvKey::VERSION
             }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::VERSION
@@ -21310,6 +21345,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::HAS_CONFIG
             }
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(_) => {
+                CustomTsgolintOxlintRulesRequireConstantEnvKey::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::HAS_CONFIG
             }
@@ -22454,6 +22492,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(_) => {
                 CustomTsgolintOxlintRulesRequireCatchBinding::INFO
             }
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(_) => {
+                CustomTsgolintOxlintRulesRequireConstantEnvKey::INFO
+            }
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(_) => {
                 CustomTsgolintOxlintRulesRequireFsUtf8::INFO
             }
@@ -23407,6 +23448,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.types_info(),
@@ -24333,6 +24375,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireCatchBinding(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireConstantEnvKey(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireFsUtf8(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireObjectParams(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireOsEol(rule) => rule.run_info(),
@@ -25474,6 +25517,9 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireCatchBinding(
             CustomTsgolintOxlintRulesRequireCatchBinding::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesRequireConstantEnvKey(
+            CustomTsgolintOxlintRulesRequireConstantEnvKey::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireFsUtf8(
             CustomTsgolintOxlintRulesRequireFsUtf8::default(),
