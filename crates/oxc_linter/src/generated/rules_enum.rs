@@ -13490,6 +13490,11 @@ impl RuleEnum {
                     CustomTsgolintOxlintRulesNoPrimitiveDefault::from_configuration(value)?,
                 ))
             }
+            Self::CustomTsgolintOxlintRulesRequireAbortSignal(_) => {
+                Ok(Self::CustomTsgolintOxlintRulesRequireAbortSignal(
+                    CustomTsgolintOxlintRulesRequireAbortSignal::from_configuration(value)?,
+                ))
+            }
             _ => Ok(RULES[self.id()].clone()),
         }
     }
@@ -13536,6 +13541,7 @@ impl RuleEnum {
                 rule.to_configuration()
             }
             Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(rule) => rule.to_configuration(),
+            Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.to_configuration(),
             _ => None,
         }
     }
