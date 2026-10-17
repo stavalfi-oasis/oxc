@@ -995,6 +995,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod no_async_global_functions;
     pub mod no_async_static_method;
     pub mod no_array_length_assignment;
+    pub mod no_banned_types_in_exports;
     pub mod no_banned_words;
     pub mod no_client_response_json;
     pub mod no_comments;
