@@ -13525,6 +13525,11 @@ impl RuleEnum {
                     CustomTsgolintOxlintRulesRequireAbortSignal::from_configuration(value)?,
                 ))
             }
+            Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(_) => {
+                Ok(Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(
+                    CustomTsgolintOxlintRulesZodSchemasFileOnly::from_configuration(value)?,
+                ))
+            }
             _ => Ok(RULES[self.id()].clone()),
         }
     }
@@ -13573,6 +13578,7 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesNoPrimitiveDefault(rule) => rule.to_configuration(),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.to_configuration(),
+            Self::CustomTsgolintOxlintRulesZodSchemasFileOnly(rule) => rule.to_configuration(),
             _ => None,
         }
     }
