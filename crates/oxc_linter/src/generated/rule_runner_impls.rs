@@ -5878,6 +5878,13 @@ impl RuleRunner
 }
 
 impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::require_zod_describe::RequireZodDescribe
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
     for crate::rules::custom_tsgolint_oxlint_rules::zod_schemas_file_only::ZodSchemasFileOnly
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;

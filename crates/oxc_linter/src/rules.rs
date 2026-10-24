@@ -1039,6 +1039,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod super_first_statement;
     pub mod require_type_annotation;
     pub mod require_zod_compile;
+    pub mod require_zod_describe;
     pub mod zod_schemas_file_only;
 }
 
