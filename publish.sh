@@ -56,13 +56,11 @@ npm --prefix "$stage" version "$version" --no-git-tag-version --allow-same-versi
 
 out="$(dirname "$stage")/${tarball}"
 tar -czf "$out" -C "$(dirname "$stage")" package
-# Staged, not published: staging needs no 2FA, and the version only goes public
-# once a maintainer approves it with 2FA. `npm stage` needs npm >= 11.15, newer
-# than the npm on PATH, hence the pinned npx. Every version is a `<tag>-<sha>`
-# prerelease, which npm refuses without an explicit tag.
-npx -y npm@12.2.1 stage publish "$out" --access public --tag latest
+# Runs in .github/workflows/publish.yml: npm authenticates through trusted
+# publishing (OIDC), so there is no token and no 2FA. From a laptop npm rejects
+# it with 403. Every version is a `<tag>-<sha>` prerelease, which npm refuses
+# without an explicit tag.
+npm publish "$out" --access public --tag latest
 
 echo
-echo "approve it (2FA): npx -y npm@12.2.1 stage list @stavalfi/oxc  then  npx -y npm@12.2.1 stage approve <stage-id>"
-echo "  or on npmjs.com -> @stavalfi/oxc -> Staged Packages -> Approve"
 echo "poc package.json -> \"oxlint\": \"npm:@stavalfi/oxc@${version}\""

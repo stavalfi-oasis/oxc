@@ -1,0 +1,37 @@
+# Publishes @stavalfi/oxc to npm through trusted publishing (OIDC) — no token,
+# no 2FA. npm trusts this exact repo + workflow file name, configured on
+# npmjs.com -> @stavalfi/oxc -> Settings -> Trusted Publisher.
+name: publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - oasis-rules
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    # The package ships only the napi addon of the machine that built it, and
+    # poc runs oxlint on darwin-arm64.
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # publish.sh derives the version from the latest `oxlint_v*` tag.
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          registry-url: https://registry.npmjs.org
+      # Trusted publishing needs npm >= 11.5.1.
+      - run: npm install -g npm@12.2.1
+      - run: ./publish.sh

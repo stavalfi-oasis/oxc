@@ -3,7 +3,10 @@
   "version": "0.0.0-set-by-publish-sh-at-pack-time",
   "description": "Oasis fork of oxlint — bundles the napi addon so it installs as a single package on every platform.",
   "license": "MIT",
-  "repository": "github:stavalfi-oasis/oxc",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stavalfi-oasis/oxc.git"
+  },
   "bin": {
     "oxlint": "bin/oxlint"
   },
