@@ -1024,6 +1024,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod prefer_super_over_this;
     pub mod require_abort_signal;
     pub mod require_abort_signal_in_while;
+    pub mod require_link_signal;
     pub mod require_access_modifiers;
     pub mod require_async_disposable;
     pub mod require_async_queue;

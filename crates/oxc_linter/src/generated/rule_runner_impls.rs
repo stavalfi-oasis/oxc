@@ -5783,6 +5783,13 @@ impl RuleRunner for crate::rules::custom_tsgolint_oxlint_rules::require_abort_si
 }
 
 impl RuleRunner
+    for crate::rules::custom_tsgolint_oxlint_rules::require_link_signal::RequireLinkSignal
+{
+    const NODE_TYPES: Option<&AstTypesBitset> = None;
+    const RUN_FUNCTIONS: RuleRunFunctionsImplemented = RuleRunFunctionsImplemented::Unknown;
+}
+
+impl RuleRunner
     for crate::rules::custom_tsgolint_oxlint_rules::require_access_modifiers::RequireAccessModifiers
 {
     const NODE_TYPES: Option<&AstTypesBitset> = None;

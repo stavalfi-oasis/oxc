@@ -55,6 +55,7 @@ pub use crate::rules::custom_tsgolint_oxlint_rules::require_catch_binding::Requi
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_constant_env_key::RequireConstantEnvKey as CustomTsgolintOxlintRulesRequireConstantEnvKey;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_fs_utf8::RequireFsUtf8 as CustomTsgolintOxlintRulesRequireFsUtf8;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_it_timeout::RequireItTimeout as CustomTsgolintOxlintRulesRequireItTimeout;
+pub use crate::rules::custom_tsgolint_oxlint_rules::require_link_signal::RequireLinkSignal as CustomTsgolintOxlintRulesRequireLinkSignal;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_logger_child_in_super::RequireLoggerChildInSuper as CustomTsgolintOxlintRulesRequireLoggerChildInSuper;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_object_params::RequireObjectParams as CustomTsgolintOxlintRulesRequireObjectParams;
 pub use crate::rules::custom_tsgolint_oxlint_rules::require_os_eol::RequireOsEol as CustomTsgolintOxlintRulesRequireOsEol;
@@ -1877,6 +1878,7 @@ pub enum RuleEnum {
     CustomTsgolintOxlintRulesRequireAbortSignalInWhile(
         CustomTsgolintOxlintRulesRequireAbortSignalInWhile,
     ),
+    CustomTsgolintOxlintRulesRequireLinkSignal(CustomTsgolintOxlintRulesRequireLinkSignal),
     CustomTsgolintOxlintRulesRequireAccessModifiers(
         CustomTsgolintOxlintRulesRequireAccessModifiers,
     ),
@@ -2811,24 +2813,25 @@ const CUSTOM_TSGOLINT_OXLINT_RULES_NO_ZOD_PASSTHROUGH_ID: usize = 904usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_PREFER_SUPER_OVER_THIS_ID: usize = 905usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_ID: usize = 906usize;
 const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_IN_WHILE_ID: usize = 907usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 908usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 909usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID: usize = 910usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 911usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CONSTANT_ENV_KEY_ID: usize = 912usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 913usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 914usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 915usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BARE_LOGGER_OUTSIDE_SUPER_ID: usize = 916usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LOGGER_CHILD_IN_SUPER_ID: usize = 917usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_IT_TIMEOUT_ID: usize = 918usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 919usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_SUPER_FIRST_STATEMENT_ID: usize = 920usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 921usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 922usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_DESCRIBE_ID: usize = 923usize;
-const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 924usize;
-static RULE_NAMES: [&str; 925usize] = [
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LINK_SIGNAL_ID: usize = 908usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID: usize = 909usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_DISPOSABLE_ID: usize = 910usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ASYNC_QUEUE_ID: usize = 911usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CATCH_BINDING_ID: usize = 912usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_CONSTANT_ENV_KEY_ID: usize = 913usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_FS_UTF_8_ID: usize = 914usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OBJECT_PARAMS_ID: usize = 915usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_OS_EOL_ID: usize = 916usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_NO_BARE_LOGGER_OUTSIDE_SUPER_ID: usize = 917usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LOGGER_CHILD_IN_SUPER_ID: usize = 918usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_IT_TIMEOUT_ID: usize = 919usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TRACK_ID: usize = 920usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_SUPER_FIRST_STATEMENT_ID: usize = 921usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_TYPE_ANNOTATION_ID: usize = 922usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_COMPILE_ID: usize = 923usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ZOD_DESCRIBE_ID: usize = 924usize;
+const CUSTOM_TSGOLINT_OXLINT_RULES_ZOD_SCHEMAS_FILE_ONLY_ID: usize = 925usize;
+static RULE_NAMES: [&str; 926usize] = [
     ImportConsistentTypeSpecifierStyle::NAME,
     ImportDefault::NAME,
     ImportExport::NAME,
@@ -3737,6 +3740,7 @@ static RULE_NAMES: [&str; 925usize] = [
     CustomTsgolintOxlintRulesPreferSuperOverThis::NAME,
     CustomTsgolintOxlintRulesRequireAbortSignal::NAME,
     CustomTsgolintOxlintRulesRequireAbortSignalInWhile::NAME,
+    CustomTsgolintOxlintRulesRequireLinkSignal::NAME,
     CustomTsgolintOxlintRulesRequireAccessModifiers::NAME,
     CustomTsgolintOxlintRulesRequireAsyncDisposable::NAME,
     CustomTsgolintOxlintRulesRequireAsyncQueue::NAME,
@@ -4869,6 +4873,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ABORT_SIGNAL_IN_WHILE_ID
+            }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(_) => {
+                CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_LINK_SIGNAL_ID
             }
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
                 CUSTOM_TSGOLINT_OXLINT_RULES_REQUIRE_ACCESS_MODIFIERS_ID
@@ -6084,6 +6091,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignalInWhile::CATEGORY
             }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(_) => {
+                CustomTsgolintOxlintRulesRequireLinkSignal::CATEGORY
+            }
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
                 CustomTsgolintOxlintRulesRequireAccessModifiers::CATEGORY
             }
@@ -7235,6 +7245,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignalInWhile::FIX
+            }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(_) => {
+                CustomTsgolintOxlintRulesRequireLinkSignal::FIX
             }
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
                 CustomTsgolintOxlintRulesRequireAccessModifiers::FIX
@@ -8663,6 +8676,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignalInWhile::documentation()
+            }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(_) => {
+                CustomTsgolintOxlintRulesRequireLinkSignal::documentation()
             }
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
                 CustomTsgolintOxlintRulesRequireAccessModifiers::documentation()
@@ -11370,6 +11386,10 @@ impl RuleEnum {
                         CustomTsgolintOxlintRulesRequireAbortSignalInWhile::schema(generator)
                     })
             }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(_) => {
+                CustomTsgolintOxlintRulesRequireLinkSignal::config_schema(generator)
+                    .or_else(|| CustomTsgolintOxlintRulesRequireLinkSignal::schema(generator))
+            }
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
                 CustomTsgolintOxlintRulesRequireAccessModifiers::config_schema(generator)
                     .or_else(|| CustomTsgolintOxlintRulesRequireAccessModifiers::schema(generator))
@@ -12385,6 +12405,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(_) => "custom_tsgolint_oxlint_rules",
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
                 "custom_tsgolint_oxlint_rules"
             }
@@ -14514,6 +14535,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesPreferSuperOverThis(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(rule) => rule.run(node, ctx),
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run(node, ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.run(node, ctx),
@@ -15456,6 +15478,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesPreferSuperOverThis(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(rule) => rule.run_once(ctx),
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run_once(ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.run_once(ctx),
@@ -16589,6 +16612,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(rule) => {
+                rule.run_on_jest_node(jest_node, ctx)
+            }
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => {
                 rule.run_on_jest_node(jest_node, ctx)
             }
@@ -17566,6 +17592,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesPreferSuperOverThis(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(rule) => rule.should_run(ctx),
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.should_run(ctx),
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.should_run(ctx),
@@ -18959,6 +18986,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignalInWhile::IS_TSGOLINT_RULE
             }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(_) => {
+                CustomTsgolintOxlintRulesRequireLinkSignal::IS_TSGOLINT_RULE
+            }
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
                 CustomTsgolintOxlintRulesRequireAccessModifiers::IS_TSGOLINT_RULE
             }
@@ -20171,6 +20201,9 @@ impl RuleEnum {
             }
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignalInWhile::VERSION
+            }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(_) => {
+                CustomTsgolintOxlintRulesRequireLinkSignal::VERSION
             }
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
                 CustomTsgolintOxlintRulesRequireAccessModifiers::VERSION
@@ -21424,6 +21457,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignalInWhile::HAS_CONFIG
             }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(_) => {
+                CustomTsgolintOxlintRulesRequireLinkSignal::HAS_CONFIG
+            }
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
                 CustomTsgolintOxlintRulesRequireAccessModifiers::HAS_CONFIG
             }
@@ -22577,6 +22613,9 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(_) => {
                 CustomTsgolintOxlintRulesRequireAbortSignalInWhile::INFO
             }
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(_) => {
+                CustomTsgolintOxlintRulesRequireLinkSignal::INFO
+            }
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(_) => {
                 CustomTsgolintOxlintRulesRequireAccessModifiers::INFO
             }
@@ -23545,6 +23584,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesPreferSuperOverThis(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(rule) => rule.types_info(),
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.types_info(),
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.types_info(),
@@ -24474,6 +24514,7 @@ impl RuleEnum {
             Self::CustomTsgolintOxlintRulesPreferSuperOverThis(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireAbortSignal(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(rule) => rule.run_info(),
+            Self::CustomTsgolintOxlintRulesRequireLinkSignal(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireAccessModifiers(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireAsyncDisposable(rule) => rule.run_info(),
             Self::CustomTsgolintOxlintRulesRequireAsyncQueue(rule) => rule.run_info(),
@@ -25612,6 +25653,9 @@ pub static RULES: std::sync::LazyLock<Vec<RuleEnum>> = std::sync::LazyLock::new(
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireAbortSignalInWhile(
             CustomTsgolintOxlintRulesRequireAbortSignalInWhile::default(),
+        ),
+        RuleEnum::CustomTsgolintOxlintRulesRequireLinkSignal(
+            CustomTsgolintOxlintRulesRequireLinkSignal::default(),
         ),
         RuleEnum::CustomTsgolintOxlintRulesRequireAccessModifiers(
             CustomTsgolintOxlintRulesRequireAccessModifiers::default(),
