@@ -822,7 +822,7 @@ impl From<TsGoLintDiagnostic> for OxcDiagnostic {
 fn tsgolint_plugin_name(rule_name: &str) -> &'static str {
     crate::rules::RULES
         .iter()
-        .find(|rule| rule.name() == rule_name)
+        .find(|rule| rule.is_tsgolint_rule() && rule.name() == rule_name)
         .map_or("typescript", |rule| plugin_display_name(rule.plugin_name()))
 }
 

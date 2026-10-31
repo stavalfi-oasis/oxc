@@ -1023,6 +1023,7 @@ pub(crate) mod custom_tsgolint_oxlint_rules {
     pub mod no_zod_defaults;
     pub mod no_zod_passthrough;
     pub mod prefer_super_over_this;
+    pub mod require_abort_rethrow;
     pub mod require_abort_signal;
     pub mod require_abort_signal_in_while;
     pub mod require_link_signal;
