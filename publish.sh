@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# publish.sh — build this fork's oxlint and publish the npm/oxlint-poc package as
-# a tarball to the Oasis rustfs bucket, consumed by the poc monorepo as a
-# tarball-URL dependency.
+# publish.sh — build this fork's oxlint and publish it to npm as @stavalfi/oxc,
+# consumed by the poc monorepo through an npm alias.
 #
 # This builds the napi addon and the JS bundle, exactly as upstream's npm package
 # does, NOT the standalone `apps/oxlint` binary. The standalone binary cannot run
@@ -10,8 +9,8 @@
 # reports nothing. Verified: upstream npm oxlint 1.86.0 reports violations from
 # poc's JS plugin where the standalone 1.86 binary reports none.
 #
-# rustfs is an object store, not an npm registry, so the .node addon is shipped
-# inside the package rather than as a per-platform optionalDependency. The
+# The .node addon is shipped inside the package rather than as a per-platform
+# optionalDependency, so a single package covers every platform. The
 # generated bindings.js already prefers a local ./oxlint.<platform>.node over the
 # @oxlint/binding-<platform> package, which is what makes that work.
 set -euo pipefail
@@ -22,25 +21,11 @@ if ! command -v cargo >/dev/null 2>&1 || ! command -v cmake >/dev/null 2>&1; the
     --command "${BASH_SOURCE[0]}" "$@"
 fi
 
-S3_ENDPOINT="${S3_ENDPOINT:-http://127.0.0.1:9100}"
-S3_BUCKET="${S3_BUCKET:-oasis-npm}"
-export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID:-minioadmin}"
-export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY:-minioadmin}"
-export AWS_REGION="${AWS_REGION:-us-east-1}"
-unset AWS_PROFILE
-
-# bun install fetches the tarballs unsigned, so the bucket must be public-read.
-if ! aws --endpoint-url "$S3_ENDPOINT" s3api head-bucket --bucket "$S3_BUCKET" >/dev/null 2>&1; then
-  echo ">> creating bucket ${S3_BUCKET}"
-  aws --endpoint-url "$S3_ENDPOINT" s3api create-bucket --bucket "$S3_BUCKET" >/dev/null
-  aws --endpoint-url "$S3_ENDPOINT" s3api put-bucket-policy --bucket "$S3_BUCKET" --policy "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":\"*\",\"Action\":[\"s3:GetObject\"],\"Resource\":[\"arn:aws:s3:::${S3_BUCKET}/*\"]}]}"
-fi
-
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$repo_root"
 
 version="$(git describe --tags --abbrev=0 --match 'oxlint_v*' | sed 's/^oxlint_v//')-$(git rev-parse HEAD)"
-tarball="oxlint-${version}.tgz"
+tarball="stavalfi-oxc-${version}.tgz"
 
 rustup show active-toolchain >/dev/null
 
@@ -71,7 +56,9 @@ npm --prefix "$stage" version "$version" --no-git-tag-version --allow-same-versi
 
 out="$(dirname "$stage")/${tarball}"
 tar -czf "$out" -C "$(dirname "$stage")" package
-aws --endpoint-url "$S3_ENDPOINT" s3 cp "$out" "s3://${S3_BUCKET}/${tarball}" --no-progress
+# Every version is a `<tag>-<sha>` prerelease, which npm refuses without an explicit tag.
+# Run from a terminal and npm prompts for the 2FA code; NPM_OTP passes it non-interactively.
+npm publish "$out" --access public --tag latest ${NPM_OTP:+--otp="$NPM_OTP"}
 
 echo
-echo "poc package.json -> \"oxlint\": \"${S3_ENDPOINT}/${S3_BUCKET}/${tarball}\""
+echo "poc package.json -> \"oxlint\": \"npm:@stavalfi/oxc@${version}\""

@@ -1,7 +1,7 @@
 {
-  "name": "oxlint",
+  "name": "@stavalfi/oxc",
   "version": "0.0.0-set-by-publish-sh-at-pack-time",
-  "description": "Oasis fork of oxlint — bundles the napi addon so it installs from a plain tarball URL.",
+  "description": "Oasis fork of oxlint — bundles the napi addon so it installs as a single package on every platform.",
   "license": "MIT",
   "repository": "github:stavalfi-oasis/oxc",
   "bin": {
