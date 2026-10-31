@@ -32,6 +32,5 @@ jobs:
         with:
           node-version-file: .node-version
           registry-url: https://registry.npmjs.org
-      # Trusted publishing needs npm >= 11.5.1.
-      - run: npm install -g npm@12.2.1
+          package-manager-cache: false
       - run: ./publish.sh
